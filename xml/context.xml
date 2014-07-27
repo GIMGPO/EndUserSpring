@@ -1,0 +1,15 @@
+<!-- This context should be placed in the 
+    C:\Program Files\Apache Software Foundation\Tomcat 5.5\conf folder -->
+
+<Context>
+    
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <Resource name="jdbc/TrisoftDB" auth="Container" type="javax.sql.DataSource" maxActive="100" timeBetweenEvictionRunsMillis="5000" minEvictableIdleTimeMillis="5000" minIdle="0" username="sa" password="TechPub2005" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
+        url="jdbc:sqlserver://localhost:1433;databaseName=TrisoftDP"/>
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+        <Manager pathname="" />
+    -->
+    
+</Context>

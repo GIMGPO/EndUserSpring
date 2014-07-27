@@ -1,0 +1,283 @@
+/* The language dropdown */
+
+.langArrow {
+	position:absolute;
+	top:8px;
+	right:10px;
+}
+#jsddm li a.liNormal {
+	border-right: solid 1px #FFF;
+	text-align: right;
+}
+#jsddmNoLoc li a.liNormal {
+	/* border-right: solid 1px #FFF; */
+	text-align: right;
+	color: white;
+}
+#jsddm {	
+	margin: 0;
+	padding: 0;
+}
+
+#jsddm li {	
+	float: left;
+	list-style: none;
+}
+
+#jsddm li a {	
+	display: block;
+	height: 10px;
+	padding: 0px 12px;
+	margin: 6px 0;
+	width: 70px;
+	text-decoration: none;
+	color: #FFF;
+	white-space: nowrap;
+	outline: none;
+}
+		
+#jsddm li ul {	
+	padding: 0;
+	position: absolute;
+	visibility: hidden;
+	background-color:#fff;
+	margin: 0;
+	width: 124px;
+	border: solid 1px #d9d9d9;}
+		
+#jsddm li ul li {	
+	float: none;
+	display: inline;
+	width: auto;
+}
+			
+#jsddm li ul li a {	
+	width: 100px;
+	background: #FFF;
+	color: #24313C;
+	margin: 0;
+	padding: 4px 12px 1px 12px; 
+	height: 17px;
+	clear:left;
+}
+			
+#jsddm li ul li a:hover {	
+	background-color: #e0f3c6;	
+	text-decoration:none;
+}
+
+
+/* End of the language dropdown */
+
+
+.popUp{
+	background-position:-1980px 0px;
+	width:540px;
+	padding:17px 30px;
+}
+
+select {
+	font-family: Arial, helvetica, sans-serif;
+	width: 500px;
+	margin: 20px 0 20px 30px;
+}
+ol li {
+	list-style: decimal;
+	margin: 20px 0 0 30px;
+	font-size: 12px !important;
+}
+
+#Legend dt {
+/*	color:#095a90; */
+	margin: 8px 0 0 0;
+	font-weight: bold;
+	font-size: 11px !important;
+}
+
+#Legend dd {
+	padding-left:20px;
+}
+
+#ConAndBut {
+		position: relative;
+	height:auto !important;
+	left:0px;
+	margin-right:0;
+	top:-20px;
+/*	border: red 1px solid; */
+}
+#ESAEndUserContent {
+	position: relative;
+	height:auto !important;
+/*	min-height:400px;
+	height:400px; */
+	min-height:300px;
+	height:300px;
+	padding:0;
+	margin:16px 0 0;
+}
+
+
+#configList {
+	border-top: 1px solid #d0d0d0;
+	margin-top: 10px;
+	padding-top: 10px;
+}
+#configListNoTitle {
+	/*border-top: 1px solid #d0d0d0;*/
+	margin-top: 10px;
+	padding-top: 0;
+}
+#configList h2, #configListNoTitle h2 {
+	color:#095a90;
+	margin: 15px 0 0 0;
+}
+#configList h6, #configListNoTitle h6 {
+	color:#095a90;
+	margin: 15px 0 0 0;
+	font-size: 12px !important;
+	color: black;
+}
+
+#configList p, #configListNoTitle p {
+	margin: 10px 0 0 0;
+	font-size: 12px !important;
+}
+#configList p .pi, #configListNoTitle p .pi{
+	margin: 10px 0 0 0;
+	font-style: italic;
+	font-size: 12px !important;
+}
+
+#pMargin, #pToggle {
+	margin: 8px 0 0 30px;
+}
+#pMargin p, #pToggle p {
+	margin: 8px 0 0 30px;
+	font-size: 12px !important;
+}
+#ESAEndUserContent  p.note {
+	font-size: 11px;
+	margin:0;
+	font-size: 11px !important;
+}
+#ESAEndUserContent input {
+	margin: 3px 0 0 20px;
+	font-size: 11px !important;
+}
+#deliveryInfo p {
+	margin: 15px 0 10px 0;
+	font-size: 12px !important;
+}
+#deliveryInfo input, #uploadPDF input {
+	margin: 10px 0 0 48px;
+	height: 20px;
+	font-size: 12px !important;
+	padding-top:1px;
+}
+#deliveryInfo label, #feedback td, #feedback td p {
+	height: 20px;
+	vertical-align: middle;
+	font-size: 12px;
+}
+
+#feedback label {
+	padding-left: 8px;
+	position: relative;
+	bottom: 2px;
+}
+
+
+#ESAButPanel {
+	position: relative;
+	height:22px;
+	width: 100%;
+	bottom:16px;
+/*	border: blue 1px solid; */
+}
+#ESARelLinksPanel {
+	position: absolute;
+    margin-right: 10px;
+	text-align: right;
+	display: block;
+	width: 100%;
+}
+#ESASupportPanel {
+    position: absolute;
+	padding-top:10px;
+	margin-right:10px;
+	border-top: 1px solid #d0d0d0; 
+	width: 100%;
+	bottom:30px;
+}
+h6 a {
+	font-size: 13px !important;
+	font-weight: bold !important;	
+}
+a.ESAbutActive{
+	background: transparent url("../images/butActive_left.gif") no-repeat top left;
+	display: block;
+	font-weight: bold;
+	float: left;
+	/*font: bold 12px Verdana;*/
+	line-height: 16px; /* This value + 4px + 4px (top and bottom padding of SPAN) must equal height of button background */
+	height: 22px; /* Height of button background height */
+	padding-left: 4px; /* Width of left menu image */
+	text-decoration: none;
+	color: #FFF;
+}
+
+a.ESAbutActive:hover {
+	font-weight: bold;
+	text-decoration: none;
+	color: #FFF;
+}
+
+a.ESAbutActive span{
+	background: transparent url("../images/butActive_right.gif") no-repeat top right;
+	display: block;
+	font-weight: bold;
+	padding: 4px 16px 4px 14px; /*Set 10px to be equal or greater than'padding-left' value above*/
+	margin-right:14px;
+	color: #FFF;
+}
+
+a.ESAbutInactive {
+	background: transparent url("../images/butInactive_left.gif") no-repeat top left;
+	display: block;
+	font-weight: bold;
+	float: left;
+	/*font: bold 12px Verdana;*/
+	line-height: 16px; /* This value + 4px + 4px (top and bottom padding of SPAN) must equal height of button background */
+	height: 22px; /* Height of button background height */
+	padding-left: 4px; /* Width of left menu image */
+	text-decoration: none;
+	color: #909090;
+	cursor:default;
+}
+a.ESAbutInactive:hover {
+	font-weight: bold;
+	text-decoration: none;
+	color: #909090;
+	cursor:default;
+}
+
+a.ESAbutInactive span{
+	background: transparent url("../images/butInactive_right.gif") no-repeat top right;
+	font-weight: bold;
+	color: #909090;
+	display: block;
+	padding: 4px 16px 4px 14px; /*Set 10px to be equal or greater than'padding-left' value above*/
+	margin-right:14px;
+	cursor:default;
+}
+
+#progress {
+	display: none;
+	position: relative;
+	top:50px;
+	left: 150px;
+	width: 150px;
+	text-align: center;
+	z-index: 100;
+}

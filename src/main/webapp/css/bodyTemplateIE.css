@@ -1,0 +1,299 @@
+/* CSS Document */
+/* specific to IE 6 */
+/********************************************************
+base settings
+*********************************************************/
+html,body,div,dl,dt,dd,ul,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{
+	margin:0;padding:0;
+}
+img,body,html{
+	border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var{
+	font-style:normal;font-weight:normal;
+}
+ul {
+	list-style:none;
+}
+caption,th {
+	text-align:left;
+}
+h1,h2,h3,h4,h5,h6{
+	font-size:100%;
+}
+
+/*****************************************************************
+base sections
+*****************************************************************/
+body,select
+{
+	color:#404040;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	line-height:16px;
+	margin-top:0;
+}
+body{
+	background:#f2f3f3 url('../images/main-background-sprite.png');
+	background-repeat:no-repeat;
+	/* the following is for full page with header
+	/*background-position: center -217px;*/
+	background-position: center -327px;
+}
+
+.parentheader
+{
+	background:url(../images/main-background-sprite.png) repeat-x 0 -107px;
+	height:80px;
+	color:#404040;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:11px;
+	line-height:16px;
+	width:100%;
+}
+
+.parentcontainer
+{
+	float:left;
+}
+
+body
+{
+	color:#404040;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:11px;
+	line-height:16px;
+
+}
+input
+{
+	color:#404040;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px !important;
+}
+
+img
+{
+	border:0;
+}
+
+h1,h2,h3,h4,h5,h6,ul,p
+{
+	font-weight:normal;
+	margin:0;
+	padding:0;
+}
+
+
+/* General Hyper Links styles - BEGIN  */
+a,a:visited,a:active
+{
+	color:#095a90;
+	font-weight:normal;
+	text-decoration:none;
+}
+
+a:hover
+{
+	font-weight:normal;
+	text-decoration:underline;
+}
+
+#mainbody
+{
+	clear:both;
+	padding:20px;
+}
+
+/* Text styles - BEGIN  */
+
+#main-title
+{
+	padding:4px 0 13px 15px;
+}
+
+h1,.titlefont
+{
+	color:#585e65;
+	font-size:16px;
+}
+
+h2
+{
+	font-size:15px;
+}
+
+h4
+{
+	font-size:13px;
+}
+
+h6
+{
+	font-size:11px;
+	font-weight:bold !important;
+}
+
+h5
+{
+	color:#808080;
+	font-size:10px;
+}
+
+
+/*
+Template Constructors
+*/
+#ngoe-template,.bodycontainer
+{
+	color:#4C4C4C;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	line-height:16px;
+	margin-top:0;
+}
+#shell {
+	width:1000px;
+	margin:auto;
+	margin-bottom:26px; /* use this to space content / footer etc. after the main body content */
+	position:relative; 
+}
+.ngoe-container-top, 
+.ngoe-container-bottom,
+.ngoe-row-top,
+.ngoe-row-bottom{
+	height:13px;
+	line-height:1px;
+	font-size:1px;
+}
+
+/*default image settings*/
+.ngoe-container-top,
+.ngoe-container-bottom,
+.ngoe-row-top,
+.ngoe-row-bottom{
+	background-image:url('../images/ngoe-faux-col-8.png');
+}
+.ngoe-container-bottom{
+	background-position:0px -13px;
+}
+.ngoe-content,
+.ngoe-row-content{
+	background-image:url('../images/ngoe-faux-col-y-8.png');
+	zoom: 1;
+}
+
+.ngoe-content-pad{padding:17px 20px;}
+.ngoe-content-no-pad{padding:0px;}
+.primary-pad{padding:17px 20px 0px 20px; width:700px !important;}
+
+/*******************************************************************************
+* ngoe_2col_a  
+	Two column layout, 
+	primary is on the left and 700px wide, 
+	secondary content is the right rail	
+*******************************************************************************/
+
+.ngoe-2col-a .primary{
+	margin:0 10px;
+	float:left;
+	display:inline;
+	width:700px;
+	padding:20px;
+	zoom:1;	
+}
+.ngoe-2col-a .secondary{			
+	float:left;
+	display:inline;
+	width:230px;
+	word-wrap:break-word;
+	zoom:1;
+}
+
+
+/*******************************************************************************
+* ngoe_notour_2col_a  
+	Two column layout, 
+	primary is on the left and 700px wide, 
+	secondary content is the right rail	
+*******************************************************************************/
+
+.ngoe-notour-2col-a .primary{
+	margin:0 10px;
+	float:left;
+	display:inline;
+	width:740px;
+	padding:0px;
+	zoom:1;	
+}
+.ngoe-notour-2col-a .secondary{			
+	float:left;
+	display:inline;
+	width:230px;
+	word-wrap:break-word;
+	zoom:1;
+}
+
+/*******************************************************************************
+* ngoe_2col_b 
+	Two column layout, 
+	primary is on the right and 700px wide, 
+	secondary content is the left rail	
+*******************************************************************************/
+.ngoe-2col-b .ngoe-container-top{background-position:0px -26px;}
+.ngoe-2col-b .ngoe-container-bottom{background-position:0px -39px;}
+.ngoe-2col-b .ngoe-content{zoom:1;background-position:-990px 0px;}
+
+.ngoe-2col-b .primary{			
+	float:left;
+	display:inline;
+	width:700px;
+	padding: 20px 20px 0 20px;	
+	zoom:1;
+}
+.ngoe-2col-b .secondary{			
+	float:left;
+	display:inline;
+	width:230px;
+	margin:0 10px;
+	word-wrap:break-word;
+	zoom:1;
+}
+
+/*******************************************************************************
+* ngoe_row 
+	Single container 1000px wide
+*******************************************************************************/
+.ngoe-row-top{background-position:0px -52px;}
+.ngoe-row-bottom{background-position:0px -65px;}
+.ngoe-row-content{
+	background-position:-1980px 0px;
+	width:940px;
+	padding: 17px 30px 0px 30px;
+	zoom:1;
+}
+
+/*adding extra for sbp sub page, where row and 2col-a need to swap out*/
+.ngoe-row .ngoe-container-top{
+	background-position:0px -52px;
+	}
+.ngoe-row .ngoe-container-bottom{background-position:0px -65px;}
+.ngoe-row .ngoe-content{
+	background-position:-1980px 0px;
+	width:1000px;	
+	
+}
+.ngoe-row .ngoe-content .primary{
+	margin:0px 10px;
+	padding:17px 20px;
+	
+}
+.ngoe-row .ngoe-content .secondary{
+	display:none;
+	
+}
+/**********************************************
+End - Single container 1000px wide
+***********************************************/
+.secondary .col-right{padding:0;}
+

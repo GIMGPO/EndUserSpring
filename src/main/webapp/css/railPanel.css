@@ -1,0 +1,92 @@
+/*rail-panel.css
+ Right Rail / bottom / standard rail constuctions begin nt
+taken from EXTjs */
+
+.x-panel {
+    border-style: solid;
+    border-width:0;
+}
+
+.x-panel-tl {
+    background: none no-repeat scroll 0 0 transparent;
+    border-bottom: 1px solid;
+    padding-left: 6px;
+}
+
+.x-panel-tr {
+	background: transparent no-repeat right 0;
+	zoom:1;
+    padding-right:6px;
+}
+
+
+.x-panel-body {
+    border:1px solid;
+    border-top:0 none;
+    overflow:hidden;
+    position: relative; /* added for item scroll positioning */
+}
+
+.bottomrail-panel .x-panel-tl,.ngoe-rail-panel .x-panel-tl
+{
+	border-top:#d0d0d0 1px solid;
+}
+
+.bottomrail-panel .x-panel-body,.ngoe-rail-panel .x-panel-body
+{
+	border-width:0;
+	padding:15px;
+}
+
+
+.x-panel-tl, .x-panel-tr, .x-panel-bl, .x-panel-br {
+   border-bottom-color: #D0D0D0;
+}
+
+.bottomrail-panel .x-panel-tl,.ngoe-rail-panel .x-panel-tl, .bottomrail-panel .x-panel-tr,.ngoe-rail-panel .x-panel-tr, .bottomrail-panel .x-panel-tc,.ngoe-rail-panel .x-panel-tc
+{
+	background-image:url(../images/ngoe-rightrail-top-bottom.gif);
+}
+
+.first .x-panel-tl,.first .x-panel-tr
+{
+	background-image:url(../images/ngoe-rightrail-corners_default.gif) !important;
+}
+.first .x-panel-tl
+{
+	border-top:none;
+}
+
+
+.x-panel-tl .x-panel-header {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    padding: 5px 0 4px;
+	color: #333333;
+    font: bold 11px tahoma,arial,verdana,sans-serif;
+}
+
+
+.x-panel-header {
+    overflow: hidden;
+    zoom: 1;
+}
+
+.bottomrail-panel .x-panel-tl .x-panel-header, .ngoe-rail-panel .x-panel-tl .x-panel-header
+{
+	color:#404040;
+	font-family:arial,helvetica,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	padding:7px 0 8px 7px;
+	line-height: 15px;
+		
+    border-color: #D0D0D0;
+}
+
+
+
+/*Rules to align the first header in the rail*/
+.ngoe-content .first{
+	position:relative; top:-3px;
+}

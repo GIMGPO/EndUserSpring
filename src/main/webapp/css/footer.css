@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+html, body, p, h1, div, td {
+font-family:Arial, Helvetica, sans-serif;
+font-size:11px;
+line-height:16px;
+font-size:;
+font-weight:normal;
+
+}
+
+
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td {
+margin:0pt;
+padding:0pt;
+}
+
+
+
+/***********Footer RELATED CSS **********/
+/* Footer styles - Start */
+#footer {
+	margin: auto;
+	padding-bottom:15px;
+	padding-left:10px;
+	width:1000px;
+    clear:both;
+}
+.foot_mar { margin-bottom: 44px; }
+.foot_copyright { text-align: center; }
+
+.fl {float:left;}
+
+#footer a, #footer a:visited,  #footer a:active {
+	 
+	color: #999999;
+	text-decoration:none;
+	font-size:10px;
+	font-weight:bold;
+	padding:1px 8px 2px;
+	display:block;
+	float:left;
+	border-right:1px dotted;
+	line-height:8px;
+	
+}
+#footer a:hover {
+	 
+	color: #666666;
+	text-decoration:none;
+	font-size:10px;
+	font-weight:bold;
+}
+
+/* Footer styles - End */

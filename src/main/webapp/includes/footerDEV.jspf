@@ -1,0 +1,49 @@
+<%@ page import="java.text.*, java.util.Date, java.util.Enumeration,
+				java.util.Locale, java.io.File,
+				java.util.Map, java.util.HashMap, trisoftdp.core.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!-- Footer Start -->
+<!-- What is in Request: -->
+<!--
+<% 	Enumeration parameterList = request.getParameterNames();
+  	while( parameterList.hasMoreElements() ) {
+    String sName = parameterList.nextElement().toString();
+	String[] sMultiple = request.getParameterValues( sName );
+      if( 1 >= sMultiple.length )
+        out.println(sName + " = " + request.getParameter( sName ));
+      else
+        for( int i=0; i<sMultiple.length; i++ )
+          out.println(sName + "[" + i + "] = " + sMultiple[i]);
+  	}%>
+-->
+<!-- What is in Session: -->
+<!--  
+<%	Enumeration attributeNames = session.getAttributeNames();
+	while (attributeNames.hasMoreElements()) {
+    	String name = (String) attributeNames.nextElement();
+    	String value = (String) session.getAttribute(name).toString();
+    	out.println(name + " = " + value);
+	}%>
+-->
+
+<!-- What is in cookies: -->
+<!-- 
+
+<% 
+Cookie cookie = null;
+Cookie[] cookies = null;
+// Get an array of Cookies associated with this domain
+cookies = request.getCookies();
+if( cookies != null ){
+	for (int i = 0; i < cookies.length; i++){
+		cookie = cookies[i];
+		out.println(cookie.getName( ) + " = " + cookie.getValue());
+	}
+} else {
+	out.println("No cookies");
+}
+%>
+ -->
+ 
+
+<!-- Footer End -->

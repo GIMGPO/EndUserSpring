@@ -1,0 +1,198 @@
+/*CSS document*/
+/*helper classes are added here*/
+
+/* Text styles - END  */
+.fl {
+	float:left;
+}
+.fr {
+	float:right;
+}
+.clrboth {
+	clear:both;
+}
+.clrleft {
+	clear:left;
+}
+.txtleft {
+	text-align:left;
+}
+.txtright {
+	text-align:right;
+}
+
+.bgwhite {
+	background-color:#ffffff;
+}
+
+.bgdarkblue {
+	background-color:#d9e7f0;
+}
+
+.vtop {
+	vertical-align:top;
+}
+
+.hide-element {
+	display:none;
+}
+
+.hide-table {
+	display:none;
+}
+.dotline {
+	border-bottom:1px dotted #999999;
+}
+
+.wid3p {
+	width:3%;
+} 	/* Created for Data grid Sl No */
+.wid10p {
+	width:10%;
+}
+.wid15p {
+	width:15%;
+} /* Created for Data grid Product Name*/
+.wid30p {
+	width:30%;
+}
+.wid60p {
+	width:60%;
+}
+.wid80p {
+	width:80%;
+}
+.wid100p {
+	width:100%;
+}
+
+.fullpbody {
+	float:left;
+	width:980px;
+}
+
+
+.pad_tb10 {
+	padding:10px 0px 10px 0px;
+}
+.pad_t5 {
+	padding:5px 0px 0px 0px;
+}
+.pad_t10 {
+	padding:10px 0px 0px 0px;
+}
+.pad_t15 {
+	padding:15px 0px 0px 0px;
+}
+.padall15 {
+	padding:15px;
+}
+.padall10 {
+	padding:10px;
+}
+.pad_l5 {
+	padding-left:5px;
+}
+.pad_l10 {
+	padding-left:10px;
+}
+.pad_b10 {
+	padding-bottom:10px;
+}
+.pad_b15 {
+	padding-bottom:15px;
+}
+.pad_b20 {
+	padding-bottom:20px;
+}
+.pad_r10 {
+	padding-right:10px;
+}
+.mar_t5 {
+	margin-top:5px;
+}
+.mar_t20 {
+	margin-top:20px
+}
+.mar_l4{
+	margin-left:4px;
+}
+.mar_l5{
+	margin-left:5px;
+}
+.mar_l10{
+	margin-left:10px;
+}
+.mar_l20{
+	margin-left:20px;
+}
+.mar_t10 {
+	margin-top:10px !important;
+}
+.mar_t40 {
+	margin-top:40px ;
+}
+.mar_b10 {
+	margin-bottom:10px;
+}
+.mar_b20 {
+	margin-bottom:20px;
+}
+.mar_r5{
+	margin-right:5px;
+}
+.bortop {
+	border-top:1px solid #eeeeee;
+}
+
+/* The below widths are created for textboxes with different widths - BEGIN */
+.wid620px {
+	width:620px;
+}
+.wid300px {
+	width:300px;
+}
+.wid290px {
+	width:290px;
+}
+.wid280px {
+	width:280px;
+}
+.wid310px {
+	width:310px;
+}
+.wid400px {
+	width:400px;
+}
+/* widths - END */
+
+.dropdown100px {
+	background-color:#FFFFFF;
+	border:1px solid #8abbd4;
+	width:104px;
+	color:#666666;
+}
+.dropdown172px {
+	background-color:#FFFFFF;
+	border:1px solid #8abbd4;
+	width:172px;
+}
+.dropdown130px {
+	background-color:#FFFFFF;
+	border:1px solid #8abbd4;
+	color:#404040;
+	padding-left:3px;
+	width:130px;
+}
+.bglightblue {
+	background-color:#f2f7fA;
+}
+.top-left {left: 0; top: 0;}
+.top-right {right: 0; top: 0;}
+.bottom-left {left: 0; bottom: 0;}
+.bottom-right {right: 0; bottom: 0;}
+
+.width170
+{
+	width:170px;
+}

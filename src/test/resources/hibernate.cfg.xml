@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+<!--   <property name="hibernate.connection.datasource">java:jdbc/lca_dp_dev</property> -->
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.password">cat</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/lca_dp_dev</property>
+  <property name="hibernate.connection.username">tomcat</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="show_sql">true</property>
+  <property name="current_session_context_class">thread</property>
+  <mapping class="trisoftdp.db.JobResult"/>
+  <mapping class="trisoftdp.db.JobMark"/>
+ </session-factory>
+</hibernate-configuration>
