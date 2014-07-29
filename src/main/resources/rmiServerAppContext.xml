@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- Beans Declaration -->
+
+	<bean id="RemotePublisherImpl" class="trisoftdp.rmi.server.RemotePublisherImpl" >
+<!--  		<property name="publisherService" ref="PublisherService"/> -->
+	</bean>	
+	
+ 	<!-- RMI Server Declaration -->
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+    	<!-- serviceName represents RMI Service Name -->
+        <property name="serviceName" value="RemotePublisherImpl"/>        
+        <!-- service represents RMI Object(RMI Service Impl) -->
+        <property name="service" ref="RemotePublisherImpl"/>        
+        <!-- serviceInterface represents RMI Service Interface exposed -->
+        <property name="serviceInterface" value="trisoftdp.rmi.server.RemotePublisher"/>        
+        <!-- defaults to 1099 -->
+    	<property name="registryPort" value="1099"/>    
+    </bean>
+	
+</beans>
