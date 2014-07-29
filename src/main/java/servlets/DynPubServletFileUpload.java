@@ -79,11 +79,14 @@ public class DynPubServletFileUpload extends HttpServlet {
 		if(user == null || user.getUserPack() == null)
 			throw new ServletException("No user bean or pack found in the session!");
 
+		/* moved to publisher.processStatic
+		
 		//Chosen fake ditaMap is used for the future file name
 		String ditaMap = "";
 		ditaMap = (user.getUserPack().ditaMaps[0].title != null)? user.getUserPack().ditaMaps[0].title : "generic_nogood";
-
 		CoreConstants.logger.info("Future file name (ditaMap): " + ditaMap + ".pdf");
+		 */
+		
 		Publisher publisher = new PublisherImpl();
 
 		String uploadFile = filename;
@@ -95,14 +98,15 @@ public class DynPubServletFileUpload extends HttpServlet {
 		if(user.getPubLegend() == null)
 			throw new ServletException("No pubLegend found in the session!");
 		try {
-			publisher.processStatic(currentId, user, prodEnv, lang, uploadedFile);
+			publisher.processStatic(currentId, user, prodEnv, lang, uploadedFile, "yes".equals(prodEnv.getProdCleanAfter()));
+			/* moved to publisher.processStatic
 			File tarDir = new File(publisher.targetDir(currentId, ditaMap),"output");
 			File src = ToolKit.getFileById(currentId,tarDir);
 			CoreConstants.logger.info("src=" + src);
 			File trgt = new File(CoreConstants.appPropsMap.get("RESULT_DIR") + File.separator + src.getName());		
 			CoreConstants.logger.info("trgt=" + trgt);
 			CoreConstants.logger.info("Copying " + src.toString() + " to " + trgt.toString());
-			ToolKit.copyDirectory(src,trgt);
+			ToolKit.copyDirectory(src,trgt);*/
 
 			// write to the db
 			db = ToolKit.newDB();
@@ -117,7 +121,7 @@ public class DynPubServletFileUpload extends HttpServlet {
 			if(db != null) try { db.close(); } catch(Exception e) {} 
 		}
 
-
+/* moved to publisher.processStatic
 		//Clean up after publishing and saving the result
 		if("yes".equals(prodEnv.getProdCleanAfter())) {
 			CoreConstants.logger.info("Cleaning up after publishing...");
@@ -128,6 +132,7 @@ public class DynPubServletFileUpload extends HttpServlet {
 				if(!tmpFile.delete())
 					throw new ServletException("Filed to delete " + tmpFile);
 		}
+		*/
 		//Redirecting
 		res.sendRedirect("DynDispatcher?state=uploadComplete");
 	}

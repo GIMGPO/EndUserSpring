@@ -1,46 +1,50 @@
 package trisoftdp.rmi.server;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import trisoftdp.core.DynException;
 import trisoftdp.core.DynamicPublishingPackage;
 import trisoftdp.core.MementoUserBean;
 import trisoftdp.core.ProdEnvBean;
+import trisoftdp.processing.Publisher;
 
 public class RemotePublisherImpl implements RemotePublisher {
 
-	//Remote Cache Service is injected...
-	//ICacheService cacheService;
+	Publisher localPublisher;
 	
+	//@Autowired
+	public void setLocalPublisher(Publisher localPublisher) { 
+		this.localPublisher = localPublisher;
+	}
 
 	public void process(long id, String configId, String contentDir, String configDir, DynamicPublishingPackage pack, Map<String, String> legend, String lang) throws DynException, IOException {
-		// TODO Auto-generated method stub
+		localPublisher.process(id, configId, contentDir, configDir, pack, legend, lang);
+		//System.out.format("id=%d configId=%s lang=%s%n", id, configId, lang);
 	}
 
 	public long process(MementoUserBean user, ProdEnvBean prodEnv, String lang)	throws DynException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("long process(MementoUserBean user, ProdEnvBean prodEnv, String lang) called. lang=" + lang);
-		return 0;
+		return localPublisher.process(user, prodEnv, lang);
 	}
-
-	public void processStatic(long id, MementoUserBean user, ProdEnvBean prodEnv, String lang, File uploadedFile) throws DynException, IOException {
-		// TODO Auto-generated method stub		
-	}
-
-	public File targetDir(long id, String configId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void runAnt(File targetDir, long id) throws DynException {
-		// TODO Auto-generated method stub
-	}
-
-	public void runStaticAnt(File targetDir, long id, String lang, String title, File uploadedFile) throws DynException {
-		// TODO Auto-generated method stu
-	}
-
 	
+	public void processStatic(long id, MementoUserBean user, ProdEnvBean prodEnv, String lang, byte[] uploadedFileData, boolean cleanup) throws DynException, IOException {
+		// TODO do not forget to unzip if it is really a zip file
+		File tmpFile = File.createTempFile("upload", ".zip");
+		FileOutputStream fos = new FileOutputStream(tmpFile);
+		fos.write(uploadedFileData);
+		fos.flush();
+		fos.close();
+		localPublisher.processStatic(id, user, prodEnv, lang, tmpFile, cleanup);
+		tmpFile.delete();
+	}
+
+
+
+
 }

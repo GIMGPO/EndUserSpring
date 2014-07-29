@@ -5,8 +5,11 @@
 
 	<!-- Beans Declaration -->
 
+	<bean id="LocalPublisher" class="trisoftdp.processing.PublisherImpl">
+   	</bean>
+
 	<bean id="RemotePublisherImpl" class="trisoftdp.rmi.server.RemotePublisherImpl" >
-<!--  		<property name="publisherService" ref="PublisherService"/> -->
+		<property name="localPublisher" ref="LocalPublisher"/>
 	</bean>	
 	
  	<!-- RMI Server Declaration -->

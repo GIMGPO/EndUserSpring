@@ -6,12 +6,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.security.MessageDigest;
+//import java.security.MessageDigest;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.mail.MessagingException;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import trisoftdp.core.CoreConstants;
 import trisoftdp.core.DynException;
@@ -22,8 +25,9 @@ import trisoftdp.core.MementoUserBean;
 import trisoftdp.core.ProdEnvBean;
 import trisoftdp.core.ToolKit;
 import trisoftdp.db.TriSoftDb;
-import trisoftdp.processing.Publisher;
-import trisoftdp.processing.PublisherImpl;
+//import trisoftdp.processing.Publisher;
+//import trisoftdp.processing.PublisherImpl;
+import trisoftdp.rmi.server.RemotePublisher;
 
 public class DynPubJob implements Runnable {
 
@@ -64,14 +68,15 @@ public class DynPubJob implements Runnable {
 	public void run() {
 		long oldId, id = -1;
 		TriSoftDb db = null;
-		Publisher publisher;
+		ApplicationContext context = new ClassPathXmlApplicationContext("rmiClientAppContext.xml");		
+		//Remote User Service is called via RMI Client Application Context...
+		RemotePublisher remotePublisher = (RemotePublisher) context.getBean("RemotePublisher");
 		DynamicPublishingPackage pack = user.getUserPack();
 		String[] emails = user.getUserEmail().replaceAll("\\s+", "").split(";");	
 		String md5 = null;
 		try {
 			md5 = ToolKit.getMD5(pack);
 			db = ToolKit.newDB();
-			publisher = new PublisherImpl();		
 			logger.info("Processing started");			
 			//id = publisher.process(configId, contentFolder, configFolder, pack, legend, lang, prodEnv);
 			oldId = db.getResultId(md5);
@@ -82,7 +87,7 @@ public class DynPubJob implements Runnable {
 				id = oldId;
 			}
 			else 
-				id = publisher.process(user, prodEnv, lang);
+				id = remotePublisher.process(user, prodEnv, lang);
 			logger.info("Processing finished with returned id=" + id);
 			File rf = ToolKit.getResultById(id);
 			if(rf == null)
@@ -136,7 +141,8 @@ public class DynPubJob implements Runnable {
 		} catch (SQLException e) {
 			logger.severe("SQLException: " + e.getMessage());
 		} finally {
-			if(db != null) try { db.close(); } catch (Exception e) {} 
+			if(db != null) try { db.close(); } catch (Exception e) {}
+			if(context != null) ((ClassPathXmlApplicationContext) context).close();
 		}
 		
 		

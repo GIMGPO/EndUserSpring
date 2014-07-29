@@ -1,9 +1,11 @@
 package trisoftdp.core;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,11 +19,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,13 +30,31 @@ import java.util.zip.ZipOutputStream;
 
 import trisoftdp.db.TriSoftDb;
 import trisoftdp.db.TrisoftDbImplMySQL;
-//import trisoftdp.db.TrisoftDbImpl;
 
 
 public class ToolKit {
 
 	static Pattern malicious = Pattern.compile(".*[><'\"\n\r\\(\\)].*");//add more symbols
 
+    public static byte[] fileToByte(String filename){ 
+    	//TODO it is worthwhile to zip it first
+        byte[] bytes = null;
+        BufferedInputStream is = null;
+        try { 
+            File file = new File(filename); 
+            bytes = new byte[(int) file.length()]; 
+            is = new BufferedInputStream(new FileInputStream(file)); 
+            is.read(bytes); 
+        } catch (FileNotFoundException e) { 
+            e.printStackTrace(); 
+        } catch (IOException e) { 
+            e.printStackTrace(); 
+        } finally {
+        	if(is != null) try { is.close(); } catch(IOException e) { System.out.println("fileToByte:" + e.getMessage()); }
+        }
+        return bytes; 
+    } 
+    
 	public static String printRequest(DynamicPublishingPackage pack ) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("pubPackage=<%s> packageName=<%s> productRelease=<%s> createDate=<%s>%n", pack.pubPackage, pack.packageName, pack.productRelease, pack.createDate));

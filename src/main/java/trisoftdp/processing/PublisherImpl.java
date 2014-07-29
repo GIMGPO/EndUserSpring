@@ -35,7 +35,6 @@ import trisoftdp.core.DynamicPublishingPackage.ProfileValue;
 import trisoftdp.core.MementoUserBean;
 import trisoftdp.core.ProdEnvBean;
 import trisoftdp.core.ToolKit;
-import trisoftdp.core.UserBean;
 
 import com.sun.org.apache.xerces.internal.dom.DocumentImpl;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
@@ -61,31 +60,10 @@ public class PublisherImpl implements Publisher {
 		runAnt(targetDir, id);
 	}
 
-//	@Override
-/*	public long process(String configId, String contentDir, String configDir, 
-			DynamicPublishingPackage pack, Map<String,String> legend, 
-			String lang, ProdEnvBean prodEnv) throws DynException, IOException {*/
-	public long process(MementoUserBean user, ProdEnvBean prodEnv, String lang) throws DynException, IOException {
-		long id = ToolKit.generateId();
-		DynamicPublishingPackage pack = user.getUserPack();
-		String configId = user.getConfigId();
-		String contentDir = prodEnv.getProdContentDir();
-		String configDir = prodEnv.getProdConfigDir();
-		Map<String,String> legend = user.getPubLegend();
-		File targetDir = targetDir(id, pack.ditaMaps[0].title);
-		File failedJobsDir = failedJobsDir(id, pack.ditaMaps[0].title);
-		process(id, configId, contentDir, configDir, pack, legend, lang);
-		CoreConstants.logger.info("Processing is done. Creating result now...");
-		createResult(targetDir, failedJobsDir, pack.outputType, id, pack.ditaMaps[0].title);
-		if("yes".equals(prodEnv.getProdCleanAfter())) {
-			CoreConstants.logger.info("Cleaning up after publishing...");
-			ToolKit.deleteDir(targetDir);
-		}
-		return id;	
-	}
+	
 //	@Override
 	public void processStatic(long id, MementoUserBean user, 
-			ProdEnvBean prodEnv, String lang, File uploadedFile) throws DynException, IOException {
+			ProdEnvBean prodEnv, String lang, File uploadedFile, boolean cleanup) throws DynException, IOException {
 		File profilesXML;
 		//String locFolder = CoreConstants.languagesMap.get(lang);
 		DynamicPublishingPackage pack = user.getUserPack();
@@ -103,6 +81,28 @@ public class PublisherImpl implements Publisher {
 		CoreConstants.logger.info("Getting the legend attached...");
 		//runStaticAnt(targetDir, id, locFolder, pack.ditaMaps[0].title, uploadedFile);
 		runAnt(targetDir, id);
+		
+		//Chosen fake ditaMap is used for the future file name
+		String ditaMap = "";
+		ditaMap = (user.getUserPack().ditaMaps[0].title != null)? user.getUserPack().ditaMaps[0].title : "generic_nogood";
+		CoreConstants.logger.info("Future file name (ditaMap): " + ditaMap + ".pdf");
+		File tarDir = new File(targetDir(id, ditaMap),"output");
+		File src = ToolKit.getFileById(id,tarDir);
+		CoreConstants.logger.info("src=" + src);
+		File trgt = new File(CoreConstants.appPropsMap.get("RESULT_DIR") + File.separator + src.getName());		
+		CoreConstants.logger.info("trgt=" + trgt);
+		CoreConstants.logger.info("Copying " + src.toString() + " to " + trgt.toString());
+		ToolKit.copyDirectory(src,trgt);
+		if(cleanup) {
+			CoreConstants.logger.info("Cleaning up after publishing...");
+			//TODO why targetDir is different?
+			targetDir = targetDir(id, ditaMap);
+			ToolKit.deleteDir(targetDir);
+			File tmpFile = new File(CoreConstants.appPropsMap.get("TMP_DIR") + File.separator + uploadedFile);
+			if (tmpFile.exists()) 
+				if(!tmpFile.delete())
+					throw new IOException("Filed to delete " + tmpFile);
+		}
 	}
 
 
@@ -159,73 +159,14 @@ public class PublisherImpl implements Publisher {
 			if(fs != null ) try { fs.close(); } catch(Exception e) {}
 		}
 	}
-	
-//	@Override
-	public void runStaticAnt(File targetDir, long id, String lang, String title, File uploadedFile) throws DynException {
-		if(!targetDir.exists() || targetDir.list().length == 0) {
-			CoreConstants.logger.severe(targetDir + " does not exist or is empty");
-			throw new DynException(targetDir + " does not exist or is empty");
-		}
-		File targetFile = new File(targetDir + File.separator + uploadedFile);
-		String line;
-		Process p;
-		BufferedReader br = null;
-		StringBuilder buf = new StringBuilder();	
-		String[] args = new String[] {CoreConstants.appPropsMap.get("ANT_UTIL"), "-noclasspath", 
-				"-lib", CoreConstants.appPropsMap.get("ANT_LIBS_STATIC"), 
-				"-logfile", CoreConstants.appPropsMap.get("ANT_LOG") + "_" + Long.toString(id) + ".txt",
-				"-f", CoreConstants.appPropsMap.get("BUILD_XML_DEMO"),
-				"-Dcustomization.dir=" + CoreConstants.appPropsMap.get("DITA_CUSTOM_DIR"),
-				"\"-Daxf.path=" + CoreConstants.appPropsMap.get("AXF_PATH") + "\"",
-				"-Dfo.ah.program.name=" + CoreConstants.appPropsMap.get("AH_PROG_NAME"),
-				"-Doutput.dir=output",
-				"-Ddocument.locale=" + lang,
-				"-Dinput.dir=" + targetDir,
-				"-DoutputFile=" + targetFile,
-				"-Dbasedir=" + targetDir,
-				"-Ddita.map.filename.root=" + id + "_" + title,
-		"transform.add.publegent"};
-		String cmd = "";
-		for(String s: args )
-			cmd = cmd.concat(s + " ");
-		CoreConstants.logger.info(cmd);
-		ProcessBuilder pb = new ProcessBuilder(args);
-		pb.redirectErrorStream(true);
-		try {
-			p = pb.start();
-			br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			while( (line = br.readLine()) != null)
-				buf.append(line);
-			int exitCode = p.waitFor();
-			if(exitCode != 0) {
-				CoreConstants.logger.severe(cmd + "\nfailed with exit code " + exitCode + "\nError log:\n" + buf.toString());
-				throw new DynException(cmd + "\nfailed with exit code " + exitCode);
-			}
-		} catch (IOException e) {
-			CoreConstants.logger.severe("PublisherImpl.runAnt(..): IOException: " + e.getMessage());
-			throw new DynException("PublisherImpl.runAnt(..): IOException: " + e.getMessage());
-		} catch (InterruptedException e) {
-			CoreConstants.logger.severe("PublisherImpl.runAnt(..): InterruptedException: " + e.getMessage());
-			throw new DynException("PublisherImpl.runAnt(..): InterruptedException: " + e.getMessage());
-		} finally {
-			if(br != null) try { br.close(); } catch(Exception e) {}  
-		}
 
-	}
-
-//	@Override
-	public File targetDir(long id, String pubName) { 
+	private File targetDir(long id, String pubName) { 
 		File targetDir = new File(CoreConstants.appPropsMap.get("OUTPUT_DIR"), pubName + "_" + id);
 		return targetDir;
 	}
 
-	public File failedJobsDir(long id, String pubName) { 
-		File dir = new File(CoreConstants.appPropsMap.get("FAILED_JOBS_DIR"), pubName + "_" + id);
-		return dir;
-	}
 
-//	@Override
-	public void runAnt(File targetDir, long id) throws DynException {
+	private void runAnt(File targetDir, long id) throws DynException {
 		if(!targetDir.exists() || targetDir.list().length == 0) {
 			CoreConstants.logger.severe(targetDir + " does not exist or is empty");
 			throw new DynException(targetDir + " does not exist or is empty");
@@ -385,6 +326,25 @@ public class PublisherImpl implements Publisher {
 		}
 	}
 
+	public long process(MementoUserBean user, ProdEnvBean prodEnv, String lang) throws DynException, IOException {
+		long id = ToolKit.generateId();
+		DynamicPublishingPackage pack = user.getUserPack();
+		String configId = user.getConfigId();
+		String contentDir = prodEnv.getProdContentDir();
+		String configDir = prodEnv.getProdConfigDir();
+		Map<String,String> legend = user.getPubLegend();
+		File targetDir = targetDir(id, pack.ditaMaps[0].title);
+		File failedJobsDir = failedJobsDir(id, pack.ditaMaps[0].title);
+		process(id, configId, contentDir, configDir, pack, legend, lang);
+		CoreConstants.logger.info("Processing is done. Creating result now...");
+		createResult(targetDir, failedJobsDir, pack.outputType, id, pack.ditaMaps[0].title);
+		if("yes".equals(prodEnv.getProdCleanAfter())) {
+			CoreConstants.logger.info("Cleaning up after publishing...");
+			ToolKit.deleteDir(targetDir);
+		}
+		return id;	
+	}
+	
 	private static Properties convertResourceBundleToProperties(ResourceBundle resource) {
 		Properties properties = new Properties();
 		Enumeration<String> keys = resource.getKeys();
@@ -418,6 +378,11 @@ public class PublisherImpl implements Publisher {
 		}
 	}
 
+	private static File failedJobsDir(long id, String pubName) { 
+		File dir = new File(CoreConstants.appPropsMap.get("FAILED_JOBS_DIR"), pubName + "_" + id);
+		return dir;
+	}
+	
 	private static void createResult(File targetDir, File failedJobsDir, DynamicPublishingPackage.OUTPUT_TYPE outputType, long id, String resultName) throws DynException, IOException {
 		CoreConstants.logger.info("Creating Result for output type " + outputType);
 		File result = null;
@@ -457,5 +422,4 @@ public class PublisherImpl implements Publisher {
 			throw new DynException("Unsupported output type: " + outputType.name());
 		}
 	}
-
 }
