@@ -159,9 +159,14 @@ public class PackageData {
 			if (!root.getNodeName().equals("configGroups"))
 				return null;	
 			dynPage = new DynPage();
-			dynPage.pageTitle = root.getElementsByTagName("cgTitle").item(0).getTextContent();
-			dynPage.pageGroupsTitle = root.getElementsByTagName("cgGroupsTitle").item(0).getTextContent();
-			dynPage.pageIntro = root.getElementsByTagName("cgIntro").item(0).getTextContent();
+//			dynPage.pageTitle = root.getElementsByTagName("cgTitle").item(0).getTextContent();
+//			dynPage.pageGroupsTitle = root.getElementsByTagName("cgGroupsTitle").item(0).getTextContent();
+//			dynPage.pageIntro = root.getElementsByTagName("cgIntro").item(0).getTextContent();
+			
+			dynPage.pageTitle =  root.getElementsByTagName("cgTitle").item(0).getNodeValue();
+			dynPage.pageGroupsTitle = root.getElementsByTagName("cgGroupsTitle").item(0).getNodeValue();
+			dynPage.pageIntro = root.getElementsByTagName("cgIntro").item(0).getNodeValue();
+			
 			nodeList0 = root.getElementsByTagName("packGroup");
 			dynPage.packGroups = new DynPage.DynPackageGroup[nodeList0.getLength()];
 
@@ -263,10 +268,15 @@ public class PackageData {
 			if (!root.getNodeName().equals("dynamicPublishingPackage"))
 				return null;
 			packInfo = new DynPackageDescriptor();
-			packInfo.pubPackage = root.getElementsByTagName("packageType").item(0).getTextContent();
-			packInfo.packageName = root.getElementsByTagName("packageName").item(0).getTextContent();
-			packInfo.productRelease = root.getElementsByTagName("productRelease").item(0).getTextContent();
-			packInfo.comments = root.getElementsByTagName("comments").item(0).getTextContent();
+//			packInfo.pubPackage = root.getElementsByTagName("packageType").item(0).getTextContent();
+//			packInfo.packageName = root.getElementsByTagName("packageName").item(0).getTextContent();
+//			packInfo.productRelease = root.getElementsByTagName("productRelease").item(0).getTextContent();
+//			packInfo.comments = root.getElementsByTagName("comments").item(0).getTextContent();		
+			packInfo.pubPackage = root.getElementsByTagName("packageType").item(0).getNodeValue();
+			packInfo.packageName = root.getElementsByTagName("packageName").item(0).getNodeValue();
+			packInfo.productRelease = root.getElementsByTagName("productRelease").item(0).getNodeValue();
+			packInfo.comments = root.getElementsByTagName("comments").item(0).getNodeValue();
+			
 			try {	
 				nodeList = ((Element) root.getElementsByTagName("ditaMap")).getElementsByTagName("ditaMapProfile");
 				if (nodeList.getLength()>0)
@@ -305,10 +315,15 @@ public class PackageData {
 			if (!root.getNodeName().equals("dynamicPublishingPackage"))
 				return null;
 			pack = new DynamicPublishingPackage();
-			pack.pubPackage = root.getElementsByTagName("packageType").item(0).getTextContent();
-			pack.packageName = root.getElementsByTagName("packageName").item(0).getTextContent();
-			pack.productRelease = root.getElementsByTagName("productRelease").item(0).getTextContent();
-			String dateStr = root.getElementsByTagName("createDate").item(0).getTextContent();
+//			pack.pubPackage = root.getElementsByTagName("packageType").item(0).getTextContent();
+//			pack.packageName = root.getElementsByTagName("packageName").item(0).getTextContent();
+//			pack.productRelease = root.getElementsByTagName("productRelease").item(0).getTextContent();
+//			String dateStr = root.getElementsByTagName("createDate").item(0).getTextContent();
+//			
+			pack.pubPackage = root.getElementsByTagName("packageType").item(0).getNodeValue();
+			pack.packageName = root.getElementsByTagName("packageName").item(0).getNodeValue();
+			pack.productRelease = root.getElementsByTagName("productRelease").item(0).getNodeValue();
+			String dateStr = root.getElementsByTagName("createDate").item(0).getNodeValue();
 			pack.createDate = dateFormat.parse(dateStr);
 			nodeList0 = root.getElementsByTagName("ditaMap");
 			pack.ditaMaps = new DynamicPublishingPackage.DitaMap[nodeList0.getLength()];
@@ -316,9 +331,11 @@ public class PackageData {
 				node0 = nodeList0.item(i);
 				pack.ditaMaps[i] = new DynamicPublishingPackage.DitaMap();
 				pack.ditaMaps[i].file = ((Element) node0).getAttribute("ditaMapFile");
-				pack.ditaMaps[i].title = ((Element) node0).getElementsByTagName("ditaMapTitle").item(0).getTextContent();
+//				pack.ditaMaps[i].title = ((Element) node0).getElementsByTagName("ditaMapTitle").item(0).getTextContent();
+				pack.ditaMaps[i].title = ((Element) node0).getElementsByTagName("ditaMapTitle").item(0).getNodeValue();
 				try {
-					pack.ditaMaps[i].task = ((Element) node0).getElementsByTagName("ditaMapTask").item(0).getTextContent();
+//					pack.ditaMaps[i].task = ((Element) node0).getElementsByTagName("ditaMapTask").item(0).getTextContent();
+					pack.ditaMaps[i].task = ((Element) node0).getElementsByTagName("ditaMapTask").item(0).getNodeValue();
 				} catch (Exception e) {e.printStackTrace();}
 				try {	
 					nodeList1 = ((Element) node0).getElementsByTagName("ditaMapProfile");
@@ -339,7 +356,8 @@ public class PackageData {
 			nodeList0 = root.getElementsByTagName("language");
 			pack.languages = new String[nodeList0.getLength()];
 			for(int i = 0; i < nodeList0.getLength(); i++)
-				pack.languages[i] = nodeList0.item(i).getTextContent();
+//				pack.languages[i] = nodeList0.item(i).getTextContent();
+				pack.languages[i] = nodeList0.item(i).getNodeValue();
 			Arrays.sort(pack.languages);
 
 			nodeList0 = root.getElementsByTagName("profilingAttribute");
@@ -358,15 +376,19 @@ public class PackageData {
 				} catch (Exception e) {
 					pack.profiles[i].selectType = DynamicPublishingPackage.PROFILE_SELECT.user;
 				}
-				pack.profiles[i].name = ((Element) node0).getElementsByTagName("profAttrName").item(0).getTextContent();
+//				pack.profiles[i].name = ((Element) node0).getElementsByTagName("profAttrName").item(0).getTextContent();
+				pack.profiles[i].name = ((Element) node0).getElementsByTagName("profAttrName").item(0).getNodeValue();
 				try {
-					pack.profiles[i].quesString = ((Element) node0).getElementsByTagName("profAttrQuesString").item(0).getTextContent();
+//					pack.profiles[i].quesString = ((Element) node0).getElementsByTagName("profAttrQuesString").item(0).getTextContent();
+					pack.profiles[i].quesString = ((Element) node0).getElementsByTagName("profAttrQuesString").item(0).getNodeValue();
 				} catch (Exception e) {}
 				try {
-					pack.profiles[i].quesInfo = ((Element) node0).getElementsByTagName("profAttrQuesInfo").item(0).getTextContent();
+//					pack.profiles[i].quesInfo = ((Element) node0).getElementsByTagName("profAttrQuesInfo").item(0).getTextContent();
+					pack.profiles[i].quesInfo = ((Element) node0).getElementsByTagName("profAttrQuesInfo").item(0).getNodeValue();
 				} catch (Exception e) {}
 				try {
-					pack.profiles[i].quesNum = Integer.parseInt(((Element) node0).getElementsByTagName("profAttrQuesNum").item(0).getTextContent());
+//					pack.profiles[i].quesNum = Integer.parseInt(((Element) node0).getElementsByTagName("profAttrQuesNum").item(0).getTextContent());
+					pack.profiles[i].quesNum = Integer.parseInt(((Element) node0).getElementsByTagName("profAttrQuesNum").item(0).getNodeValue());
 				} catch (Exception e) {}
 				nodeList1 = ((Element) node0).getElementsByTagName("profAttrValue");
 				pack.profiles[i].values = new DynamicPublishingPackage.ProfileValue[nodeList1.getLength()];
@@ -379,7 +401,8 @@ public class PackageData {
 					} catch (Exception e) {
 						pack.profiles[i].values[j].multiselect = false;
 					}			
-					pack.profiles[i].values[j].name = ((Element) node1).getElementsByTagName("profAttrValueName").item(0).getTextContent();
+//					pack.profiles[i].values[j].name = ((Element) node1).getElementsByTagName("profAttrValueName").item(0).getTextContent();
+					pack.profiles[i].values[j].name = ((Element) node1).getElementsByTagName("profAttrValueName").item(0).getNodeValue();					
 					nodeList2 = ((Element) node1).getElementsByTagName("profAttrValDependency");
 					pack.profiles[i].values[j].dependentIds = new String[nodeList2.getLength()];
 					for(int k = 0; k < nodeList2.getLength(); k++)
@@ -537,7 +560,8 @@ public class PackageData {
 		if (!root.getNodeName().equals("relatedDocs"))
 			return null;
 		dynRelDocs = new DynRelatedDocs();
-		dynRelDocs.rdTitle = root.getElementsByTagName("rdTitle").item(0).getTextContent();
+//		dynRelDocs.rdTitle = root.getElementsByTagName("rdTitle").item(0).getTextContent();
+		dynRelDocs.rdTitle = root.getElementsByTagName("rdTitle").item(0).getNodeValue();		
 		nodeList0 = root.getElementsByTagName("group");
 		dynRelDocs.docGroups = new DynRelatedDocs.DocGroup[nodeList0.getLength()];
 		for(int i = 0; i < nodeList0.getLength(); i++) {
@@ -554,7 +578,8 @@ public class PackageData {
 				dynRelDocs.docGroups[i].relDocs[j].docFile = ((Element) node1).getAttribute("file");
 				dynRelDocs.docGroups[i].relDocs[j].helpFolder = ((Element) node1).getAttribute("helpFolder");
 				dynRelDocs.docGroups[i].relDocs[j].helpFile = ((Element) node1).getAttribute("helpFile");
-				dynRelDocs.docGroups[i].relDocs[j].docName = node1.getTextContent();
+//				dynRelDocs.docGroups[i].relDocs[j].docName = node1.getTextContent();
+				dynRelDocs.docGroups[i].relDocs[j].docName = node1.getNodeValue();				
 				dynRelDocs.docGroups[i].relDocs[j].fileType = (dynRelDocs.docGroups[i].relDocs[j].docFile.toUpperCase().endsWith(".ZIP"))? 
 						DynRelatedDocs.FILE_TYPE.zip:DynRelatedDocs.FILE_TYPE.pdf;
 			}
