@@ -55,7 +55,6 @@
   	<dependency>
   		<groupId>com.emc.dynpub</groupId>
   		<artifactId>EndUserSpring-lib</artifactId>
-  		<version>1.0-SNAPSHOT</version>
   		<scope>provided</scope>
   	</dependency>
   	
