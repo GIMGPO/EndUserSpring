@@ -10,7 +10,7 @@
 	    <property name="serviceUrl" value="rmi://192.168.1.162:1099/RemotePublisherImpl"/>
 	    
 	    <!-- serviceInterface represents RMI Service Interface called -->
-	    <property name="serviceInterface" value="trisoftdp.rmi.server.RemotePublisher"/>
+	    <property name="serviceInterface" value="trisoftdp.processing.RemotePublisher"/>
 		
 		<!-- refreshStubOnConnectFailure enforces automatic re-lookup of the stub if a 
 							call fails with a connect exception -->

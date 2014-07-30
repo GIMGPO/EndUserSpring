@@ -19,7 +19,7 @@
         <!-- service represents RMI Object(RMI Service Impl) -->
         <property name="service" ref="RemotePublisherImpl"/>        
         <!-- serviceInterface represents RMI Service Interface exposed -->
-        <property name="serviceInterface" value="trisoftdp.rmi.server.RemotePublisher"/>        
+        <property name="serviceInterface" value="trisoftdp.processing.RemotePublisher"/>        
         <!-- defaults to 1099 -->
     	<property name="registryPort" value="1099"/>    
     </bean>

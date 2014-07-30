@@ -1,4 +1,4 @@
-package trisoftdp.rmi.server;
+package trisofttdp.run;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
