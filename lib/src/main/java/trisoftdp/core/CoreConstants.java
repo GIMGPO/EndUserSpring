@@ -30,7 +30,7 @@ public class CoreConstants {
 	public static final Map<String,String> appStringsMap = new HashMap<String,String>();
 	public static final Map<String,String> tempBuildProps = new HashMap<String,String>();
 	public static final Map<String,String> languagesMap = new HashMap<String,String>();
-	public static final Locale[] dynPubLocales;
+	public static  Locale[] dynPubLocales;
 	public static final Logger logger;
 	//public static String dbUrl = "jdbc:sqlserver://edpappprd10:1433;databaseName=TrisoftDP;userName=sa;password=TechPub2005;";
 	//public static String dbDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
@@ -48,6 +48,8 @@ public class CoreConstants {
 	static {
 
 		EOL = System.getProperty("line.separator");
+		logger = Logger.getLogger("endUser");
+		try {
 //		populateMap(appPropsMap, ResourceBundle.getBundle("mac_appCore"));
 		populateMap(appPropsMap, ResourceBundle.getBundle("appCore"));		
 		populateMap(appStringsMap, ResourceBundle.getBundle("appStr"));
@@ -57,8 +59,7 @@ public class CoreConstants {
 		int idx = 0;
 		for(String key: languagesMap.keySet())
 			dynPubLocales[idx++]= LocaleUtils.toLocale(key);
-		logger = Logger.getLogger("endUser");
-		try {
+		
 			//HOST = java.net.InetAddress.getLocalHost().getCanonicalHostName();
 			HOST = appPropsMap.get("APP_HOST");
 			if (!"80".equals(appPropsMap.get("TOMCAT_PORT")))
@@ -73,6 +74,8 @@ public class CoreConstants {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
