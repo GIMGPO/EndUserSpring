@@ -27,9 +27,9 @@ import trisoftdp.web.core.DbWebHelper;
 import trisoftdp.core.DynException;
 import trisoftdp.core.DynamicPublishingPackage;
 import trisoftdp.core.MementoUserBean;
+import trisoftdp.core.PackageData;
 import trisoftdp.core.ProdEnvBean;
 import trisoftdp.core.ToolKit;
-import trisoftdp.web.core.PackageData;
 
 /**
  * Servlet implementation class DynDispatcher

@@ -6,7 +6,7 @@
 		the request parameter "rd" should be present and prodEnv should be in session.
 
 --%>
-<%@ page import="trisoftdp.web.core.PackageData" %>
+<%@ page import="trisoftdp.core.PackageData" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page errorPage="dynPubError.jsp"%>

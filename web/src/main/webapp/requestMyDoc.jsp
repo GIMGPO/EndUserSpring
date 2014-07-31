@@ -6,7 +6,7 @@ java.util.Date, java.util.Enumeration,
 java.util.Locale, java.io.File,	java.util.Map,java.util.HashMap" %> 
 <%@ page import="org.apache.commons.lang3.LocaleUtils" %>
 <%@ page import="trisoftdp.processing.*,trisoftdp.core.*" %>
-<%@ page import="trisoftdp.web.core.PackageData" %>
+<%@ page import="trisoftdp.core.PackageData" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <%@ page errorPage="dynPubError.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
