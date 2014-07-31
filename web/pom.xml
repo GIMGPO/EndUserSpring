@@ -21,7 +21,7 @@
 		<groupId>javax.mail</groupId>
 		<artifactId>mail</artifactId>
 		<version>1.4</version>
-		<scope>provided</scope>
+		<scope>runtime</scope>
  	</dependency>
  	          
 	<dependency>
@@ -55,9 +55,23 @@
   	<dependency>
   		<groupId>com.emc.dynpub</groupId>
   		<artifactId>EndUserSpring-lib</artifactId>
-  		<scope>provided</scope>
+  		<scope>runtime</scope>
   	</dependency>
   	
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+<!--           <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes> -->
+			<packagingIncludes>WEB-INF/lib/*.jar</packagingIncludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
 
 </project>
