@@ -7,7 +7,7 @@
     <bean id="RemotePublisher" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
         
         <!-- serviceUrl represents RMI Service Url called-->
-	    <property name="serviceUrl" value="rmi://192.168.1.162:1099/RemotePublisherImpl"/>
+	    <property name="serviceUrl" value="rmi://10.254.175.229:1099/RemotePublisherImpl"/>
 	    
 	    <!-- serviceInterface represents RMI Service Interface called -->
 	    <property name="serviceInterface" value="trisoftdp.processing.RemotePublisher"/>
