@@ -49,9 +49,15 @@
 		<groupId>org.apache.commons</groupId>
 		<artifactId>commons-lang3</artifactId>
 		<version>3.0</version>
-		<scope>provided</scope>
+		<scope>runtime</scope>
 	</dependency>
   	
+  	<dependency>
+		<groupId>org.tuckey</groupId>
+		<artifactId>urlrewritefilter</artifactId>
+		<version>4.0.4</version>
+	</dependency>
+
   	<dependency>
   		<groupId>com.emc.dynpub</groupId>
   		<artifactId>EndUserSpring-lib</artifactId>
@@ -59,19 +65,18 @@
   	</dependency>
   	
   </dependencies>
-
+<!-- 
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.4</version>
         <configuration>
-<!--           <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes> -->
 			<packagingIncludes>WEB-INF/lib/*.jar</packagingIncludes>
         </configuration>
       </plugin>
     </plugins>
   </build>
   
-
+ -->
 </project>

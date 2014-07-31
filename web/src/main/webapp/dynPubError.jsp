@@ -1,7 +1,7 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="trisoftdp.core.*" %>
+<%@ page import="trisoftdp.core.CoreConstants, trisoftdp.core.ProductGroupData" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
