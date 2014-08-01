@@ -1,4 +1,4 @@
-package trisoftdp.db;
+package trisoft.web.db;
 
 import static org.junit.Assert.*;
 
@@ -22,6 +22,8 @@ import org.junit.Test;
 
 import trisoftdp.core.DynException;
 import trisoftdp.core.DynamicPublishingPackage;
+import trisoftdp.web.db.JobMark;
+import trisoftdp.web.db.JobResult;
 
 public class JobResultTest {
 

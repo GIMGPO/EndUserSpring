@@ -1,4 +1,4 @@
-package trisoftdp.db;
+package trisoftdp.web.db;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

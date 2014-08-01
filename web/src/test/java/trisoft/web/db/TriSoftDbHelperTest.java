@@ -1,10 +1,13 @@
-package trisoftdp.db;
+package trisoft.web.db;
 
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 
 import org.junit.Test;
+
+import trisoftdp.db.TriSoftDb;
+import trisoftdp.web.db.TriSoftDbHelper;
 
 public class TriSoftDbHelperTest {
 

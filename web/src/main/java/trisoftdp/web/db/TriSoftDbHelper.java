@@ -1,4 +1,4 @@
-package trisoftdp.db;
+package trisoftdp.web.db;
 
 import java.io.File;
 import java.io.ObjectInputStream;
@@ -20,6 +20,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import trisoftdp.core.DynException;
+import trisoftdp.db.TriSoftDb;
+import trisoftdp.web.db.JobResult.JOB_STATUS;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package trisoftdp.db;
+package trisoftdp.web.db;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

@@ -19,6 +19,7 @@ import trisoftdp.core.UserBean;
 import trisoftdp.db.TriSoftDb;
 import trisoftdp.processing.Publisher;
 import trisoftdp.processing.PublisherImpl;
+import trisoftdp.web.db.TriSoftDbHelper;
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -109,7 +110,8 @@ public class DynPubServletFileUpload extends HttpServlet {
 			ToolKit.copyDirectory(src,trgt);*/
 
 			// write to the db
-			db = ToolKit.newDB();
+			//db = ToolKit.newDB();
+			db = new TriSoftDbHelper();
 			db.saveResult(currentId, ToolKit.getMD5(user.getUserPack()), user.getUserPack(), null);
 			db.markRecord(currentId, "generic");
 			CoreConstants.logger.info("SUCCESS: Saved request to db with Id=" + currentId + ", it was marked as generic.");

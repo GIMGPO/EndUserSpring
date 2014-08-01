@@ -29,7 +29,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import trisoftdp.db.TriSoftDb;
-import trisoftdp.db.TriSoftDbHelper;
 import trisoftdp.db.TrisoftDbImplMySQL;
 
 
@@ -217,12 +216,12 @@ public class ToolKit {
 		return md5;
 	}
 
-	public static TriSoftDb newDB() throws SQLException {
+	private static TriSoftDb newDB() throws SQLException {
 		TriSoftDb db = null;
 		//db = new TrisoftDbImpl();
 		//db = new TrisoftDbImplMySQL();
-		//db = new TrisoftDbImplMySQL(TrisoftDbImplMySQL.url);
-		db = new TriSoftDbHelper();
+		db = new TrisoftDbImplMySQL(TrisoftDbImplMySQL.url);
+		//db = new TriSoftDbHelper();
 		return db;
 	}
 

@@ -1,4 +1,4 @@
-package trisoftdp.processing;
+package trisoftdp.web.processing;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,6 +22,8 @@ import trisoftdp.core.DynMail;
 import trisoftdp.core.DynamicPublishingPackage;
 import trisoftdp.core.ToolKit;
 import trisoftdp.db.TriSoftDb;
+import trisoftdp.processing.RemotePublisher;
+import trisoftdp.web.db.TriSoftDbHelper;
 import trisoftdp.core.DynPubNotifications;
 import trisoftdp.core.MementoUserBean;
 import trisoftdp.core.ProdEnvBean;
@@ -73,7 +75,8 @@ public class DynPubJob implements Runnable {
 		String md5 = null;
 		try {
 			md5 = ToolKit.getMD5(pack);
-			db = ToolKit.newDB();
+//			db = ToolKit.newDB();
+			db = new TriSoftDbHelper();
 			logger.info("Processing started");			
 			//id = publisher.process(configId, contentFolder, configFolder, pack, legend, lang, prodEnv);
 			oldId = db.getResultId(md5);

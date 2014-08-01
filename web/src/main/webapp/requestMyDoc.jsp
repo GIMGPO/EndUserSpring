@@ -5,14 +5,14 @@ java.util.List, java.util.ResourceBundle, java.util.Set, java.util.Vector,
 java.util.Date, java.util.Enumeration,
 java.util.Locale, java.io.File,	java.util.Map,java.util.HashMap" %> 
 <%@ page import="org.apache.commons.lang3.LocaleUtils" %>
-<%@ page import="trisoftdp.processing.*,trisoftdp.core.*" %>
-<%@ page import="trisoftdp.core.PackageData" %>
+<%@ page import="trisoftdp.core.*" %>
+<%@ page import="trisoftdp.web.processing.DynPubJob, trisoftdp.web.processing.DynPubThreadPoolExecutor" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <%@ page errorPage="dynPubError.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<jsp:useBean id="user" scope="session" class="trisoftdp.core.MementoUserBean" />
+<jsp:useBean id="user" scope="session" class="trisoftdp.web.core.WebMementoUserBean" />
 <jsp:useBean id="prodEnv" scope="session" class="trisoftdp.core.ProdEnvBean" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

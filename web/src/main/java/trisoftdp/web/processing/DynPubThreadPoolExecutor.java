@@ -1,4 +1,4 @@
-package trisoftdp.processing;
+package trisoftdp.web.processing;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
