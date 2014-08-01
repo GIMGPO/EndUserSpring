@@ -7,9 +7,10 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import trisoftdp.core.CoreConstants;
+import trisoftdp.web.core.WebConstants;
 
 public class DynPubThreadPoolExecutor extends ThreadPoolExecutor {	
-	public static final Semaphore available = new Semaphore(CoreConstants.maxAvailable, true);
+	public static final Semaphore available = new Semaphore(WebConstants.maxAvailable, true);
 	private static final BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<Runnable>(10);
 	private static volatile DynPubThreadPoolExecutor theOnlyInstance = null; 
 	private static final AtomicInteger runningJobCount = new AtomicInteger(0);
@@ -33,7 +34,7 @@ public class DynPubThreadPoolExecutor extends ThreadPoolExecutor {
 		 * @param unit  - the time unit for the keepAliveTime argument.
 		 * @param workQueue - the queue to use for holding tasks before they are executed. This queue will hold only the Runnable tasks submitted by the execute method
 		 */
-		super(CoreConstants.corePoolSize,CoreConstants.maximumPoolSize, CoreConstants.keepAliveTime, CoreConstants.unit, workQueue);
+		super(WebConstants.corePoolSize,WebConstants.maximumPoolSize, WebConstants.keepAliveTime, WebConstants.unit, workQueue);
 	}
  
 	public static void incrementRunningJobCount() { runningJobCount.getAndIncrement(); }
