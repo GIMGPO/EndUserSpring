@@ -2,21 +2,17 @@ package trisoftdp.core;
 
 import java.io.Serializable;
 import java.util.EmptyStackException;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSessionBindingListener;
-
-public class MementoUserBean extends UserBean implements HttpSessionBindingListener, Serializable {
+public class MementoUserBean extends UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Stack<DynamicPublishingPackage> userPackStack = new Stack<DynamicPublishingPackage>(); 
 	private Stack<Map<String,String>> legendStack = new Stack<Map<String,String>>();
-	private Stack<Map<String,String[]>> requestParamsStack = new Stack<Map<String,String[]>>();
-	private Map<String,String[]> requestParams = new HashMap<String,String[]>();
+	protected Stack<Map<String,String[]>> requestParamsStack = new Stack<Map<String,String[]>>();
+	protected Map<String,String[]> requestParams = new HashMap<String,String[]>();
 
 	public MementoUserBean() { super(); } 
 	
@@ -43,23 +39,7 @@ public class MementoUserBean extends UserBean implements HttpSessionBindingListe
 		popLegend();
 		requestParams = requestParamsStack.pop();
 	}
-	
-	public void push(HttpServletRequest request) throws DynException {
-		pushUserPack();
-		pushLegend();
-		if(request == null)
-			return;
-		requestParams = new HashMap<String,String[]>();
-		@SuppressWarnings("unchecked")
-		Enumeration<String>pars = request.getParameterNames();
-		String param;
-		while(pars.hasMoreElements()) {
-			param = pars.nextElement();
-			requestParams.put(param, request.getParameterValues(param).clone());
-		}
-		requestParamsStack.push(requestParams);
-	}
-	
+		
 	private void popUserPack() throws DynException {
 		try {
 			setUserPack(userPackStack.pop());
@@ -68,7 +48,7 @@ public class MementoUserBean extends UserBean implements HttpSessionBindingListe
 		}
 	}
 	
-	private void pushUserPack() throws DynException {
+	protected void pushUserPack() throws DynException {
 		DynamicPublishingPackage up;
 		try {
 			up = getUserPack();
@@ -89,7 +69,7 @@ public class MementoUserBean extends UserBean implements HttpSessionBindingListe
 		}
 	}
 	
-	private void pushLegend() {
+	protected void pushLegend() {
 			if(getPubLegend() == null)
 				return; 
 			Map<String,String> legend = new HashMap<String,String>();

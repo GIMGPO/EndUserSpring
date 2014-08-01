@@ -26,7 +26,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.servlet.ServletException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -57,16 +56,16 @@ public class PackageData {
 		dbf.setExpandEntityReferences(true);
 	}
 
-	public static void validateUserPack(DynamicPublishingPackage pack) throws ServletException {
+	public static void validateUserPack(DynamicPublishingPackage pack) throws DynException {
 //!!!!		for()
 		for(Profile p : pack.profiles) {
 			if(p.id == null)
-				throw new ServletException("profile " + p.name + " does not have id");
+				throw new DynException("profile " + p.name + " does not have id");
 			if(p.values.length == 0)
-				throw new ServletException("profile does not have values");
+				throw new DynException("profile does not have values");
 			for(ProfileValue v: p.values)
 				if( v.id == null)
-					throw new ServletException("value does not have id");
+					throw new DynException("value does not have id");
 		}
 	}
 

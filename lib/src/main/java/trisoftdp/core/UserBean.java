@@ -3,10 +3,7 @@ package trisoftdp.core;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-
-public class UserBean implements HttpSessionBindingListener, Serializable {
+public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String userEmail;
 	private String configId;
@@ -53,16 +50,6 @@ public class UserBean implements HttpSessionBindingListener, Serializable {
 		pubLegend = null;
 		dynPack = null;
 		userPack = null;
-	}
-
-//	@Override
-	public void valueBound(HttpSessionBindingEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-//	@Override
-	public void valueUnbound(HttpSessionBindingEvent arg0) {
-		//System.out.println("UserBean.valueUnbound() called");	
 	}
 
 }

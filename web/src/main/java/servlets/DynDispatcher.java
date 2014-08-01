@@ -23,13 +23,13 @@ import org.apache.commons.lang3.LocaleUtils;
 
 import trisoftdp.core.CoreConstants;
 import trisoftdp.core.CoreConstants.REQUEST_PARAM;
-import trisoftdp.web.core.DbWebHelper;
 import trisoftdp.core.DynException;
 import trisoftdp.core.DynamicPublishingPackage;
-import trisoftdp.core.MementoUserBean;
 import trisoftdp.core.PackageData;
 import trisoftdp.core.ProdEnvBean;
 import trisoftdp.core.ToolKit;
+import trisoftdp.web.core.DbWebHelper;
+import trisoftdp.web.core.WebMementoUserBean;
 
 /**
  * Servlet implementation class DynDispatcher
@@ -95,7 +95,7 @@ public class DynDispatcher extends HttpServlet {
 	    Map<String,String> appStringsMap = new HashMap<String,String>();
 		Locale l = LocaleUtils.toLocale(bl);
 		CoreConstants.populateMap(appStringsMap, ResourceBundle.getBundle("appStr", l));
-		MementoUserBean user = null; 
+		WebMementoUserBean user = null; 
 		Matcher mtch;
 		boolean goBack = request.getParameter(REQUEST_PARAM.previous.name()) != null;
 		boolean goRelDocs = false;
@@ -112,10 +112,10 @@ public class DynDispatcher extends HttpServlet {
 		}
 		
 		synchronized (session) {                                                                                                                                      
-			user = (MementoUserBean) session.getAttribute("user");      
+			user = (WebMementoUserBean) session.getAttribute("user");      
 
 	        if (user == null) {                                                                                                                                          
-	          user = new trisoftdp.core.MementoUserBean();                                                                                                              
+	          user = new WebMementoUserBean();                                                                                                              
 	          session.setAttribute("user", user);                                                               
 	        } 
 	        if(user.getPubLegend() == null) 
@@ -375,10 +375,10 @@ public class DynDispatcher extends HttpServlet {
 			Long resId = -1L;
 			// We do not have user choice for output format yet. So, for now we generate pdfs only
 			user.getUserPack().outputType = DynamicPublishingPackage.OUTPUT_TYPE.valueOf("pdf2");
-			System.out.println("UserPack:\n" + ToolKit.printRequest(user.getUserPack()));
-			PackageData.validateUserPack(user.getUserPack());
-			// Trying to retrieve result ID from the database (using pub request MD5)
+			System.out.println("UserPack:\n" + ToolKit.printRequest(user.getUserPack()));			
 			try {
+				PackageData.validateUserPack(user.getUserPack());
+				// Trying to retrieve result ID from the database (using pub request MD5)
 				resId = DbWebHelper.getResultId(ToolKit.getMD5(user.getUserPack()));
 			} catch (DynException e) {
 				throw new ServletException("DynException:" + e.getMessage());
@@ -416,7 +416,7 @@ public class DynDispatcher extends HttpServlet {
 		if (session == null)
 			return;
 		synchronized (session) {
-			MementoUserBean user = (MementoUserBean) session.getAttribute("user");
+			WebMementoUserBean user = (WebMementoUserBean) session.getAttribute("user");
 			if (user != null)
 				user.clean();
 			ProdEnvBean prodEnv = (ProdEnvBean) session.getAttribute("prodEnv");

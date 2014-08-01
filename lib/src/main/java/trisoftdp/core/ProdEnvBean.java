@@ -3,11 +3,7 @@ package trisoftdp.core;
 import java.io.File;
 import java.io.Serializable;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-
-public class ProdEnvBean implements HttpSessionBindingListener, Serializable {
+public class ProdEnvBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String productDir;
 	private String prodConfigDir;
@@ -82,16 +78,6 @@ public class ProdEnvBean implements HttpSessionBindingListener, Serializable {
 		prodShowRelease = null;
 		prodL10NSupport = null;
 		prodResourceBundle = null;
-	}
-
-//	@Override
-	public void valueBound(HttpSessionBindingEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-//	@Override
-	public void valueUnbound(HttpSessionBindingEvent arg0) {
-		//System.out.println("UserBean.valueUnbound() called");	
 	}
 
 }

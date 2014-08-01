@@ -11,14 +11,14 @@ import trisoftdp.core.DynamicPublishingPackage;
 import trisoftdp.core.MementoUserBean;
 import trisoftdp.core.DynamicPublishingPackage.DitaMap;
 
-public class MementoUserBeanTest {
+public class WebMementoUserBeanTest {
 	
 	@Test
 	public void fakeTest() {}
 	
 //	@Test
 	public void pushPopTest() {
-		MementoUserBean mub = new MementoUserBean();
+		WebMementoUserBean mub = new WebMementoUserBean();
 		DynamicPublishingPackage userPack = new DynamicPublishingPackage();
 		mub.setPubLegend(new HashMap<String,String>());
 		userPack.packageName = "package1";
