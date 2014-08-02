@@ -6,7 +6,6 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import trisoftdp.core.CoreConstants;
 import trisoftdp.web.core.WebConstants;
 
 public class DynPubThreadPoolExecutor extends ThreadPoolExecutor {	
@@ -18,7 +17,8 @@ public class DynPubThreadPoolExecutor extends ThreadPoolExecutor {
 	public static DynPubThreadPoolExecutor getExecutor() {
 		if(theOnlyInstance == null) {
 			synchronized(DynPubThreadPoolExecutor.class) {
-				theOnlyInstance = new DynPubThreadPoolExecutor();
+				if(theOnlyInstance == null) //checking again because some time elapsed 
+					theOnlyInstance = new DynPubThreadPoolExecutor();
 			}
 		}
 		return theOnlyInstance;

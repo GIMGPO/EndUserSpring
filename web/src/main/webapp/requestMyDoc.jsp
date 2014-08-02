@@ -1,5 +1,6 @@
 		
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="java.util.concurrent.Future" %>
 <%@ page import="java.util.Arrays, java.util.TreeSet, java.util.HashSet,
 java.util.List, java.util.ResourceBundle, java.util.Set, java.util.Vector,
 java.util.Date, java.util.Enumeration,
@@ -652,8 +653,8 @@ if ((user.getDynPack() != null) && (session.getAttribute("visibleProfiles") != n
 // 			thread.start();
 
 //TODO expect  CloneNotSupportedException
-			DynPubJob job = new DynPubJob(user, prodEnv, appStringsMap, (String) session.getAttribute("lang"));
-			DynPubThreadPoolExecutor.getExecutor().submit(job);
+			DynPubJob job = new DynPubJob(user, prodEnv, appStringsMap, (String) session.getAttribute("lang"));			
+			DynPubThreadPoolExecutor.getExecutor().submit(job);		
 %>
           <p><fmt:message key="main.delivery.thanks1" /></p>
 	      <p><fmt:message key="main.delivery.thanks2" /></p>
