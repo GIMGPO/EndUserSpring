@@ -653,7 +653,7 @@ if ((user.getDynPack() != null) && (session.getAttribute("visibleProfiles") != n
 // 			thread.start();
 
 //TODO expect  CloneNotSupportedException
-			DynPubJob job = new DynPubJob(user, prodEnv, appStringsMap, (String) session.getAttribute("lang"));			
+			DynPubJob job = new DynPubJob(user.extractUserBean(), prodEnv, appStringsMap, (String) session.getAttribute("lang"));			
 			DynPubThreadPoolExecutor.getExecutor().submit(job);		
 %>
           <p><fmt:message key="main.delivery.thanks1" /></p>

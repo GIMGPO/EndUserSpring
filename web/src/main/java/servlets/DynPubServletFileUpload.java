@@ -12,13 +12,13 @@ import javax.servlet.http.HttpSession;
 
 import trisoftdp.core.CoreConstants;
 import trisoftdp.core.DynException;
-import trisoftdp.core.MementoUserBean;
+import trisoftdp.core.UserBean;
 import trisoftdp.core.ProdEnvBean;
 import trisoftdp.core.ToolKit;
-import trisoftdp.core.UserBean;
 import trisoftdp.db.TriSoftDb;
 import trisoftdp.processing.Publisher;
 import trisoftdp.processing.PublisherImpl;
+import trisoftdp.web.core.WebMementoUserBean;
 import trisoftdp.web.db.TriSoftDbHelper;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -76,7 +76,7 @@ public class DynPubServletFileUpload extends HttpServlet {
 		CoreConstants.logger.info("currentId=" + currentId);
 
 		//the userPack and pubLegend are taken from the session
-		MementoUserBean user =  (MementoUserBean) req.getSession().getAttribute("user");
+		WebMementoUserBean user =  (WebMementoUserBean) req.getSession().getAttribute("user");
 		if(user == null || user.getUserPack() == null)
 			throw new ServletException("No user bean or pack found in the session!");
 

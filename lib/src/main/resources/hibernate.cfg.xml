@@ -14,7 +14,7 @@
   <property name="show_sql">true</property>
   <property name="current_session_context_class">thread</property>
   
-  <mapping class="trisoftdp.db.JobMark"/>
-  <mapping class="trisoftdp.db.JobResult"/>
+  <mapping class="trisoftdp.web.db.JobMark"/>
+  <mapping class="trisoftdp.web.db.JobResult"/>
  </session-factory>
 </hibernate-configuration>

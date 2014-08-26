@@ -10,7 +10,7 @@ import trisoftdp.core.DynException;
 import trisoftdp.core.DynamicPublishingPackage;
 import trisoftdp.processing.Publisher;
 import trisoftdp.processing.RemotePublisher;
-import trisoftdp.core.MementoUserBean;
+import trisoftdp.core.UserBean;
 import trisoftdp.core.ProdEnvBean;
 
 public class RemotePublisherImpl implements RemotePublisher {
@@ -27,11 +27,11 @@ public class RemotePublisherImpl implements RemotePublisher {
 		//System.out.format("id=%d configId=%s lang=%s%n", id, configId, lang);
 	}
 
-	public long process(MementoUserBean user, ProdEnvBean prodEnv, String lang)	throws DynException, IOException {
+	public long process(UserBean user, ProdEnvBean prodEnv, String lang)	throws DynException, IOException {
 		return localPublisher.process(user, prodEnv, lang);
 	}
 	
-	public void processStatic(long id, MementoUserBean user, ProdEnvBean prodEnv, String lang, byte[] uploadedFileData, boolean cleanup) throws DynException, IOException {
+	public void processStatic(long id, UserBean user, ProdEnvBean prodEnv, String lang, byte[] uploadedFileData, boolean cleanup) throws DynException, IOException {
 		// TODO do not forget to unzip if it is really a zip file
 		File tmpFile = File.createTempFile("upload", ".zip");
 		FileOutputStream fos = new FileOutputStream(tmpFile);

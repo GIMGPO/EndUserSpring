@@ -22,7 +22,7 @@ public class DynPubNotifications {
 		return script;
 	}
 	
-	public static String getUserPackDetails(String userEmail, MementoUserBean user, Map<String,String> appStringsMap) {
+	public static String getUserPackDetails(String userEmail, UserBean user, Map<String,String> appStringsMap) {
 		String script = "";
 		script += "<div style = 'font-family: Verdana; font-size: 12px; line-height: 16px;'>\n";
 		if (userEmail != null)

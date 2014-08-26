@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import trisoftdp.core.DynException;
 import trisoftdp.core.DynamicPublishingPackage;
-import trisoftdp.core.MementoUserBean;
 import trisoftdp.core.DynamicPublishingPackage.DitaMap;
 
 public class WebMementoUserBeanTest {

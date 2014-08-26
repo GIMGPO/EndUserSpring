@@ -16,7 +16,7 @@ import trisoftdp.core.CoreConstants;
 import trisoftdp.core.DynMail;
 import trisoftdp.core.DynPubNotifications;
 import trisoftdp.core.DynamicPublishingPackage;
-import trisoftdp.core.MementoUserBean;
+import trisoftdp.core.UserBean;
 import trisoftdp.core.ProdEnvBean;
 
 /**
@@ -45,7 +45,7 @@ public class DynPubMissingStaticContent extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProdEnvBean prodEnv = (ProdEnvBean) request.getSession().getAttribute("prodEnv");  
-		MementoUserBean user = (MementoUserBean) request.getSession().getAttribute("user"); 
+		UserBean user = (UserBean) request.getSession().getAttribute("user"); 
 		Map<String,String> appStringsMap = new HashMap<String,String>();
 		Locale l = (Locale) response.getLocale();
 		CoreConstants.populateMap(appStringsMap, ResourceBundle.getBundle("appStr", l));

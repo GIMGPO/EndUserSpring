@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import trisoftdp.core.CoreConstants;
 import trisoftdp.core.DynMail;
 import trisoftdp.core.DynPubNotifications;
-import trisoftdp.core.MementoUserBean;
 import trisoftdp.core.ProdEnvBean;
+import trisoftdp.web.core.WebMementoUserBean;
 
 /**
  * Servlet implementation class sendFeedback
@@ -47,7 +47,7 @@ public class sendFeedback extends HttpServlet {
 		if(request.getCharacterEncoding() == null)
 			   request.setCharacterEncoding("UTF-8");
 		ProdEnvBean prodEnv = (ProdEnvBean) request.getSession().getAttribute("prodEnv");  
-		MementoUserBean user = (MementoUserBean) request.getSession().getAttribute("user"); 
+		WebMementoUserBean user = (WebMementoUserBean) request.getSession().getAttribute("user"); 
 		Map<String,String> appStringsMap = new HashMap<String,String>();
 		Locale l = (Locale) response.getLocale();
 		CoreConstants.populateMap(appStringsMap, ResourceBundle.getBundle("appStr", l));

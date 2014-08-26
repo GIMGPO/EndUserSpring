@@ -33,7 +33,7 @@ import trisoftdp.core.DynamicPublishingPackage;
 import trisoftdp.core.DynamicPublishingPackage.Profile;
 import trisoftdp.core.DynamicPublishingPackage.ProfileValue;
 import trisoftdp.core.ToolKit;
-import trisoftdp.core.MementoUserBean;
+import trisoftdp.core.UserBean;
 import trisoftdp.core.ProdEnvBean;
 
 import com.sun.org.apache.xerces.internal.dom.DocumentImpl;
@@ -62,7 +62,7 @@ public class PublisherImpl implements Publisher {
 
 	
 //	@Override
-	public void processStatic(long id, MementoUserBean user, 
+	public void processStatic(long id, UserBean user, 
 			ProdEnvBean prodEnv, String lang, File uploadedFile, boolean cleanup) throws DynException, IOException {
 		File profilesXML;
 		//String locFolder = CoreConstants.languagesMap.get(lang);
@@ -326,7 +326,7 @@ public class PublisherImpl implements Publisher {
 		}
 	}
 
-	public long process(MementoUserBean user, ProdEnvBean prodEnv, String lang) throws DynException, IOException {
+	public long process(UserBean user, ProdEnvBean prodEnv, String lang) throws DynException, IOException {
 		long id = ToolKit.generateId();
 		DynamicPublishingPackage pack = user.getUserPack();
 		String configId = user.getConfigId();

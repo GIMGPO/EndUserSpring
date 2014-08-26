@@ -25,7 +25,7 @@ import trisoftdp.db.TriSoftDb;
 import trisoftdp.processing.RemotePublisher;
 import trisoftdp.web.db.TriSoftDbHelper;
 import trisoftdp.core.DynPubNotifications;
-import trisoftdp.core.MementoUserBean;
+import trisoftdp.core.UserBean;
 import trisoftdp.core.ProdEnvBean;
 
 public class DynPubJob implements Runnable {
@@ -34,10 +34,10 @@ public class DynPubJob implements Runnable {
 	private final Map<String,String> appStringsMap;
 	private final String lang;
 	private final ProdEnvBean prodEnv;
-	private final MementoUserBean user;
+	private final UserBean user;
 //	private final DynamicPublishingPackage pack;
 
-	public DynPubJob (MementoUserBean user, ProdEnvBean prodEnv, Map<String,String> appStringsMap, String lang) throws CloneNotSupportedException, IOException, ClassNotFoundException {
+	public DynPubJob (UserBean user, ProdEnvBean prodEnv, Map<String,String> appStringsMap, String lang) throws CloneNotSupportedException, IOException, ClassNotFoundException {
 		this.appStringsMap = appStringsMap;
 		this.lang = lang;
 		
@@ -51,7 +51,7 @@ public class DynPubJob implements Runnable {
 		oos.close();
 		obj = baos.toByteArray();
 		ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(obj));
-		this.user = (MementoUserBean) in.readObject();
+		this.user = (UserBean) in.readObject();
 		in.close();
 		//prodEnv
 		baos = new ByteArrayOutputStream();
@@ -81,6 +81,7 @@ public class DynPubJob implements Runnable {
 			//id = publisher.process(configId, contentFolder, configFolder, pack, legend, lang, prodEnv);
 			oldId = db.getResultId(md5);
 			//TODO do not forget to remove the pack info
+			//TODO emails is not going to be printed
 			logger.info("Request pack:\n" + ToolKit.printRequest(pack) + "\nUser e-mail: " + emails);
 			if(oldId > 0) {
 				logger.info("Request has been processed before. md5=" + md5);
