@@ -36,7 +36,7 @@
   		<configuration>
     		<archive>
       			<manifest>
-        			<mainClass>trisofttdp.rmi.server.RemotePublisherStarter</mainClass>
+        			<mainClass>trisoftdp.rmi.server.RemotePublisherStarter</mainClass>
       			</manifest>
     		</archive>
     	<descriptorRefs>

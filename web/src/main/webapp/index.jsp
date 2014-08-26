@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<jsp:useBean id="user" scope="session" class="trisoftdp.core.MementoUserBean" />
+<jsp:useBean id="user" scope="session" class="trisoftdp.web.core.WebMementoUserBean" />
 <jsp:useBean id="prodEnv" scope="session" class="trisoftdp.core.ProdEnvBean" />
 <%@ include file="./includes/headHtml.jspf" %>
 
