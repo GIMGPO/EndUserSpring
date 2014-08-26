@@ -44,7 +44,7 @@ public class TriSoftDbHelper implements TriSoftDb {
         }
         catch (Throwable e) {
             e.printStackTrace();
-            throw new ExceptionInInitializerError(e);
+            throw new ExceptionInInitializerError(e.getMessage());
         }
     }
 
