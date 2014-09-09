@@ -3,11 +3,10 @@
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
  <session-factory>
-<!--   <property name="hibernate.connection.datasource">java:jdbc/lca_dp_dev</property> -->
 
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.password">cat</property>
-  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/lca_dp_dev</property>
+  <property name="hibernate.connection.url">jdbc:mysql://10.105.128.90:3306/tdp_ghe_ext_test</property>
   <property name="hibernate.connection.username">tomcat</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
