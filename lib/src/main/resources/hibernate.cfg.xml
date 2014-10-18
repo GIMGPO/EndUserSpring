@@ -13,7 +13,17 @@
   <property name="show_sql">true</property>
   <property name="current_session_context_class">thread</property>
   
+   <property name="hibernate.c3p0.max_size">1</property>
+    <property name="hibernate.c3p0.min_size">0</property>
+    <property name="hibernate.c3p0.timeout">5000</property>
+    <property name="hibernate.c3p0.max_statements">1000</property>
+    <property name="hibernate.c3p0.idle_test_period">300</property>
+    <property name="hibernate.c3p0.acquire_increment">1</property>
+  
   <mapping class="trisoftdp.web.db.JobMark"/>
   <mapping class="trisoftdp.web.db.JobResult"/>
+  
+ 
+  
  </session-factory>
 </hibernate-configuration>
