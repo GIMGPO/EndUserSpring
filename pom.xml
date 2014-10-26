@@ -9,11 +9,26 @@
   	<module>lib</module>
   	<module>web</module>
   	<module>bld</module>
+  	<module>ejb</module>
+  	<module>ear</module>
   </modules>
   
-  <properties>
+  <properties>  
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+        <version.jboss.bom>1.0.7.Final</version.jboss.bom>
+        <version.jboss.as>7.2.0.Final</version.jboss.as>
+ 
 	    <spring.version>4.0.6.RELEASE</spring.version>        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.ear.plugin>2.6</version.ear.plugin>
+        <version.ejb.plugin>2.3</version.ejb.plugin>
+        <version.surefire.plugin>2.10</version.surefire.plugin>
+        <version.war.plugin>2.1.1</version.war.plugin>   
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>  
   </properties>
    
   <dependencyManagement>
@@ -34,7 +49,39 @@
                 <scope>compile</scope>
             </dependency>
 
+			<dependency>
+                <groupId>com.emc.dynpub</groupId>
+                <artifactId>EndUserSpring-bld</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.emc.dynpub</groupId>
+                <artifactId>EndUserSpring-ejb</artifactId>
+                <version>${project.version}</version>
+                <type>ejb</type>
+                <scope>compile</scope>
+            </dependency>
+            
+        	<dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <version>${version.jboss.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+                <version>${version.jboss.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>     
   </dependencyManagement>      
  
+  <name>EndUserSpring</name>
 </project>

@@ -21,7 +21,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import trisoftdp.core.DynException;
 import trisoftdp.db.TriSoftDb;
-import trisoftdp.web.db.JobResult.JOB_STATUS;
+
 
 /**
  * 
