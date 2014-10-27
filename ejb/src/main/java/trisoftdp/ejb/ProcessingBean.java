@@ -16,5 +16,12 @@ public class ProcessingBean implements ProcessingBeanRemote, ProcessingBeanLocal
     public ProcessingBean() {
         // TODO Auto-generated constructor stub
     }
+    
+    public String sayHalloRemote(String name) {
+    	return "Hallo " + name;
+    }
 
+    public String sayHalloLocal(String name) {
+    	return "Hallo " + name;
+    }
 }

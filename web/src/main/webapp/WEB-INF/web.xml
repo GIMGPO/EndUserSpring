@@ -88,12 +88,16 @@
   	<servlet-name>sendFeedback</servlet-name>
   	<url-pattern>/sendFeedback</url-pattern>
   </servlet-mapping>
+  
+<!--  
   <resource-ref>
     <description>DB Connection</description>
     <res-ref-name>jdbc/tdp_ghe_ext_test</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
+-->
+
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
