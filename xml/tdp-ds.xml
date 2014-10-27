@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- $Id: shift-ds.xml,v 1.1 2014/01/17 19:30:08 ashalagi Exp $ -->
+
+<datasources>
+
+  <local-tx-datasource>
+    <jndi-name>shiftDS</jndi-name>
+    <connection-url>jdbc:postgresql://localhost/shift</connection-url>
+    <driver-class>org.postgresql.Driver</driver-class>
+    <user-name>tomcat</user-name>
+    <password>cat</password>
+        <new-connection-sql>select 1</new-connection-sql>
+      <metadata>
+         <type-mapping>mySQL</type-mapping>
+      </metadata>
+  </local-tx-datasource>
+
+</datasources>
