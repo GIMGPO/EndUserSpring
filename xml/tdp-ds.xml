@@ -1,19 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- $Id: shift-ds.xml,v 1.1 2014/01/17 19:30:08 ashalagi Exp $ -->
-
-<datasources>
-
-  <local-tx-datasource>
-    <jndi-name>shiftDS</jndi-name>
-    <connection-url>jdbc:postgresql://localhost/shift</connection-url>
-    <driver-class>org.postgresql.Driver</driver-class>
-    <user-name>tomcat</user-name>
-    <password>cat</password>
-        <new-connection-sql>select 1</new-connection-sql>
-      <metadata>
-         <type-mapping>mySQL</type-mapping>
-      </metadata>
-  </local-tx-datasource>
-
-</datasources>
+                                                                                                                                                                                            
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"                                                                           
+             xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_1.xsd">                                                      
+  <datasource                                                                                                                                                                                
+     jndi-name="java:jboss/tdp_ghe_ext_test"                                                                                                                                 
+     enabled="true"                                                                                                                                                                          
+     pool-name="photoalbum"                                                                                                                                                                  
+     se-java-context="true">                                                                                                                                                                 
+    <connection-url>jdbc:mysql://localhost:3306/tdp_ghe_ext_test</connection-url>                                                                                                            
+    <driver>h2</driver>                                                                                                                                                                      
+    <security>                                                                                                                                                                               
+      <user-name>tomcat</user-name>                                                                                                                                                          
+      <password>cat</password>                                                                                                                                                               
+    </security>                                                                                                                                                                              
+  </datasource>                                                                                                                                                                              
+</datasources>                                                                                                                                                                               
