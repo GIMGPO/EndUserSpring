@@ -1,16 +1,16 @@
-                                                                                                                                                                                            
-<datasources xmlns="http://www.jboss.org/ironjacamar/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"                                                                           
-             xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_1.xsd">                                                      
-  <datasource                                                                                                                                                                                
-     jndi-name="java:jboss/tdp_ghe_ext_test"                                                                                                                                 
-     enabled="true"                                                                                                                                                                          
-     pool-name="photoalbum"                                                                                                                                                                  
-     se-java-context="true">                                                                                                                                                                 
-    <connection-url>jdbc:mysql://localhost:3306/tdp_ghe_ext_test</connection-url>                                                                                                            
-    <driver>h2</driver>                                                                                                                                                                      
-    <security>                                                                                                                                                                               
-      <user-name>tomcat</user-name>                                                                                                                                                          
-      <password>cat</password>                                                                                                                                                               
-    </security>                                                                                                                                                                              
-  </datasource>                                                                                                                                                                              
-</datasources>                                                                                                                                                                               
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_1.xsd">
+
+  <datasource
+     jndi-name="java:jboss/jdbc/tdp_ghe_ext_test"
+     enabled="true"
+     pool-name="jdbc/tdp_ghe_ext_test"
+     se-java-context="true">
+    <connection-url>jdbc:mysql://localhost:3306/tdp_ghe_ext_test</connection-url>
+    <driver>mysql-connector-java-5.1.19-bin.jar</driver>
+    <security>
+      <user-name>tomcat</user-name>
+      <password>cat</password>
+    </security>
+  </datasource>
+</datasources>
