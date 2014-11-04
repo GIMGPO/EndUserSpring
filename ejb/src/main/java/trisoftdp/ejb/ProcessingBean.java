@@ -8,7 +8,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 @LocalBean
-public class ProcessingBean implements ProcessingBeanRemote, ProcessingBeanLocal {
+public class ProcessingBean implements ProcessingRemote {
 
     /**
      * Default constructor. 
@@ -21,7 +21,4 @@ public class ProcessingBean implements ProcessingBeanRemote, ProcessingBeanLocal
     	return "Hallo " + name;
     }
 
-    public String sayHalloLocal(String name) {
-    	return "Hallo " + name;
-    }
 }

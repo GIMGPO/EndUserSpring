@@ -8,6 +8,43 @@
   <artifactId>EndUserSpring-web</artifactId>
   <packaging>war</packaging>
 
+  <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+ 
+        <!-- JBoss dependency versions -->
+        <version.org.jboss.as>7.1.1.Final</version.org.jboss.as>
+        <version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
+        <version.org.jboss.spec.jboss.javaee.6.0>3.0.0.Final</version.org.jboss.spec.jboss.javaee.6.0>
+ 
+        <!-- other plugin versions -->
+        <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.exec.plugin>1.2.1</version.exec.plugin>
+         
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+    </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-6.0</artifactId>
+                <version>${version.org.jboss.spec.jboss.javaee.6.0}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+ 
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-ejb-client-bom</artifactId>
+                <version>${version.org.jboss.as}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
   <dependencies>
   
     <dependency>
@@ -40,14 +77,13 @@
 		<groupId>servlets.com</groupId>
 		<artifactId>cos</artifactId>
 		<version>05Nov2002</version>
-		<scope>provided</scope>
+<!-- 		<scope>provided</scope> -->
 	</dependency>
 	
 	<dependency>
 		<groupId>org.apache.commons</groupId>
 		<artifactId>commons-lang3</artifactId>
-<!-- 		<version>3.0</version> -->
-		<scope>provided</scope>
+<!-- 		<scope>provided</scope> -->
 		<version>${version.commons-lang3}</version>
 	</dependency>
   	
@@ -62,13 +98,62 @@
 		<artifactId>urlrewritefilter</artifactId>
 		<version>4.0.4</version>
 	</dependency>
+	
+	    <dependency>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss</groupId>
+            <artifactId>jboss-ejb-client</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- client communications with the server use XNIO -->
+        <dependency>
+            <groupId>org.jboss.xnio</groupId>
+            <artifactId>xnio-api</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.xnio</groupId>
+            <artifactId>xnio-nio</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- The client needs JBoss remoting to access the server -->
+        <dependency>
+            <groupId>org.jboss.remoting3</groupId>
+            <artifactId>jboss-remoting</artifactId>
+            <scope>runtime</scope>
+        </dependency> 
+        <!-- Remote EJB accesses can be secured -->
+        <dependency>
+            <groupId>org.jboss.sasl</groupId>
+            <artifactId>jboss-sasl</artifactId>
+            <scope>runtime</scope>
+        </dependency> 
+        <!-- data serialization for invoking remote EJBs -->
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling-river</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
-  	<dependency>
-  		<groupId>com.emc.dynpub</groupId>
-  		<artifactId>EndUserSpring-lib</artifactId>
-  		<scope>runtime</scope>
-  	</dependency>
-  	
+  		<dependency>
+  			<groupId>com.emc.dynpub</groupId>
+  			<artifactId>EndUserSpring-lib</artifactId>
+  			<scope>runtime</scope>
+  		</dependency>
+  	    <dependency>
+       		<groupId>com.emc.dynpub</groupId>
+       		<artifactId>EndUserSpring-ejb</artifactId>
+       		<type>ejb</type>
+    	</dependency>
   </dependencies>
 <!-- 
   <build>

@@ -5,12 +5,17 @@
  <enterprise-beans>
 	<session>
          <ejb-name>ProcessingBean</ejb-name>
-         <home>trisoftdp.ejb.ProcessingBeanLocal</home>
-         <remote>trisoftdp.ejb.ProcessingBeanRemote</remote>
-         <!-- <local>trisoftdp.ejb.ProcessingBeanLocal</local> -->
+         <remote>trisoftdp.ejb.ProcessingRemote</remote>
          <ejb-class>trisoftdp.ejb.ProcessingBean</ejb-class>
          <session-type>Stateless</session-type>
          <transaction-type>Container</transaction-type>
-	</session>      
+	</session>
+	<session>
+	     <ejb-name>PublisherBean</ejb-name>
+         <remote>trisoftdp.ejb.PublisherRemote</remote>
+         <ejb-class>trisoftdp.ejb.PublisherBean</ejb-class>
+         <session-type>Stateless</session-type>
+         <transaction-type>Container</transaction-type>
+	</session>       
   </enterprise-beans>
 </ejb-jar>
