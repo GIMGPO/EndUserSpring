@@ -4,13 +4,6 @@
 
  <enterprise-beans>
 	<session>
-         <ejb-name>ProcessingBean</ejb-name>
-         <remote>trisoftdp.ejb.ProcessingRemote</remote>
-         <ejb-class>trisoftdp.ejb.ProcessingBean</ejb-class>
-         <session-type>Stateless</session-type>
-         <transaction-type>Container</transaction-type>
-	</session>
-	<session>
 	     <ejb-name>PublisherBean</ejb-name>
          <remote>trisoftdp.ejb.PublisherRemote</remote>
          <ejb-class>trisoftdp.ejb.PublisherBean</ejb-class>
