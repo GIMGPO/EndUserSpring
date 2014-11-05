@@ -21,6 +21,7 @@ public class CoreConstants {
 	public static enum REQUEST_PARAM {configId, docId, doProfiles, helpFolder, helpFile, lang, outFormat, outputType, page, prod, state, previous, file, xmlFile, zipFile, userEmail };
 	public static final String EOL;
 	public static final String TEMP_BUILD = "templateBuild";
+	public static final String EJB_LOOKUP_FORMAT = "ejb:EndUserSpring-ear/EndUserSpring-ejb//%s!%s";
 	public static final boolean DEBUG = true;
 	public static String SMTP_HOST = "mail.smtp.host";
 	public static String MAIL_HUB_HOST = "mailsyshubprd05.lss.emc.com";

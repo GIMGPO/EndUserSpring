@@ -11,7 +11,6 @@
   	<module>bld</module>
   	<module>ejb</module>
   	<module>ear</module>
-  	<module>EndUserSpring-client</module>
   </modules>
   
   <properties>  
