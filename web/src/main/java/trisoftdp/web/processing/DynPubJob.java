@@ -22,8 +22,10 @@ import trisoftdp.core.DynMail;
 import trisoftdp.core.DynamicPublishingPackage;
 import trisoftdp.core.ToolKit;
 import trisoftdp.db.TriSoftDb;
-import trisoftdp.processing.RemotePublisher;
+import trisoftdp.processing.Publisher;
+//import trisoftdp.processing.RemotePublisher;
 import trisoftdp.web.db.TriSoftDbHelper;
+import trisoftdp.web.ejb.client.EJBPublisher;
 import trisoftdp.core.DynPubNotifications;
 import trisoftdp.core.UserBean;
 import trisoftdp.core.ProdEnvBean;
@@ -67,9 +69,10 @@ public class DynPubJob implements Runnable {
 	public void run() {
 		long oldId, id = -1;
 		TriSoftDb db = null;
-		ApplicationContext context = new ClassPathXmlApplicationContext("rmiClientAppContext.xml");		
+		//ApplicationContext context = new ClassPathXmlApplicationContext("rmiClientAppContext.xml");		
 		//Remote User Service is called via RMI Client Application Context...
-		RemotePublisher remotePublisher = (RemotePublisher) context.getBean("RemotePublisher");
+		//RemotePublisher remotePublisher = (RemotePublisher) context.getBean("RemotePublisher");
+		Publisher remotePublisher = EJBPublisher.getThePublisher();
 		DynamicPublishingPackage pack = user.getUserPack();
 		String[] emails = user.getUserEmail().replaceAll("\\s+", "").split(";");	
 		String md5 = null;
@@ -143,7 +146,7 @@ public class DynPubJob implements Runnable {
 			logger.severe("SQLException: " + e.getMessage());
 		} finally {
 			if(db != null) try { db.close(); } catch (Exception e) {}
-			if(context != null) ((ClassPathXmlApplicationContext) context).close();
+			//if(context != null) ((ClassPathXmlApplicationContext) context).close();
 		}
 		
 		

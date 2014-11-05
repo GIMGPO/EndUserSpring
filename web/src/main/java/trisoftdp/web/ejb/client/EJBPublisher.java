@@ -39,7 +39,7 @@ public class EJBPublisher {
 	        	} catch (NamingException e) {
 	        		//TODO
 	        		e.printStackTrace();
-	        	}
+	        	} 
 	        }
 		}
 		return publisher;
