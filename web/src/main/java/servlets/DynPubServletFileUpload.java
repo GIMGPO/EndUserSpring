@@ -20,6 +20,7 @@ import trisoftdp.processing.Publisher;
 import trisoftdp.processing.PublisherImpl;
 import trisoftdp.web.core.WebMementoUserBean;
 import trisoftdp.web.db.TriSoftDbHelper;
+import trisoftdp.web.ejb.client.EJBPublisher;
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -88,7 +89,8 @@ public class DynPubServletFileUpload extends HttpServlet {
 		CoreConstants.logger.info("Future file name (ditaMap): " + ditaMap + ".pdf");
 		 */
 		
-		Publisher publisher = new PublisherImpl();
+		//Publisher publisher = new PublisherImpl();
+		Publisher publisher = EJBPublisher.getThePublisher();
 
 		String uploadFile = filename;
 		String lang = (String) req.getSession().getAttribute("lang");
