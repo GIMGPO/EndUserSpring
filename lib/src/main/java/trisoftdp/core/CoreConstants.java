@@ -38,8 +38,8 @@ public class CoreConstants {
 		EOL = System.getProperty("line.separator");
 		logger = Logger.getLogger("endUser");
 		try {
-			populateMap(appPropsMap, ResourceBundle.getBundle("mac_appCore"));
-//			populateMap(appPropsMap, ResourceBundle.getBundle("appCore"));		
+//			populateMap(appPropsMap, ResourceBundle.getBundle("mac_appCore"));
+			populateMap(appPropsMap, ResourceBundle.getBundle("appCore_DEV"));		
 			populateMap(appStringsMap, ResourceBundle.getBundle("appStr"));
 //			populateMap(tempBuildProps, ResourceBundle.getBundle(TEMP_BUILD));
 			populateMap(languagesMap, ResourceBundle.getBundle("languages"));
