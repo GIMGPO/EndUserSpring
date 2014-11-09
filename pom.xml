@@ -66,6 +66,14 @@
                 <scope>compile</scope>
             </dependency>
             
+            <dependency>
+                <groupId>com.emc.dynpub</groupId>
+                <artifactId>EndUserSpring-ear</artifactId>
+                <version>${project.version}</version>
+                <type>ear</type>
+                <scope>compile</scope>
+            </dependency>
+            
         	<dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>

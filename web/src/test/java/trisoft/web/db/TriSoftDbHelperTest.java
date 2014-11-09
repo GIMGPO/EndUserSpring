@@ -49,9 +49,11 @@ public class TriSoftDbHelperTest {
 			fail("SQLException: " + e.getMessage());
 		}
 	}
+
 	
-	// @Test
-	/*public void testGetJobResult() {
+/*
+ 	@Test
+	public void testGetJobResult() {
 		long resultId = 1393350642889L;
 		try {
 			JobResult jr = db.getJobResult(resultId);
@@ -63,16 +65,17 @@ public class TriSoftDbHelperTest {
 			e.printStackTrace();			
 			fail("SQLException: " + e.getMessage());
 		}
-	}*/
+	}
+*/
 	
 //	@Test
 	public void testGetRequest() {
 		fail("Not yet implemented");
 	}
 
-
-//	@Test
-	/*public void testSaveGetJobMark() {
+/*
+	@Test
+	public void testSaveGetJobMark() {
 		try {
 			long resultId = 1393350642889L;
 			JobResult jobResult = db.getJobResult(resultId);
@@ -93,7 +96,7 @@ public class TriSoftDbHelperTest {
 			e.printStackTrace();
 			fail("SQLException: " + e.getMessage());
 		}
-	}*/
-
+	}
+*/
 
 }

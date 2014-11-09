@@ -55,6 +55,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
 <!--             <scope>provided</scope> -->
+        	<scope>provided</scope>
         </dependency>
 
 

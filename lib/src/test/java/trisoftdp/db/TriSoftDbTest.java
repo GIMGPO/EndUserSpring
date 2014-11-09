@@ -54,7 +54,7 @@ public class TriSoftDbTest {
 		return db;
 	}
 
-	//	@Test
+	//@Test
 	public void miscTest() {
 		String mark = "mark4";
 		String failedNode = "failed";
@@ -105,7 +105,7 @@ public class TriSoftDbTest {
 		}
 	}
 
-//	@Test
+	//@Test
 	public void writeReadNullResult() {
 		TriSoftDb db = null;
 		long resultId = ToolKit.generateId();
@@ -145,7 +145,7 @@ public class TriSoftDbTest {
 		}
 	}
 
-	//	@Test
+	//@Test
 	public void getRequestById() {
 		TriSoftDb db = null;
 		try {
@@ -163,7 +163,7 @@ public class TriSoftDbTest {
 		}
 	}
 
-	//	@Test
+	//@Test
 	public void getResId() {
 		TriSoftDb db = null;
 		try {
@@ -180,7 +180,7 @@ public class TriSoftDbTest {
 		}
 	}
 
-	//	@Test
+	//@Test
 	public void saveAndReadTest() {
 		TriSoftDb db = null;
 		long resultId = ToolKit.generateId();
