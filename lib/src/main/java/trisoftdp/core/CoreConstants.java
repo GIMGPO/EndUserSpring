@@ -40,7 +40,7 @@ public class CoreConstants {
 		logger = Logger.getLogger("endUser");
 		try {
 //			populateMap(appPropsMap, ResourceBundle.getBundle("mac_appCore"));
-			populateMap(appPropsMap, ResourceBundle.getBundle("appCore_DEV"));		
+			populateMap(appPropsMap, ResourceBundle.getBundle("appCore_NATA"));		
 			populateMap(appStringsMap, ResourceBundle.getBundle("appStr"));
 //			populateMap(tempBuildProps, ResourceBundle.getBundle(TEMP_BUILD));
 			populateMap(languagesMap, ResourceBundle.getBundle("languages"));
