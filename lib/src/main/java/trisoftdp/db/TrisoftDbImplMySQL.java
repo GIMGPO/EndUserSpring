@@ -32,7 +32,8 @@ import trisoftdp.core.CoreConstants;
 public class TrisoftDbImplMySQL implements TriSoftDb {
 
 	private Connection conn;
-	public static String url = "jdbc:mysql://127.0.0.1:3306/" + CoreConstants.appPropsMap.get("MYSQL_DP_NAME");
+	//public static String url = "jdbc:mysql://127.0.0.1:3306/" + CoreConstants.appPropsMap.get("MYSQL_DP_NAME");
+	public static String dbUrl = "jdbc:mysql://" + CoreConstants.appPropsMap.get("MYSQL_DB_HOST") + ":3306/" + CoreConstants.appPropsMap.get("MYSQL_DB_NAME");
 	public TrisoftDbImplMySQL(String url) throws SQLException {
 		String driver = "com.mysql.jdbc.Driver";
 		try {

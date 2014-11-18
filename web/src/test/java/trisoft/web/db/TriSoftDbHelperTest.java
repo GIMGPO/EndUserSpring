@@ -38,7 +38,7 @@ public class TriSoftDbHelperTest {
 		fail("Not yet implemented");
 	}
 
-	@Test
+//	@Test
 	public void testGetResultId() {
 		String md5 = "b810c5c70346bf8c28fcda778125ef28";
 		try {

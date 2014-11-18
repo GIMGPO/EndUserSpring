@@ -11,7 +11,7 @@
     <artifactId>EndUserSpring-ear</artifactId>
     <packaging>ear</packaging>
 
-    <name>EndUserSpring - ear</name>
+    <name>EndUserSpring-ear</name>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>
@@ -46,8 +46,18 @@
                 <version>${version.ear.plugin}</version>
                 <configuration>               
                     <version>6</version>                    
+                    <!--  <generateApplicationXml>false</generateApplicationXml>-->
+        			<encoding>UTF-8</encoding>
+                    
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
-                    <modules></modules>
+                    <modules>
+						<webModule>
+							<groupId>com.emc.dynpub</groupId>
+            				<artifactId>EndUserSpring-web</artifactId>
+            				<contextRoot>/</contextRoot> 
+            				<bundleFileName>ROOT.war</bundleFileName>
+          				</webModule>                	
+                    </modules>
                     <fileNameMapping>no-version</fileNameMapping>
                 </configuration>
             </plugin>

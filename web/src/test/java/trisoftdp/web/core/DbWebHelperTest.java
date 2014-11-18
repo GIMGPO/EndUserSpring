@@ -9,6 +9,9 @@ import org.junit.Test;
 public class DbWebHelperTest {
 
 	@Test
+	public void fakeTest() {}
+	
+	//@Test
 	public void test() {
 		try {
 			DbWebHelper.getResultId("md5");

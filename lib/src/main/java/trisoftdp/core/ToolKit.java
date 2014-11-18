@@ -220,7 +220,7 @@ public class ToolKit {
 		TriSoftDb db = null;
 		//db = new TrisoftDbImpl();
 		//db = new TrisoftDbImplMySQL();
-		db = new TrisoftDbImplMySQL(TrisoftDbImplMySQL.url);
+		db = new TrisoftDbImplMySQL(TrisoftDbImplMySQL.dbUrl);
 		//db = new TriSoftDbHelper();
 		return db;
 	}
