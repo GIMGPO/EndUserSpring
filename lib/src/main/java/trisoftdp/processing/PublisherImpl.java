@@ -67,8 +67,7 @@ public class PublisherImpl implements Publisher {
 
 	
 //	@Override
-	public void processStatic(long id, UserBean user, 
-			ProdEnvBean prodEnv, String lang, File uploadedFile, boolean cleanup) throws DynException, IOException {
+	public void processStatic(long id, UserBean user, ProdEnvBean prodEnv, String lang, String uploadedFilePath, boolean cleanup) throws DynException, IOException {
 		File profilesXML;
 		//String locFolder = CoreConstants.languagesMap.get(lang);
 		DynamicPublishingPackage pack = user.getUserPack();
@@ -80,7 +79,7 @@ public class PublisherImpl implements Publisher {
 		File targetDir = targetDir(id, pack.ditaMaps[0].title);
 		File resultFile = new File("" + id + "_" + pack.ditaMaps[0].title + ".pdf");
 		//File failedJobsDir = failedJobsDir(id, pack.ditaMaps[0].title);
-		
+		File uploadedFile =new File(uploadedFilePath);
 		createDirToProcessStatic(targetDir, resultFile, configDir, profilesXML, pack, legend, id,
 				lang, uploadedFile);
 		CoreConstants.logger.info("Getting the legend attached...");
