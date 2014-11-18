@@ -38,7 +38,7 @@ public class RemotePublisherImpl implements RemotePublisher {
 		fos.write(uploadedFileData);
 		fos.flush();
 		fos.close();
-		localPublisher.processStatic(id, user, prodEnv, lang, tmpFile, cleanup);
+		localPublisher.processStatic(id, user, prodEnv, lang, tmpFile.getAbsolutePath(), cleanup);
 		tmpFile.delete();
 	}
 
