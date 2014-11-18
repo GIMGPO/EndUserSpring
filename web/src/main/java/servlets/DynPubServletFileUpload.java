@@ -41,7 +41,7 @@ public class DynPubServletFileUpload extends HttpServlet {
 		CoreConstants.logger.info("STATIC PDF UPLOAD: ");
 		CoreConstants.logger.info("Params: ");
 		Enumeration<String> params = multi.getParameterNames();
-		String filename = "";
+		String filename = null;
 		while (params.hasMoreElements()) {
 			String name = params.nextElement();
 			String value = multi.getParameter(name);
@@ -49,7 +49,7 @@ public class DynPubServletFileUpload extends HttpServlet {
 			CoreConstants.logger.info(name + " = " + value + "; ");
 		}
 		Enumeration<String> files = multi.getFileNames();
-		while (files.hasMoreElements()) {
+		if (files.hasMoreElements()) {
 			String name = files.nextElement();
 			filename = multi.getFilesystemName(name);
 			String type = multi.getContentType(name);
@@ -92,16 +92,15 @@ public class DynPubServletFileUpload extends HttpServlet {
 		//Publisher publisher = new PublisherImpl();
 		Publisher publisher = EJBPublisher.getThePublisher();
 
-		String uploadFile = filename;
 		String lang = (String) req.getSession().getAttribute("lang");
-		File uploadedFile = new File(uploadFile);
+		File uploadedFile = new File(filename);
 		if (lang == null) lang="en_US";
 		CoreConstants.logger.info("Language: " + lang);
 		TriSoftDb db = null;
 		if(user.getPubLegend() == null)
 			throw new ServletException("No pubLegend found in the session!");
 		try {
-			publisher.processStatic(currentId, user, prodEnv, lang, uploadedFile, "yes".equals(prodEnv.getProdCleanAfter()));
+			publisher.processStatic(currentId, user, prodEnv, lang, uploadedFile.getAbsolutePath(), "yes".equals(prodEnv.getProdCleanAfter()));
 			/* moved to publisher.processStatic
 			File tarDir = new File(publisher.targetDir(currentId, ditaMap),"output");
 			File src = ToolKit.getFileById(currentId,tarDir);

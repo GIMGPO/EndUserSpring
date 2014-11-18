@@ -1,6 +1,5 @@
 package trisoftdp.ejb;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -32,9 +31,9 @@ public class PublisherBean  implements PublisherRemote{
 	}
 
 	@Override
-	public void processStatic(long id, UserBean user, ProdEnvBean prodEnv, String lang, File uploadedFile, boolean cleanup) throws DynException, IOException {
+	public void processStatic(long id, UserBean user, ProdEnvBean prodEnv, String lang, String uploadedFilePath, boolean cleanup) throws DynException, IOException {
 		System.out.println(" PublisherBean: processStatic(...) called");
-		publisher.processStatic(id, user, prodEnv, lang, uploadedFile, cleanup);
+		publisher.processStatic(id, user, prodEnv, lang, uploadedFilePath, cleanup);
 	}
 
 }

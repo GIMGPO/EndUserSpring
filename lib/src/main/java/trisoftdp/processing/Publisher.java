@@ -51,7 +51,7 @@ public interface Publisher {
 	 * @throws DynException
 	 * @throws IOException
 	 */
-	public void processStatic(long id, UserBean user, ProdEnvBean prodEnv, String lang, File uploadedFile, boolean cleanup) throws DynException, IOException;
+	public void processStatic(long id, UserBean user, ProdEnvBean prodEnv, String lang, String uploadedFilePath, boolean cleanup) throws DynException, IOException;
 
 
 }
