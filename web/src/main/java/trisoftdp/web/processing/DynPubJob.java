@@ -6,15 +6,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-//import java.security.MessageDigest;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.mail.MessagingException;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import trisoftdp.core.CoreConstants;
 import trisoftdp.core.DynException;
@@ -23,7 +19,6 @@ import trisoftdp.core.DynamicPublishingPackage;
 import trisoftdp.core.ToolKit;
 import trisoftdp.db.TriSoftDb;
 import trisoftdp.processing.Publisher;
-//import trisoftdp.processing.RemotePublisher;
 import trisoftdp.web.db.TriSoftDbHelper;
 import trisoftdp.web.ejb.client.EJBPublisher;
 import trisoftdp.core.DynPubNotifications;
@@ -32,41 +27,35 @@ import trisoftdp.core.ProdEnvBean;
 
 public class DynPubJob implements Runnable {
 
-	private final Logger logger = CoreConstants.logger;
-	private final Map<String,String> appStringsMap;
-	private final String lang;
-	private final ProdEnvBean prodEnv;
-	private final UserBean user;
-//	private final DynamicPublishingPackage pack;
+	private Logger logger = CoreConstants.logger;
+	private Map<String,String> appStringsMap;
+	private String lang;
+	private ProdEnvBean prodEnv;
+	private UserBean user;
+	private String uploadedFilePath = null;
+	private long staticId = -1;
+	private boolean cleanup;
 
-	public DynPubJob (UserBean user, ProdEnvBean prodEnv, Map<String,String> appStringsMap, String lang) throws CloneNotSupportedException, IOException, ClassNotFoundException {
-		this.appStringsMap = appStringsMap;
-		this.lang = lang;
-		
-		ByteArrayOutputStream baos = null;
-		ObjectOutputStream oos = null;
-		byte[] obj = null;
-		//user
-		baos = new ByteArrayOutputStream();
-		oos = new ObjectOutputStream(baos);
-		oos.writeObject(user);
-		oos.close();
-		obj = baos.toByteArray();
-		ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(obj));
-		this.user = (UserBean) in.readObject();
-		in.close();
-		//prodEnv
-		baos = new ByteArrayOutputStream();
-		oos = new ObjectOutputStream(baos);
-		oos.writeObject(prodEnv);
-		oos.close();
-		obj = baos.toByteArray();
-		in = new ObjectInputStream(new ByteArrayInputStream(obj));
-		this.prodEnv = (ProdEnvBean) in.readObject();
-		in.close();
+	public DynPubJob(UserBean user, ProdEnvBean prodEnv, Map<String,String> appStringsMap, String lang) throws CloneNotSupportedException, IOException, DynException {
+		init(user, prodEnv, appStringsMap, lang); 
+	}
+	public DynPubJob(long staticId, UserBean user, ProdEnvBean prodEnv, Map<String,String> appStringsMap, String lang, String uploadedFilePath, boolean cleanup) throws CloneNotSupportedException, IOException, DynException {
+		init(user, prodEnv, appStringsMap, lang);
+		this.staticId = staticId;
+		this.uploadedFilePath = uploadedFilePath;
+		this.cleanup = cleanup;
 	}
 	
 	public void run() {
+		if(uploadedFilePath != null && staticId != -1) 
+			runStatic();
+		else 
+			runDynamic();
+	}
+	
+	
+	
+	public void runDynamic() {
 		long oldId, id = -1;
 		TriSoftDb db = null;
 		//ApplicationContext context = new ClassPathXmlApplicationContext("rmiClientAppContext.xml");		
@@ -78,14 +67,14 @@ public class DynPubJob implements Runnable {
 		String md5 = null;
 		try {
 			md5 = ToolKit.getMD5(pack);
-//			db = ToolKit.newDB();
 			db = new TriSoftDbHelper();
 			logger.info("Processing started");			
-			//id = publisher.process(configId, contentFolder, configFolder, pack, legend, lang, prodEnv);
 			oldId = db.getResultId(md5);
 			//TODO do not forget to remove the pack info
-			//TODO emails is not going to be printed
-			logger.info("Request pack:\n" + ToolKit.printRequest(pack) + "\nUser e-mail: " + emails);
+			String logMsg = "Request pack:\n" + ToolKit.printRequest(pack) + "\nUser e-mail: ";
+			for(String email: emails)
+				logMsg = logMsg.concat(email + ", ");
+			logger.info(logMsg);
 			if(oldId > 0) {
 				logger.info("Request has been processed before. md5=" + md5);
 				id = oldId;
@@ -110,12 +99,10 @@ public class DynPubJob implements Runnable {
 				logger.info("Saved result was marked as generic");
 			}
 			logger.info("Saved result in the Database");
-			//String[] recipients = ToolKit.joinArrays(emails,supportEmails);
 			String[] recipients = emails;
 			StringBuilder buf = new StringBuilder();
 			buf.append("<html><body>\n");
 			buf.append("<div style = 'font-family: Arial; font-size: 15px; font-weight: bold; color:#095a90; display:block; border-bottom: 2px solid #095a90; padding-bottom:10px; margin:20px 0 20px 0;'>\n");
-			//buf.append(Constants.appStringsMap.get("email.automatedMail"));
 			buf.append(appStringsMap.get("email.title"));
 			buf.append("</div>\n");
 			buf.append("<div style = 'font-family: Verdana; font-size: 12px; line-height: 16px;'>\n");
@@ -146,10 +133,76 @@ public class DynPubJob implements Runnable {
 			logger.severe("SQLException: " + e.getMessage());
 		} finally {
 			if(db != null) try { db.close(); } catch (Exception e) {}
-			//if(context != null) ((ClassPathXmlApplicationContext) context).close();
 		}
 		
 		
 	}
 
+	
+	private void init(UserBean user, ProdEnvBean prodEnv, Map<String,String> appStringsMap, String lang) throws CloneNotSupportedException, IOException, DynException{ 
+		this.appStringsMap = appStringsMap;
+		this.lang = lang;
+		
+		ByteArrayOutputStream baos = null;
+		ObjectOutputStream oos = null;
+		byte[] obj = null;
+		//user
+		baos = new ByteArrayOutputStream();
+		oos = new ObjectOutputStream(baos);
+		oos.writeObject(user);
+		oos.close();
+		obj = baos.toByteArray();
+		ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(obj));
+		try {
+			this.user = (UserBean) in.readObject();		
+			in.close();
+		//prodEnv
+			baos = new ByteArrayOutputStream();
+			oos = new ObjectOutputStream(baos);
+			oos.writeObject(prodEnv);
+			oos.close();
+			obj = baos.toByteArray();
+			in = new ObjectInputStream(new ByteArrayInputStream(obj));
+			this.prodEnv = (ProdEnvBean) in.readObject();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DynException("DynPubJob.init(...) serialization/deserialization problem: " + e.getMessage());
+		}
+		in.close();
+	}
+	
+	public void runStatic() {
+		long id = -1;
+		TriSoftDb db = null;
+		Publisher remotePublisher = EJBPublisher.getThePublisher();
+		DynamicPublishingPackage pack = user.getUserPack();	
+		String md5 = null;
+		try {
+			md5 = ToolKit.getMD5(pack);
+			db = new TriSoftDbHelper();
+			logger.info("Processing started");
+			remotePublisher.processStatic(staticId, user, prodEnv, md5, uploadedFilePath, cleanup);
+			logger.info("Processing finished with returned id=" + id);
+			db.saveResult(id, md5, pack, null);	
+			db.markRecord(id, "generic");
+			logger.info("Saved result was marked as generic");
+		} catch (DynException e) {
+			logger.severe("DynExcepsion: " + e.getMessage());
+			if(db != null) {
+				String note = String.format("generic configId: %s%nDynException: %s", user.getConfigId(), e.getMessage());
+				try {
+					db.addFailedJob(note, md5, pack);
+				} catch (SQLException e1) {
+					logger.severe("SQLException: " + e1.getMessage() + "\nFailed to save a failed job with the note: " + note);
+				}
+			}
+		} catch (IOException e) {
+			logger.severe("IOException: " + e.getMessage());
+		}  catch (SQLException e) {
+			logger.severe("SQLException: " + e.getMessage());
+		} finally {
+			if(db != null) try { db.close(); } catch (Exception e) {}
+		}		
+	}
 }

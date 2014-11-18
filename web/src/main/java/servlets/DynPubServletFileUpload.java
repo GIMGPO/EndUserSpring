@@ -1,7 +1,6 @@
 package servlets;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -12,15 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import trisoftdp.core.CoreConstants;
 import trisoftdp.core.DynException;
-import trisoftdp.core.UserBean;
 import trisoftdp.core.ProdEnvBean;
 import trisoftdp.core.ToolKit;
 import trisoftdp.db.TriSoftDb;
-import trisoftdp.processing.Publisher;
-import trisoftdp.processing.PublisherImpl;
 import trisoftdp.web.core.WebMementoUserBean;
-import trisoftdp.web.db.TriSoftDbHelper;
-import trisoftdp.web.ejb.client.EJBPublisher;
+import trisoftdp.web.processing.DynPubJob;
+import trisoftdp.web.processing.DynPubThreadPoolExecutor;
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -80,18 +76,6 @@ public class DynPubServletFileUpload extends HttpServlet {
 		WebMementoUserBean user =  (WebMementoUserBean) req.getSession().getAttribute("user");
 		if(user == null || user.getUserPack() == null)
 			throw new ServletException("No user bean or pack found in the session!");
-
-		/* moved to publisher.processStatic
-		
-		//Chosen fake ditaMap is used for the future file name
-		String ditaMap = "";
-		ditaMap = (user.getUserPack().ditaMaps[0].title != null)? user.getUserPack().ditaMaps[0].title : "generic_nogood";
-		CoreConstants.logger.info("Future file name (ditaMap): " + ditaMap + ".pdf");
-		 */
-		
-		//Publisher publisher = new PublisherImpl();
-		Publisher publisher = EJBPublisher.getThePublisher();
-
 		String lang = (String) req.getSession().getAttribute("lang");
 		File uploadedFile = new File(filename);
 		if (lang == null) lang="en_US";
@@ -100,42 +84,16 @@ public class DynPubServletFileUpload extends HttpServlet {
 		if(user.getPubLegend() == null)
 			throw new ServletException("No pubLegend found in the session!");
 		try {
-			publisher.processStatic(currentId, user, prodEnv, lang, uploadedFile.getAbsolutePath(), "yes".equals(prodEnv.getProdCleanAfter()));
-			/* moved to publisher.processStatic
-			File tarDir = new File(publisher.targetDir(currentId, ditaMap),"output");
-			File src = ToolKit.getFileById(currentId,tarDir);
-			CoreConstants.logger.info("src=" + src);
-			File trgt = new File(CoreConstants.appPropsMap.get("RESULT_DIR") + File.separator + src.getName());		
-			CoreConstants.logger.info("trgt=" + trgt);
-			CoreConstants.logger.info("Copying " + src.toString() + " to " + trgt.toString());
-			ToolKit.copyDirectory(src,trgt);*/
-
-			// write to the db
-			//db = ToolKit.newDB();
-			db = new TriSoftDbHelper();
-			db.saveResult(currentId, ToolKit.getMD5(user.getUserPack()), user.getUserPack(), null);
-			db.markRecord(currentId, "generic");
-			CoreConstants.logger.info("SUCCESS: Saved request to db with Id=" + currentId + ", it was marked as generic.");
+			DynPubJob job = new DynPubJob(currentId, user, prodEnv, null, lang,  uploadedFile.getAbsolutePath(), "yes".equals(prodEnv.getProdCleanAfter()));
+			DynPubThreadPoolExecutor.getExecutor().submit(job);
 		} catch (DynException e) {
 			throw new ServletException("Processing failed:  DynException:" + e.getMessage());
-		} catch (SQLException e) {
-			CoreConstants.logger.severe("SQLException:" + e.getMessage());
+		} catch (CloneNotSupportedException e) {
+			CoreConstants.logger.severe("CloneNotSupportedException:" + e.getMessage());
+			throw new ServletException("Processing failed:  CloneNotSupportedException:" + e.getMessage());
 		} finally {
 			if(db != null) try { db.close(); } catch(Exception e) {} 
 		}
-
-/* moved to publisher.processStatic
-		//Clean up after publishing and saving the result
-		if("yes".equals(prodEnv.getProdCleanAfter())) {
-			CoreConstants.logger.info("Cleaning up after publishing...");
-			File targetDir = publisher.targetDir(currentId, ditaMap);
-			ToolKit.deleteDir(targetDir);
-			File tmpFile = new File(CoreConstants.appPropsMap.get("TMP_DIR") + File.separator + uploadedFile);
-			if (tmpFile.exists()) 
-				if(!tmpFile.delete())
-					throw new ServletException("Filed to delete " + tmpFile);
-		}
-		*/
 		//Redirecting
 		res.sendRedirect("DynDispatcher?state=uploadComplete");
 	}
