@@ -68,18 +68,24 @@ public class PublisherImpl implements Publisher {
 	
 //	@Override
 	public void processStatic(long id, UserBean user, ProdEnvBean prodEnv, String lang, String uploadedFilePath, boolean cleanup) throws DynException, IOException {
+		System.out.println("PublisherImpl.processStatic started");
 		File profilesXML;
 		//String locFolder = CoreConstants.languagesMap.get(lang);
 		DynamicPublishingPackage pack = user.getUserPack();
 		//String configId = user.getConfigId();
 		//String contentDir = prodEnv.getProdContentDir();
 		File configDir = new File(prodEnv.getProdConfigDir());
+		System.out.println("configDir = " + configDir.getAbsolutePath());
 		profilesXML = new File(configDir + File.separator + CoreConstants.appPropsMap.get("PROFILE_ALIASES_XML"));
+		System.out.println("profilesXML = " + profilesXML.getAbsolutePath());
 		Map<String,String> legend = user.getPubLegend();
 		File targetDir = targetDir(id, pack.ditaMaps[0].title);
-		File resultFile = new File("" + id + "_" + pack.ditaMaps[0].title + ".pdf");
+		System.out.println("targetDir = " + targetDir.getAbsolutePath());
+		File resultFile = new File(CoreConstants.appPropsMap.get("RESULT_DIR") + File.separator + id + "_" + pack.ditaMaps[0].title + ".pdf");
+		System.out.println("resultFile = " + resultFile.getAbsolutePath());
 		//File failedJobsDir = failedJobsDir(id, pack.ditaMaps[0].title);
 		File uploadedFile =new File(uploadedFilePath);
+		System.out.println("uploadedFile = " + uploadedFilePath);
 		createDirToProcessStatic(targetDir, resultFile, configDir, profilesXML, pack, legend, id,
 				lang, uploadedFile);
 		CoreConstants.logger.info("Getting the legend attached...");

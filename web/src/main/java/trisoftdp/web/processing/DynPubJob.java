@@ -68,7 +68,7 @@ public class DynPubJob implements Runnable {
 		try {
 			md5 = ToolKit.getMD5(pack);
 			db = new TriSoftDbHelper();
-			logger.info("Processing started");			
+			logger.info("Dynamic processing started");			
 			oldId = db.getResultId(md5);
 			//TODO do not forget to remove the pack info
 			String logMsg = "Request pack:\n" + ToolKit.printRequest(pack) + "\nUser e-mail: ";
@@ -173,6 +173,7 @@ public class DynPubJob implements Runnable {
 	}
 	
 	public void runStatic() {
+		logger.info("Static processing started");
 		long id = -1;
 		TriSoftDb db = null;
 		Publisher remotePublisher = EJBPublisher.getThePublisher();
@@ -181,7 +182,6 @@ public class DynPubJob implements Runnable {
 		try {
 			md5 = ToolKit.getMD5(pack);
 			db = new TriSoftDbHelper();
-			logger.info("Processing started");
 			remotePublisher.processStatic(staticId, user, prodEnv, md5, uploadedFilePath, cleanup);
 			logger.info("Processing finished with returned id=" + id);
 			db.saveResult(id, md5, pack, null);	

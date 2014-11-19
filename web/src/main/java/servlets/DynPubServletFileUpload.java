@@ -77,14 +77,14 @@ public class DynPubServletFileUpload extends HttpServlet {
 		if(user == null || user.getUserPack() == null)
 			throw new ServletException("No user bean or pack found in the session!");
 		String lang = (String) req.getSession().getAttribute("lang");
-		File uploadedFile = new File(filename);
+		//File uploadedFile = new File(filename);
 		if (lang == null) lang="en_US";
 		CoreConstants.logger.info("Language: " + lang);
 		TriSoftDb db = null;
 		if(user.getPubLegend() == null)
 			throw new ServletException("No pubLegend found in the session!");
 		try {
-			DynPubJob job = new DynPubJob(currentId, user, prodEnv, null, lang,  uploadedFile.getAbsolutePath(), "yes".equals(prodEnv.getProdCleanAfter()));
+			DynPubJob job = new DynPubJob(currentId, user.extractUserBean(), prodEnv, null, lang,  filename, "yes".equals(prodEnv.getProdCleanAfter()));
 			DynPubThreadPoolExecutor.getExecutor().submit(job);
 		} catch (DynException e) {
 			throw new ServletException("Processing failed:  DynException:" + e.getMessage());

@@ -49,14 +49,14 @@ public class DynPubThreadPoolExecutor extends ThreadPoolExecutor {
 	protected void terminated() {
 		DynPubThreadPoolExecutor.available.release();
 		runningJobCount.getAndDecrement();
-		System.out.println("Executer terminated");
+		System.out.println("Executor terminated");
 	}
 	
 	@Override
 	protected void afterExecute(Runnable r, Throwable t) {
 		DynPubThreadPoolExecutor.available.release();
 		runningJobCount.getAndDecrement();
-		System.out.println("Job processed");		
+		System.out.println("Executor.afterExecute: Job processed");		
 	}
 	
 	@Override
@@ -67,7 +67,7 @@ public class DynPubThreadPoolExecutor extends ThreadPoolExecutor {
 			e.printStackTrace();
 		}
 		runningJobCount.getAndIncrement();
-		System.out.println("Job processing started");
+		System.out.println("Executor.beforeExecute: Job processing started");
 	}
 		
 }
