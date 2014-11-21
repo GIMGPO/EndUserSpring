@@ -267,6 +267,7 @@ public class PublisherImpl implements Publisher {
 	}
 
 	private static void createLegend(File targetDir, File profilesXML, Map<String,String> legend, long id, String lang) {
+		System.out.println("PublisherImpl.createLegend lang = " + lang);		
 		Locale loc = LocaleUtils.toLocale(lang);
 		ResourceBundle bundle = ResourceBundle.getBundle("appStr", loc);
 		DateFormat date = DateFormat.getDateInstance(DateFormat.LONG, loc);

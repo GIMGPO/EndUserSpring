@@ -83,7 +83,7 @@ function validate(form_id,email) {
 	}
 	
 	if (k != emails.length) {
-		if(form_id != "missingStaticContent" && email != "") {
+		if((form_id != "missingStaticContent" || form_id != "feedback")  && email != "") {
 			alert("Please enter valid e-mail addresses.");
 			return false;
 		}

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page errorPage="dynPubError.jsp"%>
-<%@ page import="trisoftdp.core.*,java.util.*,java.io.File, java.util.regex.*, org.apache.commons.lang3.LocaleUtils" %>
+<%@ page import="trisoftdp.core.*, trisoftdp.web.core.*" %>
+<%@ page import="java.io.File, java.util.regex.*, org.apache.commons.lang3.LocaleUtils, java.util.ResourceBundle, java.util.Locale" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -186,7 +187,7 @@ DynProductGroup[] groups = ProductGroupData.getAllProductGroups(prodGroupsXml);
 <!-- Body/Content End -->
 
 <%
-String foot = "includes/footer" + CoreConstants.appPropsMap.get("APP_ENV") + ".jspf";
+String foot = "includes/footer" + WebConstants.webPropsMap.get("APP_ENV") + ".jspf";
 %>
 <div id="footer">
   <div class="foot_copyright">&copy;&nbsp;<fmt:message key="email.copyright"/></div>

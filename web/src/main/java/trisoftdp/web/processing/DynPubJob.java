@@ -182,7 +182,7 @@ public class DynPubJob implements Runnable {
 		try {
 			md5 = ToolKit.getMD5(pack);
 			db = new TriSoftDbHelper();
-			remotePublisher.processStatic(staticId, user, prodEnv, md5, uploadedFilePath, cleanup);
+			remotePublisher.processStatic(staticId, user, prodEnv, lang, uploadedFilePath, cleanup);
 			logger.info("Processing finished with returned id=" + id);
 			db.saveResult(id, md5, pack, null);	
 			db.markRecord(id, "generic");

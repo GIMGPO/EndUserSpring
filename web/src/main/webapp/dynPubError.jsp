@@ -1,7 +1,7 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="trisoftdp.core.CoreConstants, trisoftdp.core.ProductGroupData" %>
+<%@ page import="trisoftdp.web.core.WebConstants, trisoftdp.core.ProductGroupData" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -72,7 +72,7 @@
 					<span><fmt:message key="header.contact"/></span></a>
   				</p>
 <%
-if (!"PRD".equals(CoreConstants.appPropsMap.get("APP_ENV"))) {
+if (!"PRD".equals(WebConstants.webPropsMap.get("APP_ENV"))) {
 %> 				
   				<br/>
 				<p><b>Java class: </b> <%= exception.getClass() %></p>
@@ -109,7 +109,7 @@ if (!"PRD".equals(CoreConstants.appPropsMap.get("APP_ENV"))) {
 <!-- Body/Content End -->
 
 <%
-String foot = "includes/footer" + CoreConstants.appPropsMap.get("APP_ENV") + ".jspf";
+String foot = "includes/footer" + WebConstants.webPropsMap.get("APP_ENV") + ".jspf";
 %>
 
 <jsp:include page="<%=foot%>" flush="true"/>

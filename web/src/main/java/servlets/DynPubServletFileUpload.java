@@ -77,7 +77,6 @@ public class DynPubServletFileUpload extends HttpServlet {
 		if(user == null || user.getUserPack() == null)
 			throw new ServletException("No user bean or pack found in the session!");
 		String lang = (String) req.getSession().getAttribute("lang");
-		//File uploadedFile = new File(filename);
 		if (lang == null) lang="en_US";
 		CoreConstants.logger.info("Language: " + lang);
 		TriSoftDb db = null;

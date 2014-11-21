@@ -24,21 +24,24 @@ public class DynPubNotifications {
 	
 	public static String getUserPackDetails(String userEmail, UserBean user, Map<String,String> appStringsMap) {
 		String script = "";
-		script += "<div style = 'font-family: Verdana; font-size: 12px; line-height: 16px;'>\n";
 		if (userEmail != null)
-			script += "<p><b>" + appStringsMap.get("feedback.email.userMail") + "</b>&nbsp;&nbsp;&nbsp;&nbsp;" + userEmail + "</p>\n";
-		script += "<p><b>" + appStringsMap.get("feedback.email.package") + "</b>&nbsp;&nbsp;&nbsp;&nbsp;" + user.getUserPack().packageName + "<br/>\n";
-		script += "<p><b>" + appStringsMap.get("feedback.email.publication") + "</b>&nbsp;&nbsp;&nbsp;&nbsp;" + user.getUserPack().ditaMaps[0].task + "</p>\n";
-		script += "<p><b>" + appStringsMap.get("feedback.email.conditions") + "</b><br/>\n";
+			script += "<tr><td><b>" + appStringsMap.get("feedback.email.userMail") + "</b></td><td>" + userEmail + "</td></tr>\n";
+		else 
+			script += "<tr><td><b>" + appStringsMap.get("feedback.email.userMail") + "</b></td><td>Not provided</td></tr>\n";
+		script += "<tr><td><b>" + appStringsMap.get("feedback.email.package") + "</b></td><td>" + user.getUserPack().packageName + "</td></tr>\n";
+		script += "<tr><td><b>" + appStringsMap.get("feedback.email.publication") + "</b></td><td>" + user.getUserPack().ditaMaps[0].task + "</td></tr>\n";
+		script += "<tr><td style='vertical-align:top'><b>" + appStringsMap.get("feedback.email.conditions") + "</b></td><td>\n";
 		for (DynamicPublishingPackage.Profile profile: user.getUserPack().profiles) {
-			script += "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>" + 
-					user.getProfileAliases().get(profile.name) + ": </b>&nbsp;&nbsp;&nbsp;&nbsp;";
+			String profilename = (user.getProfileAliases().get(profile.name)!=null)? user.getProfileAliases().get(profile.name):profile.name;
+			script += "<b>" + 
+					profilename + ": </b>";
 			for (DynamicPublishingPackage.ProfileValue value: profile.values) {
-				script += user.getProfileAliases().get(value.id) + "; ";
+				String profilevalue = (user.getProfileAliases().get(value.id)!=null)? user.getProfileAliases().get(value.id):value.id;
+				script += profilevalue + "; ";
 			}
 			script += "<br/>\n";
 		}
-		script += "</p></div>\n";
+		script += "</td></tr>\n";
 		
 		return script;
 	}

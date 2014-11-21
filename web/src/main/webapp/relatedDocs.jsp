@@ -10,7 +10,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page errorPage="dynPubError.jsp"%>
-<%@ page import="trisoftdp.core.*,java.util.*,java.io.File, java.util.regex.*, org.apache.commons.lang3.LocaleUtils" %>
+<%@ page import="trisoftdp.core.*, trisoftdp.web.core.*, java.util.*,java.io.File, java.util.regex.*, org.apache.commons.lang3.LocaleUtils" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -185,7 +185,7 @@ if(drd == null)
 <!-- Body/Content End -->
 
 <%
-String foot = "includes/footer" + CoreConstants.appPropsMap.get("APP_ENV") + ".jspf";
+String foot = "includes/footer" + WebConstants.webPropsMap.get("APP_ENV") + ".jspf";
 %>
 <div id="footer">
   <div class="foot_copyright">&copy;&nbsp;<fmt:message key="email.copyright"/></div>

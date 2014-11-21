@@ -6,7 +6,7 @@ java.util.List, java.util.ResourceBundle, java.util.Set, java.util.Vector,
 java.util.Date, java.util.Enumeration,
 java.util.Locale, java.io.File,	java.util.Map,java.util.HashMap" %> 
 <%@ page import="org.apache.commons.lang3.LocaleUtils" %>
-<%@ page import="trisoftdp.core.*" %>
+<%@ page import="trisoftdp.core.*, trisoftdp.web.core.*" %>
 <%@ page import="trisoftdp.web.processing.DynPubJob, trisoftdp.web.processing.DynPubThreadPoolExecutor" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <%@ page errorPage="dynPubError.jsp"%>
@@ -140,7 +140,7 @@ System.out.println(prodEnv.getProdDpPackDir());
     <div id="shell">
       <div id="main-title">
       <%if ("yes".equals(CoreConstants.appPropsMap.get("IS_STATIC_MAPPING_SITE"))) { %>
-      	<h1>Static Mapping - connected to the <%=CoreConstants.appPropsMap.get("APP_ENV") %> database </h1>
+      	<h1>Static Mapping - connected to the <%=WebConstants.webPropsMap.get("APP_ENV") %> database </h1>
       <%} else { %>
         <h1><span id="main_title_span"><%=dynPage.pageTitle %></span></h1>     
       <%} %>
@@ -683,9 +683,74 @@ if ((user.getDynPack() != null) && (session.getAttribute("visibleProfiles") != n
 %>
 
 		</div>
-		<!-- Below form added by Chaya Somanchi for TDP 1.1b requirement 5.1.3.Improve existing user feedback visibility -->
-		
-		<%@ include file="feedback.jsp" %>	
+<%-- /// FEEDBACK FORM /// --%>
+<%
+ResourceBundle bundle = ResourceBundle.getBundle("appStr", LocaleUtils.toLocale((String) session.getAttribute("lang")));
+String emailDefaultText = "E-mail:";
+String textAreaDefaultText = "Feedback:"; 
+String yes = bundle.getString("feedback.yes");
+String no = bundle.getString("feedback.no");
+String browsing = bundle.getString("feedback.browsing");
+%>
+<!-- 
+<p><fmt:message key="main.delivery.email" />&nbsp;<fmt:message key="main.delivery.email.optional"/></p>
+<p><input type="text" size="100" name="userEmail" id="userEmail" value="" /></p>
+ -->
+<form name="feedback" id="feedback" method="post" action="sendFeedback">
+<br><br>
+<hr width="80%" align="left" noshade="noshade" size="1"/>  
+<div id="ConAndBut">	
+<br><br>
+	<p><h4><b><fmt:message key="feedback.main.text" /></b></h4></p>
+	<table>
+		<tr>
+
+		<% if (user.getUserEmail() == null) { %>
+			<td colspan=2 align="left" style="padding-top: 10px; ">
+	   			  <p><%=emailDefaultText %></p>
+	   	          <p><input type="text" size="79" name="userEmail" id="userEmail" value="" style="margin:0px;" /> 
+			</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		<%} %>
+		</tr>	
+		<tr>
+			<!--  <td><textarea cols="50" rows="5" name=txtFeedback value=""><fmt:message key="feedback.textbox.text" /></textarea></td>-->
+			<td>
+			<!--<textarea name="txtFeedback" cols="50" rows="5" onblur="if (this.value == '') {this.value = '<%=textAreaDefaultText %>';}"   onfocus="if (this.value == '<%=textAreaDefaultText %>') {this.value = '';}"><%=textAreaDefaultText %></textarea>-->
+			<p><%=textAreaDefaultText %></p>
+			<textarea name="txtFeedback" cols="50" rows="5" ></textarea>
+			</td>
+			<td width="50px"></td>
+			<td>
+				<p align="center"><fmt:message key="feedback.excellent" /></p>
+				<input type="radio" name=rating value="++"/><label> + +</label><br>
+				<input type="radio" name=rating value="+" /><label> +</label><br>
+				<input type="radio" name=rating value="+-"/><label> + -</label><br>
+				<input type="radio" name=rating value="-" /><label> -</label><br>
+				<input type="radio" name=rating value="--"/><label> - -</label><br>
+				<p align="center"><fmt:message key="feedback.poor" /></p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=3>
+				<table>
+					<tr>
+						<td><fmt:message key="feedback.problemsolved"/></td>
+						<td><input type="radio" name="problemsolved" value="<%=yes %>"/><label><fmt:message key="feedback.yes"/></label></td>
+						<td><input type="radio" name="problemsolved" value="<%=no %>"/><label><fmt:message key="feedback.no"/></label></td>
+						<td><input type="radio" name="problemsolved" value="<%=browsing %>"/><label><fmt:message key="feedback.browsing"/></label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>		
+	</table>	
+	</div>	
+	<hr width="80%" align="left" noshade="noshade" size="1"/>  	
+</form>
+
+
+<%-- /// END OF FEEDBACK FORM /// --%>		
 			
 <%} %>		
   	    <form name="goPrevious" id="goPrevious" method="post" action="DynDispatcher">
@@ -761,7 +826,7 @@ if ((user.getDynPack() != null) && (session.getAttribute("visibleProfiles") != n
 <% } // end of Wizards
 %>
 <%
-String foot = "includes/footer" + CoreConstants.appPropsMap.get("APP_ENV") + ".jspf";
+String foot = "includes/footer" + WebConstants.webPropsMap.get("APP_ENV") + ".jspf";
 %>
 <div id="footer">
   <div class="foot_copyright">&copy;&nbsp;<fmt:message key="email.copyright"/></div>

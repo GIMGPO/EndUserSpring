@@ -1,12 +1,16 @@
 package trisoftdp.web.core;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+
+import trisoftdp.core.CoreConstants;
 
 public class WebConstants {
 	public static final boolean DEBUG = true;
@@ -20,6 +24,7 @@ public class WebConstants {
 	public static final int sleepTime = 1000; //sleep time before checking for notifications (in milliseconds) 
 	public static final long period = 4/*hour*/*60/*min*/*60/*sec*/*1000; //period of checking for left over fixes (in milliseconds)
 	public static final TimeUnit unit = TimeUnit.HOURS;
+	public static final Map<String,String> webPropsMap = new HashMap<String,String>();
 
 	static {
 //		ResourceBundle webCoreBundle = ResourceBundle.getBundle("mac_webCore");
@@ -30,6 +35,7 @@ public class WebConstants {
 		else
 			logger.setLevel(Level.WARNING);
 		try {
+			CoreConstants.populateMap(webPropsMap, ResourceBundle.getBundle("webCore_TEST_ROOT"));
 			FileHandler handler = new FileHandler(webCoreBundle.getString("WEB_END_USER_LOG_FILE"));
 			handler.setFormatter(new SimpleFormatter());
 			logger.addHandler(handler);
