@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
 import javax.mail.MessagingException;
@@ -25,7 +26,7 @@ import trisoftdp.core.DynPubNotifications;
 import trisoftdp.core.UserBean;
 import trisoftdp.core.ProdEnvBean;
 
-public class DynPubJob implements Runnable {
+public class DynPubJob implements /*Runnable,*/ Callable<String> {
 
 	private Logger logger = CoreConstants.logger;
 	private Map<String,String> appStringsMap;
@@ -204,5 +205,10 @@ public class DynPubJob implements Runnable {
 		} finally {
 			if(db != null) try { db.close(); } catch (Exception e) {}
 		}		
+	}
+	@Override
+	public String call() throws Exception {
+		run();
+		return "Done";
 	}
 }

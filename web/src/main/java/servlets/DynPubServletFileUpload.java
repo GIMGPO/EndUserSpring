@@ -2,6 +2,7 @@ package servlets;
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.concurrent.Future;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -84,12 +85,26 @@ public class DynPubServletFileUpload extends HttpServlet {
 			throw new ServletException("No pubLegend found in the session!");
 		try {
 			DynPubJob job = new DynPubJob(currentId, user.extractUserBean(), prodEnv, null, lang,  filename, "yes".equals(prodEnv.getProdCleanAfter()));
-			DynPubThreadPoolExecutor.getExecutor().submit(job);
+			Future<String> future = DynPubThreadPoolExecutor.getExecutor().submit(job);
+			long timeout = 10/*min*/ * 60 /*sec*/ * 1000 /*millisec*/;
+			long step = 5*1000;
+			long ellapsed = 0;
+			while (!future.isDone() && ellapsed < timeout) {
+				Thread.sleep(step);
+				ellapsed += step; 
+			}
+			if(ellapsed >= timeout) {
+				CoreConstants.logger.severe("Timeout happned. Ellapced " + ellapsed + "milliseconds");
+				throw new ServletException("Timeout happned." + ellapsed + "milliseconds");
+			}
 		} catch (DynException e) {
 			throw new ServletException("Processing failed:  DynException:" + e.getMessage());
 		} catch (CloneNotSupportedException e) {
 			CoreConstants.logger.severe("CloneNotSupportedException:" + e.getMessage());
 			throw new ServletException("Processing failed:  CloneNotSupportedException:" + e.getMessage());
+		} catch (InterruptedException e) {
+			CoreConstants.logger.severe("InterruptedException:" + e.getMessage());
+			throw new ServletException("Processing failed:  InterruptedException:" + e.getMessage());
 		} finally {
 			if(db != null) try { db.close(); } catch(Exception e) {} 
 		}
