@@ -175,7 +175,6 @@ public class DynPubJob implements /*Runnable,*/ Callable<String> {
 	
 	public void runStatic() {
 		logger.info("Static processing started");
-		long id = -1;
 		TriSoftDb db = null;
 		Publisher remotePublisher = EJBPublisher.getThePublisher();
 		DynamicPublishingPackage pack = user.getUserPack();	
@@ -184,9 +183,9 @@ public class DynPubJob implements /*Runnable,*/ Callable<String> {
 			md5 = ToolKit.getMD5(pack);
 			db = new TriSoftDbHelper();
 			remotePublisher.processStatic(staticId, user, prodEnv, lang, uploadedFilePath, cleanup);
-			logger.info("Processing finished with returned id=" + id);
-			db.saveResult(id, md5, pack, null);	
-			db.markRecord(id, "generic");
+			logger.info("Processing finished, id=" + staticId);
+			db.saveResult(staticId, md5, pack, null);	
+			db.markRecord(staticId, "generic");
 			logger.info("Saved result was marked as generic");
 		} catch (DynException e) {
 			logger.severe("DynExcepsion: " + e.getMessage());
