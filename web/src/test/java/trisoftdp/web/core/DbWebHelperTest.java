@@ -11,10 +11,11 @@ public class DbWebHelperTest {
 	@Test
 	public void fakeTest() {}
 	
-	//@Test
+	@Test
 	public void test() {
 		try {
-			DbWebHelper.getResultId("md5");
+			long id = DbWebHelper.getResultId("md5");
+			System.out.format("id=%d%n", id);
 		} catch (ServletException e) {
 			e.printStackTrace();
 			fail(e.getMessage());			
