@@ -37,6 +37,7 @@ ResourceBundle currentBundle = ResourceBundle.getBundle("appStr", LocaleUtils.to
 <div class="parentheader"> 
 	<div id="header" >
 		<h1><a href="#home" title="EMC2">EMC2</a></h1>
+			<!--<div id="downtime">The <i>MyDocuments</i> web site will be down for maintenance <br/>on Saturday, November, 22, 2014 from 09:00 to 11:00 EST </div>-->
         	<div id="right-toolbar"></div>
         	<div id="navigation"></div>
             <div id="top-toolbar">

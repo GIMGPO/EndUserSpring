@@ -45,6 +45,7 @@ CoreConstants.populateMap(appStringsMap, ResourceBundle.getBundle("appStr", l));
 <div class="parentheader"> 
 	<div id="header" >
 		<h1><a href="#home" title="EMC2">EMC2</a></h1>
+			<!--<div id="downtime">The <i>MyDocuments</i> web site will be down for maintenance <br/>on Saturday, November, 22, 2014 from 09:00 to 11:00 EST </div>-->
         	<div id="right-toolbar"></div>
         	<div id="navigation"></div>
             <div id="top-toolbar">
@@ -787,6 +788,7 @@ String browsing = bundle.getString("feedback.browsing");
 		String uploadedFileSize = (String) session.getAttribute("pdfFileSize");
 		String dId = (String) session.getAttribute("currentId");
 		String dbFileName = user.getUserPack().ditaMaps[0].file;
+		String fileLink = "http://" + (CoreConstants.HOST + "/" + CoreConstants.appPropsMap.get("APP_DIR") + "/Result?docId=" + dId).replace("//", "/");
 
 //Processing code
 		if (uploadedFile != null) {%>
@@ -799,7 +801,7 @@ String browsing = bundle.getString("feedback.browsing");
 	   		<p><b>File Name:</b> <%=uploadedFile %> </p>
 	   		<p><b>File Size:</b> <%=uploadedFileSize %></p> 
 	   		<p><b>Document ID in the database:</b> <%=dId %></p>
-	   		<p><a href="http://<%=CoreConstants.HOST %>/<%=CoreConstants.appPropsMap.get("APP_DIR") %>/Result?docId=<%=dId %>" rel="<%=prodEnv.getProductDir() %>"><%=dbFileName %>.pdf</a></p>
+	   		<p><a href="<%=fileLink %>" rel="<%=prodEnv.getProductDir() %>"><%=dbFileName %>.pdf</a></p>
 	   	  </div>
 	    </div>	
 	    <form name="cancelAll" id="cancellAll" method="post" action="DynDispatcher?prod=<%=prodGroup%>&page=<%=prodPage %>">

@@ -11,7 +11,7 @@
     <artifactId>EndUserSpring-ejb</artifactId>
     <packaging>ejb</packaging>
 
-    <name>EndUserSpring - ejb</name>
+    <name>EndUserSpring-ejb</name>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>
