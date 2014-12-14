@@ -4,8 +4,7 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 
-import trisoftdp.core.ToolKit;
-import trisoftdp.db.TriSoftDb;
+import trisoftdp.web.db.TriSoftDb;
 import trisoftdp.web.db.TriSoftDbHelper;
 
 

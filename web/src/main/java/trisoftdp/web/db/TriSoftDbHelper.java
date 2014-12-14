@@ -15,12 +15,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-//import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
 import trisoftdp.core.DynException;
-import trisoftdp.db.TriSoftDb;
+import trisoftdp.web.db.TriSoftDb;
 
 
 /**

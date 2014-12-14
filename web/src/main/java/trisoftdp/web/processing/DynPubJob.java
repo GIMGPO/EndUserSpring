@@ -18,7 +18,7 @@ import trisoftdp.core.DynException;
 import trisoftdp.core.DynMail;
 import trisoftdp.core.DynamicPublishingPackage;
 import trisoftdp.core.ToolKit;
-import trisoftdp.db.TriSoftDb;
+import trisoftdp.web.db.TriSoftDb;
 import trisoftdp.processing.Publisher;
 import trisoftdp.web.db.TriSoftDbHelper;
 import trisoftdp.web.ejb.client.EJBPublisher;

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
-import trisoftdp.db.TriSoftDb;
+import trisoftdp.web.db.TriSoftDb;
 import trisoftdp.web.db.TriSoftDbHelper;
 
 public class TriSoftDbHelperTest {

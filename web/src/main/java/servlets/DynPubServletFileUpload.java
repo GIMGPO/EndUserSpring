@@ -17,7 +17,6 @@ import trisoftdp.core.CoreConstants;
 import trisoftdp.core.DynException;
 import trisoftdp.core.ProdEnvBean;
 import trisoftdp.core.ToolKit;
-import trisoftdp.db.TriSoftDb;
 import trisoftdp.web.core.WebMementoUserBean;
 import trisoftdp.web.processing.DynPubJob;
 import trisoftdp.web.processing.DynPubThreadPoolExecutor;
@@ -83,7 +82,6 @@ public class DynPubServletFileUpload extends HttpServlet {
 		String lang = (String) req.getSession().getAttribute("lang");
 		if (lang == null) lang="en_US";
 		CoreConstants.logger.info("Language: " + lang);
-		TriSoftDb db = null;
 		if(user.getPubLegend() == null)
 			throw new ServletException("No pubLegend found in the session!");
 		try {
@@ -109,9 +107,7 @@ public class DynPubServletFileUpload extends HttpServlet {
 			CoreConstants.logger.severe("Processing failed: ExecutionException: " + e.getMessage());
 			throw new ServletException("Processing failed: ExecutionException: " + e.getMessage());
 			
-		} finally {
-			if(db != null) try { db.close(); } catch(Exception e) {} 
-		}
+		} 
 		//Redirecting
 		res.sendRedirect("DynDispatcher?state=uploadComplete");
 	}

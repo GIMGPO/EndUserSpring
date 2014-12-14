@@ -15,22 +15,16 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import trisoftdp.db.TriSoftDb;
-import trisoftdp.db.TrisoftDbImplMySQL;
-
 
 public class ToolKit {
 
@@ -74,57 +68,6 @@ public class ToolKit {
 		return sb.toString();
 	}
 	
-	public static void syncDbWithFs() {
-		Pattern pattern = Pattern.compile("^([0-9]+)_.*$");
-		Matcher matcher;
-		long id;
-		int countFile = 0, countDbRecord = 0; 
-		TreeSet<Long> resultIds = new TreeSet<Long>();
-		File resultDir = new File(CoreConstants.appPropsMap.get("RESULT_DIR"));
-		if(!"DynPackRenditions".equals(resultDir.getName())) {
-			System.err.println("ToolKit.syncDbWithFs(): " + resultDir + " is not a rendition folder!");
-			return;
-		}
-		TriSoftDb db =  null;
-		try {
-			//db =  newDB(CoreConstants.dbUrl);
-			db =  newDB();
-			for(File file: resultDir.listFiles()) {
-				if(file.isDirectory()) {
-					//deleteDir(file);
-					System.out.format("ToolKit.syncDbWithFs(): deleting dir %s%n", file);
-					continue;
-				}
-				matcher = pattern.matcher(file.getName());
-				if(!matcher.matches()) {
-					//file.delete();
-					System.out.format("ToolKit.syncDbWithFs(): deleting file %s%n", file);
-					continue;
-				}
-				id = Long.parseLong(matcher.group(1));
-				resultIds.add(id);
-				Serializable result = db.getRequest(id);
-				if(result == null) {
-					//					file.delete();
-					System.out.format("deleting file %s%n", file);
-					countFile++;
-				}
-			}
-			for(long resId: db.getAllResultIds()) {
-				if(!resultIds.contains(resId)) {
-					//					db.deletePubResultsEntry(resId);
-					System.out.format("deleting record %d%n", resId);
-					countDbRecord++;
-				}
-			}
-			System.out.format("ToolKit.syncDbWithFs(): Synchronized: deleted files = %d, deleted db records = %d%n", countFile, countDbRecord);
-		} catch (SQLException e) {
-			System.err.println("ToolKit.syncDbWithFs(): SQLException: " + e.getMessage());
-		} finally {
-			if(db != null) try { db.close(); } catch(Exception e) {} 
-		}
-	}
-
 	public static int runShellCmd(String[] args, File curDir, String[] envPars, boolean redirectError) throws DynException {
 		BufferedReader br = null;
 		ProcessBuilder pb = null;
@@ -215,21 +158,6 @@ public class ToolKit {
 			md5 = md5.concat(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
 		return md5;
 	}
-
-	private static TriSoftDb newDB() throws SQLException {
-		TriSoftDb db = null;
-		//db = new TrisoftDbImpl();
-		//db = new TrisoftDbImplMySQL();
-		db = new TrisoftDbImplMySQL(TrisoftDbImplMySQL.dbUrl);
-		//db = new TriSoftDbHelper();
-		return db;
-	}
-
-//	public static TriSoftDb newDB(String url) throws SQLException {
-//		TriSoftDb db = null;
-//		db = new TrisoftDbImplMySQL(url);
-//		return db;
-//	}
 
 
 	public static File getResultById(long resultId) {
