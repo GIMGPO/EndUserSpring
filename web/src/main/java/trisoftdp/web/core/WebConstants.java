@@ -28,15 +28,15 @@ public class WebConstants {
 
 	static {
 //		ResourceBundle webCoreBundle = ResourceBundle.getBundle("mac_webCore");
-		ResourceBundle webCoreBundle = ResourceBundle.getBundle("webCore");		
+		ResourceBundle webCoreBundle = ResourceBundle.getBundle("webCore_PROD");		
 		logger = Logger.getLogger("webEndUser");
 		if(DEBUG)
 			logger.setLevel(Level.ALL);
 		else
 			logger.setLevel(Level.WARNING);
 		try {
-			CoreConstants.populateMap(webPropsMap, ResourceBundle.getBundle("webCore_TEST_ROOT"));
-			FileHandler handler = new FileHandler(webCoreBundle.getString("WEB_END_USER_LOG_FILE"));
+			CoreConstants.populateMap(webPropsMap, webCoreBundle);
+			FileHandler handler = new FileHandler(webPropsMap.get("WEB_END_USER_LOG_FILE"));
 			handler.setFormatter(new SimpleFormatter());
 			logger.addHandler(handler);
 		} catch (SecurityException e) {

@@ -84,7 +84,7 @@ if (bl == null) bl="en_US";
 <% ////////////////////////////// END OF DYN PUB HEADER /////////////////////////////////////////
 //session.invalidate();
 File prodGroupsXml = new File(CoreConstants.appPropsMap.get("CONFIG_DIR") + File.separator + CoreConstants.languagesMap.get(bl) + File.separator + "productGroups.xml");
-System.out.println(prodGroupsXml.getPath());
+System.out.println("prodGroupsXml = " + prodGroupsXml.getPath());
 DynProductGroup[] groups = ProductGroupData.getAllProductGroups(prodGroupsXml);
 %>
 

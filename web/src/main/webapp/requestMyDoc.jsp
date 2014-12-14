@@ -526,6 +526,7 @@ if ((user.getDynPack() != null) && (session.getAttribute("visibleProfiles") != n
 	} else if ("displayDelivery".equals(state)) {
 		String formSubmit;
 		String curId = (String) session.getAttribute("currentId");
+		System.out.print("JSP session current id = " + curId);
 		if (curId != null)
 			response.sendRedirect("DynDispatcher");
 		else  {

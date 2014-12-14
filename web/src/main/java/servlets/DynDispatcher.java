@@ -378,7 +378,10 @@ public class DynDispatcher extends HttpServlet {
 			try {
 				PackageData.validateUserPack(user.getUserPack());
 				// Trying to retrieve result ID from the database (using pub request MD5)
-				resId = DbWebHelper.getResultId(ToolKit.getMD5(user.getUserPack()));
+				String PackMD5 = ToolKit.getMD5(user.getUserPack());
+				System.out.println("Pack MD5 = " + PackMD5);
+				resId = DbWebHelper.getResultId(PackMD5);
+				System.out.println("Servlet currentId = " + resId);
 			} catch (DynException e) {
 				throw new ServletException("DynException:" + e.getMessage());
 			}

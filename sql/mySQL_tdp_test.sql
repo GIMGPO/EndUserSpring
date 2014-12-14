@@ -88,3 +88,24 @@ Begin
   CLOSE cur;
 END//
 delimiter ;
+
+drop PROCEDURE copy_marked_records;
+delimiter //
+CREATE PROCEDURE copy_marked_records()
+Begin
+  Declare done INT DEFAULT FALSE;
+  DECLARE _result_id BIGINT;
+  DECLARE _mark CHAR(100),
+  DECLARE cur CURSOR FOR SELECT result_id, mark FROM marked_records;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+  OPEN cur;
+  read_loop: LOOP
+    FETCH cur INTO _result_id,_mark;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+    INSERT INTO marked_jobs (result_id,mark) VALUES (_result_id,_mark);
+  END LOOP;
+  CLOSE cur;
+END//
+delimiter ;
