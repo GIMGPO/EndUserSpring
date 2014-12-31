@@ -65,8 +65,7 @@ public class JobResultTest {
 			session.save(jm);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			if (tx != null)
-				tx.rollback();
+			if (tx != null && tx.isActive()) tx.rollback();
 		} finally {
 			if (session != null && session.isOpen())
 				try {session.close();} catch (SessionException e) {	e.printStackTrace(); }
@@ -92,7 +91,7 @@ public class JobResultTest {
 				resultIds[i] = results.get(i).get("result_id");
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) { e.printStackTrace(); }
 		}
@@ -116,8 +115,7 @@ public class JobResultTest {
 			session.save(jm);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			if (tx != null)
-				tx.rollback();
+			if (tx != null && tx.isActive()) tx.rollback();
 		} finally {
 			if (session != null && session.isOpen())
 				try {session.close();} catch (SessionException e) {	e.printStackTrace(); }
@@ -158,7 +156,7 @@ public class JobResultTest {
 	            System.out.format("result_id=%d%n",map.get("result_id")); 
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
 				e.printStackTrace();
@@ -193,7 +191,7 @@ public class JobResultTest {
 			System.out.println("request create date: " + ((DynamicPublishingPackage) request).createDate);
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
 				e.printStackTrace();
@@ -217,7 +215,7 @@ public class JobResultTest {
 				System.out.format("md5=%s cdate=%s status=%s note=<%s>%n", jr.getMd5(), jr.getCDate(), jr.getStatus(), jr.getNote());
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
 				System.err.println(e.getMessage());

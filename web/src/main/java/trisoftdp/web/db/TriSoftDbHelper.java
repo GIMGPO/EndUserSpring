@@ -67,7 +67,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 				resultIds[i] = results.get(i).get("result_id");
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 			e.printStackTrace();
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) { e.printStackTrace(); }
@@ -92,7 +92,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 				resultIds[i] = results.get(i).get("result_id").longValue();
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 			e.printStackTrace();
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) { e.printStackTrace(); }
@@ -139,7 +139,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			session.save(jm);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			if (tx != null)	tx.rollback();
+			if (tx != null && tx.isActive())	tx.rollback();
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if (session != null && session.isOpen())
@@ -158,7 +158,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			session.save(jm);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			if (tx != null)	tx.rollback();
+			if (tx != null && tx.isActive())	tx.rollback();
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if (session != null && session.isOpen())
@@ -180,7 +180,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			if(jr != null) resultId = jr.getResultId();
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
@@ -199,7 +199,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			session.saveOrUpdate(jr);
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
@@ -225,7 +225,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			}
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
@@ -256,7 +256,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			request = (Serializable)obj;
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
@@ -276,7 +276,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			jr = (JobResult) session.get(JobResult.class, reusltId);
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {	e.printStackTrace();}
@@ -294,7 +294,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			jm = (JobMark) session.get(JobMark.class, id);
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {	e.printStackTrace();}
@@ -311,7 +311,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			session.saveOrUpdate(jm);
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null) tx.rollback();
+			if(tx != null && tx.isActive()) tx.rollback();
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
