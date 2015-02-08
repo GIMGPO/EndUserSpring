@@ -55,7 +55,7 @@ public class JobResult {
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="jobResult")
 	private Set<JobMark> marks;
 
-	public JobResult() { 
+	private JobResult() { 
 		super();
 		cDate = new Date();
 	} 
