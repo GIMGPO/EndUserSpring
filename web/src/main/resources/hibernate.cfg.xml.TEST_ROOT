@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
@@ -6,6 +7,7 @@
 
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.password">cat</property>
+  <!-- TEST-ROOT -->
   <property name="hibernate.connection.url">jdbc:mysql://10.105.128.90:3306/tdp_ghe_ext_test</property>
   <property name="hibernate.connection.username">tomcat</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>

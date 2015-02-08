@@ -6,6 +6,7 @@
 
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.password">cat</property>
+  <!-- PRODUCTION and StaticMapping in TEST-->
 	<property name="hibernate.connection.url">jdbc:mysql://10.105.128.14:3306/tdp_vnx</property>
 <!--   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/lca_db_dev</property> -->
   <property name="hibernate.connection.username">tomcat</property>
