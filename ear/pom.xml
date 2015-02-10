@@ -25,11 +25,11 @@
     <dependencies>
 
         <!-- Depend on the ejb module and war so that we can package them -->
-        <dependency>
+        <!-- <dependency>
             <groupId>com.emc.dynpub</groupId>
             <artifactId>EndUserSpring-web</artifactId>
             <type>war</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>com.emc.dynpub</groupId>
             <artifactId>EndUserSpring-ejb</artifactId>
@@ -51,12 +51,12 @@
                     
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <modules>
-						<webModule>
+						<!-- <webModule>
 							<groupId>com.emc.dynpub</groupId>
             				<artifactId>EndUserSpring-web</artifactId>
             				<contextRoot>/</contextRoot> 
             				<bundleFileName>ROOT.war</bundleFileName>
-          				</webModule>                	
+          				</webModule>    -->             	
                     </modules>
                     <fileNameMapping>no-version</fileNameMapping>
                 </configuration>

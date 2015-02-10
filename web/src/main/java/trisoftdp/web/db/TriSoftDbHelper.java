@@ -107,6 +107,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 		try {
 			jobResult = JobResult.makeJobResult(request, status, resultId, note);
 			assert(jobResult != null);
+			System.out.println("In saveResult() cdate = " + jobResult.getCDate());
 			session.save(jobResult);
 			session.getTransaction().commit();
 		} catch (DynException e) {

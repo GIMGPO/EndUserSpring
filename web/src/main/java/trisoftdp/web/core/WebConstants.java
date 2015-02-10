@@ -28,7 +28,7 @@ public class WebConstants {
 
 	static {
 //		ResourceBundle webCoreBundle = ResourceBundle.getBundle("mac_webCore");
-		ResourceBundle webCoreBundle = ResourceBundle.getBundle("webCore_PROD");		
+		ResourceBundle webCoreBundle = ResourceBundle.getBundle("webCore_TEST_ST_MAP");		
 		logger = Logger.getLogger("webEndUser");
 		if(DEBUG)
 			logger.setLevel(Level.ALL);
