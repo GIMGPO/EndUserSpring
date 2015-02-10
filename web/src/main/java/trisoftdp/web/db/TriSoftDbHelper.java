@@ -168,28 +168,6 @@ public class TriSoftDbHelper implements TriSoftDb {
 		
 	}
 	
-	@Deprecated
-	public long getResultId_(String md5) throws SQLException {
-		long resultId = -1;
-		Session session = null;
-		Transaction tx = null; 
-		JobResult jr = null;
-		try {
-			session = getSessionFactory().getCurrentSession();
-			tx = session.beginTransaction();
-			jr = (JobResult) session.get(JobResult.class, md5);	
-			if(jr != null) resultId = jr.getResultId();
-			tx.commit();
-		} catch(Exception e) {
-			if(tx != null && tx.isActive()) tx.rollback();
-			throw new SQLException("Exception: " + e.getMessage());
-		} finally {
-			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
-				throw new SQLException("SessionException: " + e.getMessage());
-			}
-		}
-		return resultId;
-	}
 	
 	public void updateJobResult(JobResult jr) throws SQLException { 
 		Session session = null;
