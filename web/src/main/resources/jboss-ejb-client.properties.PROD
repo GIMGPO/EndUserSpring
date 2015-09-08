@@ -1,4 +1,4 @@
-#IJB client for PRODUCTION
+#EJB client for PRODUCTION 
     remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
 
     remote.connections=default

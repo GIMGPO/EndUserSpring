@@ -15,7 +15,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+//import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 import trisoftdp.core.DynException;
 import trisoftdp.web.db.TriSoftDb;
@@ -38,7 +41,9 @@ public class TriSoftDbHelper implements TriSoftDb {
             configuration.configure();
             //ServiceRegistry  serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             //SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-            SessionFactory sessionFactory = configuration.buildSessionFactory();
+            //SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+            ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             return sessionFactory;
         }
         catch (Throwable e) {

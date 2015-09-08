@@ -160,9 +160,9 @@ public class ToolKit {
 	}
 
 
-	public static File getResultById(long resultId) {
+	public static File getResultById(long resultId, String resultDir) {
 		File rf = null;
-		File[] files = new File(CoreConstants.appPropsMap.get("RESULT_DIR")).listFiles();
+		File[] files = new File(resultDir).listFiles();
 		for(File f: files) {
 			if(!f.getName().startsWith("" + resultId))
 				continue;

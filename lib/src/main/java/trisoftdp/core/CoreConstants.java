@@ -24,7 +24,7 @@ public class CoreConstants {
 	public static final String EJB_LOOKUP_FORMAT = "ejb:EndUserSpring-ear/EndUserSpring-ejb//%s!%s";
 	public static final boolean DEBUG = true;
 	public static String SMTP_HOST = "mail.smtp.host";
-	public static String MAIL_HUB_HOST = "mailsyshubprd05.lss.emc.com";
+	public static String MAIL_HUB_HOST = "smtp.isus.emc.com";
 	public static String HOST;
 	public static final Map<String,String> appPropsMap = new HashMap<String,String>();
 	public static final Map<String,String> appStringsMap = new HashMap<String,String>();
@@ -40,7 +40,7 @@ public class CoreConstants {
 		logger = Logger.getLogger("endUser");
 		try {
 //			populateMap(appPropsMap, ResourceBundle.getBundle("mac_appCore"));
-			populateMap(appPropsMap, ResourceBundle.getBundle("appCore_TEST_ST_MAP"));		
+			populateMap(appPropsMap, ResourceBundle.getBundle("appCore_TEST_ROOT"));		
 			populateMap(appStringsMap, ResourceBundle.getBundle("appStr"));
 //			populateMap(tempBuildProps, ResourceBundle.getBundle(TEMP_BUILD));
 			populateMap(languagesMap, ResourceBundle.getBundle("languages"));

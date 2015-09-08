@@ -81,7 +81,7 @@ public class PublisherImpl implements Publisher {
 		Map<String,String> legend = user.getPubLegend();
 		File targetDir = targetDir(id, pack.ditaMaps[0].title);
 		System.out.println("targetDir = " + targetDir.getAbsolutePath());
-		File resultFile = new File(CoreConstants.appPropsMap.get("RESULT_DIR") + File.separator + id + "_" + pack.ditaMaps[0].title + ".pdf");
+		File resultFile = new File(prodEnv.getProdResultDir() + id + "_" + pack.ditaMaps[0].title + ".pdf");
 		System.out.println("resultFile = " + resultFile.getAbsolutePath());
 		//File failedJobsDir = failedJobsDir(id, pack.ditaMaps[0].title);
 		File uploadedFile =new File(uploadedFilePath);
@@ -99,7 +99,7 @@ public class PublisherImpl implements Publisher {
 		File tarDir = new File(targetDir(id, ditaMap),"output");
 		File src = ToolKit.getFileById(id,tarDir);
 		CoreConstants.logger.info("src=" + src);
-		File trgt = new File(CoreConstants.appPropsMap.get("RESULT_DIR") + File.separator + src.getName());		
+		File trgt = new File(prodEnv.getProdResultDir() + src.getName());		
 		CoreConstants.logger.info("trgt=" + trgt);
 		CoreConstants.logger.info("Copying " + src.toString() + " to " + trgt.toString());
 		ToolKit.copyDirectory(src,trgt);
@@ -343,12 +343,13 @@ public class PublisherImpl implements Publisher {
 		String configId = user.getConfigId();
 		String contentDir = prodEnv.getProdContentDir();
 		String configDir = prodEnv.getProdConfigDir();
+		String resultDir = prodEnv.getProdResultDir();
 		Map<String,String> legend = user.getPubLegend();
 		File targetDir = targetDir(id, pack.ditaMaps[0].title);
 		File failedJobsDir = failedJobsDir(id, pack.ditaMaps[0].title);
 		process(id, configId, contentDir, configDir, pack, legend, lang);
 		CoreConstants.logger.info("Processing is done. Creating result now...");
-		createResult(targetDir, failedJobsDir, pack.outputType, id, pack.ditaMaps[0].title);
+		createResult(targetDir, failedJobsDir, pack.outputType, id, pack.ditaMaps[0].title, resultDir);
 		if("yes".equals(prodEnv.getProdCleanAfter())) {
 			CoreConstants.logger.info("Cleaning up after publishing...");
 			ToolKit.deleteDir(targetDir);
@@ -394,7 +395,7 @@ public class PublisherImpl implements Publisher {
 		return dir;
 	}
 	
-	private static void createResult(File targetDir, File failedJobsDir, DynamicPublishingPackage.OUTPUT_TYPE outputType, long id, String resultName) throws DynException, IOException {
+	private static void createResult(File targetDir, File failedJobsDir, DynamicPublishingPackage.OUTPUT_TYPE outputType, long id, String resultName, String resultDir) throws DynException, IOException {
 		CoreConstants.logger.info("Creating Result for output type " + outputType);
 		File result = null;
 		switch(outputType) {
@@ -418,7 +419,7 @@ public class PublisherImpl implements Publisher {
 				ToolKit.copyDirectory(targetDir, failedJobsDir);
 				throw new DynException("pdf file not found in " + targetDir);
 			}
-			result = new File(CoreConstants.appPropsMap.get("RESULT_DIR") + File.separator + id + "_" + resultName + ".pdf");
+			result = new File(resultDir + id + "_" + resultName + ".pdf");
 			CoreConstants.logger.info("Copying pdf to DynPackRenditions folder");
 			ToolKit.copyDirectory(src, result);
 			CoreConstants.logger.info("Done Copying. Ready to store in the database.");

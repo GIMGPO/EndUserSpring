@@ -83,7 +83,7 @@ public class DynPubJob implements /*Runnable,*/ Callable<String> {
 			else 
 				id = remotePublisher.process(user, prodEnv, lang);
 			logger.info("Processing finished with returned id=" + id);
-			File rf = ToolKit.getResultById(id);
+			File rf = ToolKit.getResultById(id, prodEnv.getProdResultDir());
 			if(rf == null)
 				throw new DynException("Result file not found for resutlId=" + id);
 			synchronized(DynPubJob.class) {

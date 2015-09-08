@@ -11,6 +11,7 @@ public class ProdEnvBean implements Serializable {
 	private String prodContentDir;
 	private String prodRelDocsDir;
 	private String prodRelDocsCacheDir;
+	private String prodResultDir;
 	private String prodSupportEmail;
 	private String prodCleanAfter;
 	private String prodShowRelease;
@@ -26,6 +27,7 @@ public class ProdEnvBean implements Serializable {
 		setProdDpPackDir(productDir + CoreConstants.appPropsMap.get("PRODUCT_DYN_PACK_DIR") + File.separator + CoreConstants.languagesMap.get(bl) + File.separator);
 		setProdContentDir(productDir + CoreConstants.appPropsMap.get("PRODUCT_SOURCE_DIR") + File.separator + CoreConstants.languagesMap.get(bl) + File.separator);
 		setProdRelDocsDir(productDir + CoreConstants.appPropsMap.get("PRODUCT_RELDOCS_DIR") + File.separator + CoreConstants.languagesMap.get(bl) + File.separator);
+		setProdResultDir(CoreConstants.appPropsMap.get("RESULT_DIR") + File.separator);
 		setProdRelDocsCacheDir(productDir + CoreConstants.appPropsMap.get("PRODUCT_RELDOCSCACHE_DIR") + File.separator + CoreConstants.languagesMap.get(bl) + File.separator);
 		setProdL10NSupport(ProductGroupData.getProductProperties(productGroupEnv).getProperty("LOCALIZATION_SUPPORT"));
 		setProdCleanAfter(ProductGroupData.getProductProperties(productGroupEnv).getProperty("CLEAN_AFTER"));
@@ -47,6 +49,9 @@ public class ProdEnvBean implements Serializable {
 
 	public String getProdRelDocsDir() { return prodRelDocsDir; }
 	public void setProdRelDocsDir(String prodRelDocsDir) { this.prodRelDocsDir = prodRelDocsDir; }
+	
+	public String getProdResultDir() { return prodResultDir; }
+	public void setProdResultDir(String prodResultDir) { this.prodResultDir = prodResultDir; }
 	
 	public String getProdRelDocsCacheDir() { return prodRelDocsCacheDir; }
 	public void setProdRelDocsCacheDir(String prodRelDocsCacheDir) { this.prodRelDocsCacheDir = prodRelDocsCacheDir; }
@@ -72,6 +77,7 @@ public class ProdEnvBean implements Serializable {
 		prodDpPackDir = null;
 		prodContentDir = null;
 		prodRelDocsDir = null;
+		prodResultDir = null;
 		prodRelDocsCacheDir = null;
 		prodSupportEmail = null;
 		prodCleanAfter = null;

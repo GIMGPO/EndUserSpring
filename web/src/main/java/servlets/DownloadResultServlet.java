@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import trisoftdp.core.CoreConstants;
 import trisoftdp.core.DynamicPublishingPackage;
 import trisoftdp.core.ToolKit;
 
@@ -60,7 +61,7 @@ public class DownloadResultServlet extends HttpServlet {
 		default:
 			resp.setContentType("application/pdf");
 		}
-		File rf = ToolKit.getResultById(resultId);
+		File rf = ToolKit.getResultById(resultId, CoreConstants.appPropsMap.get("RESULT_DIR"));
 		if(rf == null || !rf.exists())
 			throw new ServletException("file not found for resultId " + resultId);
 		resp.addHeader("Content-Disposition", "attachment; filename=" + rf.getName().substring(1 + rf.getName().indexOf("_")));		

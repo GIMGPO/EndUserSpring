@@ -56,7 +56,10 @@ delete from pub_results where result_id in
 delete from pub_results where not result_id in 
 		(select result_id from marked_records where mark='generic')
 		and DATE(cdate) < "2012-01-11";
-select count(*) from pub_results where DATE(cdate) < "2012-01-01";
+select count(*) from job_results where DATE(cdate) = "2015-07-30";
+select from job_results where not result_id in 
+		(select result_id from marked_records where mark='generic')
+		and DATE(cdate) < "2015-07-30";
 
 delete from pub_results where result_id = "1307038882826";
 

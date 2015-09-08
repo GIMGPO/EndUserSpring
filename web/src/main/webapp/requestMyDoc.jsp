@@ -140,7 +140,7 @@ System.out.println(prodEnv.getProdDpPackDir());
   <div id="ngoe-template">
     <div id="shell">
       <div id="main-title">
-      <%if ("yes".equals(CoreConstants.appPropsMap.get("IS_STATIC_MAPPING_SITE"))) { %>
+      <%if ("yes".equals(WebConstants.webPropsMap.get("IS_STATIC_MAPPING_SITE"))) { %>
       	<h1>Static Mapping - connected to the <%=WebConstants.webPropsMap.get("APP_ENV") %> database </h1>
       <%} else { %>
         <h1><span id="main_title_span"><%=dynPage.pageTitle %></span></h1>     
@@ -540,7 +540,7 @@ if ((user.getDynPack() != null) && (session.getAttribute("visibleProfiles") != n
 			if ("yes".equals(session.getAttribute("static"))) { 
 				
 	// We will not allow the user to see the form for static mapping
-				if (!"yes".equals(CoreConstants.appPropsMap.get("IS_STATIC_MAPPING_SITE"))) {
+				if (!"yes".equals(WebConstants.webPropsMap.get("IS_STATIC_MAPPING_SITE"))) {
 					formSubmit = "missingStaticContent"; %>
 					<h2><fmt:message key="main.delivery.title" /></h2>				
 						<form id="missingStaticContent" name="missingStaticContent" action="DynPubMissingStaticContent" method="post" onsubmit="javascript:return validate('missingStaticContent','userEmail');">					
