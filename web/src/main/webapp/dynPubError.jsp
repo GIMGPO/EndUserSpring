@@ -1,7 +1,7 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="trisoftdp.web.core.WebConstants, trisoftdp.core.ProductGroupData" %>
+<%@ page import="java.util.Date, java.util.Locale, java.util.Map, java.util.HashMap, java.util.ResourceBundle" %>
+<%@ page import="trisoftdp.web.core.WebConstants, trisoftdp.core.CoreConstants" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -29,6 +29,27 @@
 <script language="javascript" src="js/ESApubUser.js"></script>
 </head>
 <body>
+<% 
+String bl = (String) session.getAttribute("lang");
+if (request.getCookies() != null) {
+	for (Cookie c: request.getCookies())
+		if ("appLang".equals(c.getName()))
+			bl=c.getValue();
+}
+if (bl == null) bl="en_US";
+
+
+String prodPage = (String) session.getAttribute("page");
+String prodGroup = (String) session.getAttribute("prod");
+
+%>
+<c:set var="lang" value="<%=bl %>" scope="page"/>
+<fmt:setLocale value="<%=bl%>" scope="session" /> 
+<%
+Map<String,String> appStringsMap = new HashMap<String,String>();
+Locale l = (Locale) response.getLocale();
+CoreConstants.populateMap(appStringsMap, ResourceBundle.getBundle("appStr", l));
+%>
 <!-- Header Start -->
 <div class="parentheader"> 
 	<div id="header" >
@@ -37,8 +58,7 @@
         	<div id="navigation"></div>
             <div id="top-toolbar">
             	<div id="user-bar">
-            		<!-- Below line modified by Chaya Somanchi for the TDP 1.1b requirement 5.1.3.Improve existing user feedback visibility - added class="ESAbutActive" -->
-            		<a href="mailto:<%=ProductGroupData.getProductProperties((String) session.getAttribute("prod")).getProperty("EMAIL_FROM")%>" class="liNormal"><span><fmt:message key="header.feedback" /></span></a>  
+            		<a href="mailto:<%=trisoftdp.web.core.WebConstants.webPropsMap.get("DEFAULT_EMAIL")%>" class="liNormal"><span><fmt:message key="header.feedback" /></span></a>  
             	</div>
             </div>
     </div>
@@ -68,11 +88,11 @@
 				<p>
 				<fmt:message key="error.p2"/> <br/>
 				<fmt:message key="error.p3"/>&nbsp;
-				<a href="mailto:<%=ProductGroupData.getProductProperties((String) session.getAttribute("prod")).getProperty("EMAIL_FROM")%>">
+				<a href="mailto:<%=trisoftdp.web.core.WebConstants.webPropsMap.get("DEFAULT_EMAIL")%>">
 					<span><fmt:message key="header.contact"/></span></a>
   				</p>
 <%
-if (!"PRD".equals(WebConstants.webPropsMap.get("APP_ENV"))) {
+if (!"PRD".equals(trisoftdp.web.core.WebConstants.webPropsMap.get("APP_ENV"))) {
 %> 				
   				<br/>
 				<p><b>Java class: </b> <%= exception.getClass() %></p>
@@ -109,7 +129,7 @@ if (!"PRD".equals(WebConstants.webPropsMap.get("APP_ENV"))) {
 <!-- Body/Content End -->
 
 <%
-String foot = "includes/footer" + WebConstants.webPropsMap.get("APP_ENV") + ".jspf";
+String foot = "includes/footer" + trisoftdp.web.core.WebConstants.webPropsMap.get("APP_ENV") + ".jspf";
 %>
 
 <jsp:include page="<%=foot%>" flush="true"/>
