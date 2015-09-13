@@ -31,7 +31,7 @@ import trisoftdp.web.db.TriSoftDb;
  */
 public class TriSoftDbHelper implements TriSoftDb {
 
-	private static final SessionFactory sessionFactory = buildSessionFactory();
+	private static SessionFactory sessionFactory = null;
 
 	public TriSoftDbHelper() {}
 	
@@ -53,6 +53,11 @@ public class TriSoftDbHelper implements TriSoftDb {
     }
 
     private static SessionFactory getSessionFactory() {
+    	if(sessionFactory == null || sessionFactory.isClosed())
+    		synchronized(TriSoftDbHelper.class) {
+    			if(sessionFactory == null || sessionFactory.isClosed())
+    				sessionFactory = buildSessionFactory();
+    		}
         return sessionFactory;
     }
     
