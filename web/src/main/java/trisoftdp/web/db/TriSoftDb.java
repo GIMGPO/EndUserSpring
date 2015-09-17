@@ -26,16 +26,18 @@ public interface TriSoftDb {
 	 * Gets the list of all document ids 
 	 * 
 	 * @return all saved result ids
+	 * @throws SQLException 
 	 */
-	public long[] getAllResultIds ();
+	public long[] getAllResultIds () throws SQLException;
 
 	/**
 	 * Gets the list of all document ids that were marked as "mark"
 	 * 
 	 * @param mark record marker
 	 * @return all result ids marked as "mark"
+	 * @throws SQLException 
 	 */
-	public long[] getMarkedResultIds (String mark);
+	public long[] getMarkedResultIds (String mark) throws SQLException;
 
 	/**
 	 * Insert the record into the pub_results table:
@@ -114,26 +116,26 @@ public interface TriSoftDb {
 	 * 
 	 * @throws SQLException
 	 */
-	public void close() throws SQLException ;
+	//public void close() throws SQLException ;
 
 	/**
 	 * If the connection to the database is not null, sets AutoCommit to false.
 	 * 
 	 * @throws SQLException
 	 */
-	public void startTransaction() throws SQLException ;
+	//public void startTransaction() throws SQLException ;
 
 	/**
 	 * 
 	 * @throws SQLException
 	 */
-	public void rollback() throws SQLException;
+	//public void rollback() throws SQLException;
 
 	/**
 	 * 
 	 * @throws SQLException
 	 */
-	public void commitTransaction () throws SQLException ;
+	//public void commitTransaction () throws SQLException ;
 
 
 	/* For the admin part */

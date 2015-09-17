@@ -19,8 +19,6 @@ public class DbWebHelper {
 			result = db.cleanPubResults();
 		} catch (SQLException e) {
 			throw new ServletException("SQLException: " + e.getMessage());
-		} finally {
-			if(db != null) try { db.close(); } catch(Exception e) {}
 		}
 		return result;
 	}
@@ -34,8 +32,6 @@ public class DbWebHelper {
 			result = db.cleanPubResults(exemptMark);
 		} catch (SQLException e) {
 			throw new ServletException("SQLException: " + e.getMessage());
-		} finally {
-			if(db != null) try { db.close(); } catch(Exception e) {}
 		}
 		return result;
 	}
@@ -49,8 +45,6 @@ public class DbWebHelper {
 			result = db.deletePubResultsEntry(resId);
 		} catch (SQLException e) {
 			throw new ServletException("SQLException: " + e.getMessage());
-		} finally {
-			if(db != null) try { db.close(); } catch(Exception e) {}
 		}
 		return result;
 	}
@@ -64,8 +58,6 @@ public class DbWebHelper {
 			result = db.selectPubResults(tableName);
 		} catch (SQLException e) {
 			throw new ServletException("SQLException: " + e.getMessage());
-		} finally {
-			if(db != null) try { db.close(); } catch(Exception e) {}
 		}
 		return result;
 	}
@@ -79,8 +71,6 @@ public class DbWebHelper {
 			result = db.getResultId(md5);
 		} catch (SQLException e) {
 			throw new ServletException("SQLException: " + e.getMessage());
-		} finally {
-			if(db != null) try { db.close(); } catch(Exception e) {}
 		}
 		return result;
 	}

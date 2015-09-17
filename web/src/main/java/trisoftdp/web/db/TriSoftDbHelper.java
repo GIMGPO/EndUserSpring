@@ -15,10 +15,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-//import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import trisoftdp.core.DynException;
 import trisoftdp.web.db.TriSoftDb;
@@ -36,32 +35,28 @@ public class TriSoftDbHelper implements TriSoftDb {
 	public TriSoftDbHelper() {}
 	
 	private static SessionFactory buildSessionFactory() {
-        try {
-            Configuration configuration = new Configuration();
-            configuration.configure();
-            //ServiceRegistry  serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-            //SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-            //SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-            ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-            return sessionFactory;
-        }
-        catch (Throwable e) {
-            e.printStackTrace();
-            throw new ExceptionInInitializerError(e.getMessage());
-        }
-    }
+		SessionFactory sf = null;
+		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+		try {
+			sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			StandardServiceRegistryBuilder.destroy(registry);
+			throw new ExceptionInInitializerError(e.getMessage());
+		}
+		return sf;
+	}
 
     private static SessionFactory getSessionFactory() {
     	if(sessionFactory == null || sessionFactory.isClosed())
     		synchronized(TriSoftDbHelper.class) {
-    			if(sessionFactory == null || sessionFactory.isClosed())
+    			if(sessionFactory == null || sessionFactory.isClosed() )
     				sessionFactory = buildSessionFactory();
     		}
         return sessionFactory;
     }
     
-	public long[] getAllResultIds() {
+	public long[] getAllResultIds() throws SQLException {
 		Session session = null;
 		Transaction tx = null; 
 		long[] resultIds = null;
@@ -77,15 +72,16 @@ public class TriSoftDbHelper implements TriSoftDb {
 				resultIds[i] = results.get(i).get("result_id");
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null && tx.isActive()) tx.rollback();
+			if(tx != null && tx.getStatus().canRollback()) try { tx.rollback(); } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	}
 			e.printStackTrace();
+			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) { e.printStackTrace(); }
 		}
 		return resultIds;
 	}
 
-	public long[] getMarkedResultIds(String mark)  {
+	public long[] getMarkedResultIds(String mark)  throws SQLException {
 		Session session = null;
 		Transaction tx = null; 
 		long[] resultIds = null;
@@ -102,8 +98,8 @@ public class TriSoftDbHelper implements TriSoftDb {
 				resultIds[i] = results.get(i).get("result_id").longValue();
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null && tx.isActive()) tx.rollback();
-			e.printStackTrace();
+			if(tx != null && tx.getStatus().canRollback()) try { tx.rollback(); } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	}
+			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) { e.printStackTrace(); }
 		}
@@ -150,7 +146,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			session.save(jm);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			if (tx != null && tx.isActive())	tx.rollback();
+			if (tx != null && tx.getStatus().canRollback())	try { tx.rollback(); } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	}
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if (session != null && session.isOpen())
@@ -169,7 +165,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			session.save(jm);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			if (tx != null && tx.isActive())	tx.rollback();
+			if (tx != null && tx.getStatus().canRollback())	try { tx.rollback(); } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	}
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if (session != null && session.isOpen())
@@ -188,7 +184,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			session.saveOrUpdate(jr);
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null && tx.isActive()) tx.rollback();
+			if(tx != null && tx.getStatus().canRollback()) try { tx.rollback(); } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	}
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
@@ -214,7 +210,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			}
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null && tx.isActive()) tx.rollback();
+			if(tx != null && tx.getStatus().canRollback()) try { tx.rollback(); } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	}
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
@@ -245,7 +241,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			request = (Serializable)obj;
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null && tx.isActive()) tx.rollback();
+			if(tx != null && tx.getStatus().canRollback()) try { try { tx.rollback(); } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	} } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	}
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
@@ -265,7 +261,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			jr = (JobResult) session.get(JobResult.class, reusltId);
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null && tx.isActive()) tx.rollback();
+			if(tx != null && tx.getStatus().canRollback()) try { tx.rollback(); } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	}
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {	e.printStackTrace();}
@@ -283,7 +279,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			jm = (JobMark) session.get(JobMark.class, id);
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null && tx.isActive()) tx.rollback();
+			if(tx != null && tx.getStatus().canRollback()) try { tx.rollback(); } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	}
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {	e.printStackTrace();}
@@ -300,7 +296,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 			session.saveOrUpdate(jm);
 			tx.commit();
 		} catch(Exception e) {
-			if(tx != null && tx.isActive()) tx.rollback();
+			if(tx != null && tx.getStatus().canRollback()) try { tx.rollback(); } catch (RuntimeException ex) { System.err.println("RuntimeException: " + ex.getMessage());	}
 			throw new SQLException("Exception: " + e.getMessage());
 		} finally {
 			if(session != null && session.isOpen()) try {session.close();} catch(SessionException e) {
@@ -318,24 +314,6 @@ public class TriSoftDbHelper implements TriSoftDb {
 	public void getResultToStream(long resultId, OutputStream out) throws SQLException {
 		// TODO Auto-generated method stub
 		throw new SQLException("getResultToFile to be implemented");
-	}
-
-	public void close() throws SQLException {
-		
-	}
-
-	public void startTransaction() throws SQLException {
-		//do nothing
-	}
-
-	public void rollback() throws SQLException {
-		//do nothing
-		
-	}
-
-	public void commitTransaction() throws SQLException {
-		//do nothing
-		
 	}
 
 	public int selectPubResults(String tableName) throws SQLException {

@@ -132,11 +132,7 @@ public class DynPubJob implements /*Runnable,*/ Callable<String> {
 			logger.severe("MessagingException: " + e.getMessage());
 		} catch (SQLException e) {
 			logger.severe("SQLException: " + e.getMessage());
-		} finally {
-			if(db != null) try { db.close(); } catch (Exception e) {}
-		}
-		
-		
+		}		
 	}
 
 	
@@ -201,8 +197,6 @@ public class DynPubJob implements /*Runnable,*/ Callable<String> {
 			logger.severe("IOException: " + e.getMessage());
 		}  catch (SQLException e) {
 			logger.severe("SQLException: " + e.getMessage());
-		} finally {
-			if(db != null) try { db.close(); } catch (Exception e) {}
 		}		
 	}
 	@Override
