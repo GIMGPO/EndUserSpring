@@ -1,7 +1,3 @@
-<%@ page import="java.text.*, java.util.Date, java.util.Enumeration,
-				java.util.Locale, java.io.File,
-				java.util.Map, java.util.HashMap, trisoftdp.core.*" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!-- Footer Start -->
 <!-- What is in Request: -->
 <!--

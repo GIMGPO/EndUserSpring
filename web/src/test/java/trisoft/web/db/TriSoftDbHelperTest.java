@@ -1,10 +1,8 @@
 package trisoft.web.db;
 
 import static org.junit.Assert.*;
-
-import java.sql.SQLException;
-
 import org.junit.Test;
+import java.sql.SQLException;
 
 import trisoftdp.web.db.TriSoftDb;
 import trisoftdp.web.db.TriSoftDbHelper;
@@ -38,9 +36,9 @@ public class TriSoftDbHelperTest {
 		fail("Not yet implemented");
 	}
 
-//	@Test
+	@Test
 	public void testGetResultId() {
-		String md5 = "b810c5c70346bf8c28fcda778125ef28";
+		String md5 = "461fd489d83c50c4c016290da8c2a531";
 		try {
 			long resultId = db.getResultId(md5);
 			System.out.format("resultId=%d%n", resultId);
