@@ -32,7 +32,8 @@ import trisoftdp.web.db.TriSoftDb;
 public class TriSoftDbHelper implements TriSoftDb {
 
 	private static SessionFactory sessionFactory = null;
-
+	private static HartBeat hartBeat = null;
+	
 	public TriSoftDbHelper() {}
 	
 	private static SessionFactory buildSessionFactory() {
@@ -53,11 +54,19 @@ public class TriSoftDbHelper implements TriSoftDb {
     }
 
     private static SessionFactory getSessionFactory() {
-    	if(sessionFactory == null || sessionFactory.isClosed())
+    	if(sessionFactory == null || sessionFactory.isClosed()) {
     		synchronized(TriSoftDbHelper.class) {
     			if(sessionFactory == null || sessionFactory.isClosed())
     				sessionFactory = buildSessionFactory();
     		}
+    	}
+    	if(hartBeat == null || !hartBeat.isAlive()) {
+    		synchronized(TriSoftDbHelper.class) {
+    			if(hartBeat == null || !hartBeat.isAlive())
+    				hartBeat = new HartBeat();
+    				hartBeat.start();
+    		}
+    	}
         return sessionFactory;
     }
     
@@ -358,4 +367,22 @@ public class TriSoftDbHelper implements TriSoftDb {
 		return 0;
 	}
 
+	private static class HartBeat extends Thread {
+		Session session = null;
+		Transaction tx = null;
+		public void run() {
+			try {
+				while(true) {
+					sleep(3600000 /*one hour*/);
+						session = getSessionFactory().getCurrentSession();
+						tx = session.beginTransaction();
+						SQLQuery query = session.createSQLQuery("SELECT result_id FROM job_results WHERE  md5=:md5");
+						query.setParameter("md5", "dummy");
+						query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+						query.list();
+						tx.commit();
+				}
+			} catch (InterruptedException e) {}
+		}
+	}
 }
