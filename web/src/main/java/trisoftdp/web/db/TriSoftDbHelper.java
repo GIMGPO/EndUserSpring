@@ -63,7 +63,7 @@ public class TriSoftDbHelper implements TriSoftDb {
     	if(hartBeat == null || !hartBeat.isAlive()) {
     		synchronized(TriSoftDbHelper.class) {
     			if(hartBeat == null || !hartBeat.isAlive())
-    				hartBeat = new HartBeat();
+    				hartBeat = new TriSoftDbHelper.HartBeat();
     				hartBeat.start();
     		}
     	}
@@ -367,7 +367,7 @@ public class TriSoftDbHelper implements TriSoftDb {
 		return 0;
 	}
 
-	private static class HartBeat extends Thread {
+	static class HartBeat extends Thread {
 		Session session = null;
 		Transaction tx = null;
 		public void run() {
